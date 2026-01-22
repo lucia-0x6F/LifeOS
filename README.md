@@ -31,7 +31,7 @@ After completing these things, users can click on each labeled time block to see
 - **People who want to live a more colorful life** can set a goal related to their interests, health management, or entertainment to be included in the long-term module, which will add more possibilities to their lives.
 
 
-### *Why is this project of interest to you?*
+### *Why is this project of interest to me?*
 
 When I'm planning my life, it's very common that my actual situation (like fluctuations in energy or some unexpected events) does not match what I expected, so the previous plan will be postponed, which means that I need to make a different schedule for the rest of the week because of the plan that I didn't finish on time. And obviously, my mood will be affected accordingly. By the way, after I set a long-term goal (like learning a new skill or course/sticking with some hobbies), it's hard to clearly see which phase I am in, so it's normal to be a bit anxious.
 
@@ -40,20 +40,20 @@ Therefore, I wish to create an app that can break the long-term goal into daily 
 
 ## User Stories
 
-- As a user, I want to be able to add a long-term goal to my long-term goal list.
+As a user, I want to be able to add a **long-term goal** to my **long-term goal list**.
 
-- As a user, I want to be able to view the list of long-term goals.
+As a user, I want to be able to view the **long-term goal list**.
 
-- As a user, I want to be able to add a task to the weekly task list and link it to a long-term goal.
+As a user, I want to be able to add a **task** to the **weekly task list** and link it to a **long-term goal**.
 
-- As a user, I want to be able to view the list of tasks in the weekly task list.
+As a user, I want to be able to view the **list of tasks** in the **weekly task list**.
 
-- As a user, I want to be able to assign an energy level (including "**compulsory**") to a task.
+As a user, I want to be able to assign an **energy level** (including "**compulsory**") to a **task**.
 
-- As a user, I want to be able to assign an energy level to a time block in the weekly schedule.
+As a user, I want to be able to assign an **energy level** to a **time block** in the **weekly schedule**.
 
-- As a user, I want to be able to select a time block and view a filtered list of tasks that match its energy level so that I can schedule a task into that block.
+As a user, I want to be able to select a **time block** and view a filtered **list of tasks** that match its **energy level** so that I can schedule a **task** into that **time block**.
 
-- As a user, I want to be able to mark a task as done.
+As a user, I want to be able to mark a **task** as done.
 
-- As a user, I want to be able to delete a task from the weekly task list.
+As a user, I want to be able to delete a task from the **weekly task list**.
