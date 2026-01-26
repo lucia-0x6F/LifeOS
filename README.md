@@ -5,10 +5,10 @@
 
 The **Life Builder** app's basic function is to break down goals and track progress, which helps users convert a big, long-term goal into more specific and executable steps, and understand their own progress through the visual interface. Most people have a high confidence level when they write down a goal, but when they are at the execution phase, it's easy for them to be interrupted by external factors and end up quitting. This app combines the **Long-term Module** and a **Short-term Module** to make the whole execution process clearer and give users a sense of control.
 
-- The **Long-term Module** is used to show the progress of each long-term goal, minor step, or phase.
-- The **Short-term Module** is used to turn the long-term goals into smaller weekly tasks and include them in the **weekly task list** and **weekly schedule**.
+- The **Long-term Module** is used to ***show the progress of each long-term goal, minor step, or phase***.
+- The **Short-term Module** is used to ***turn the long-term goals into smaller weekly tasks*** and include them in the **weekly task list** and **weekly schedule**.
 
-One interesting feature of this app is that users can choose the **energy level** of each task, so that it helps them to complete the tasks according to the energy level of specific time blocks, improving time use and feasibility.
+One interesting feature of this app is that users can choose the **energy level** of each task, so that it helps them to ***complete the tasks according to the energy level of specific time block***, improving time use and feasibility.
 
 The Short-term Module uses a week as a basic unit. The user can plan their week before the start of a week.
 
@@ -19,6 +19,11 @@ The Short-term Module uses a week as a basic unit. The user can plan their week 
 - Choose a long-term goal and write down the weekly tasks related to it.
 
 After completing these things, users can click on each labeled time block to see a list of tasks that match its energy level, and choose which task to place there. Users can adjust or replace tasks at any time, and the schedule updates accordingly.
+
+There is also an **Analysis Module**, which provides users a place to track ***which types of tasks they are more likely to complete in each time block***.
+
+At the same time, the analysis results will also determine the order of tasks shown when a user clicks on a specific time block.
+Users can also use the **tag tool** to ***set a deadline for an important task***, which ensures that they remember to spend more time on this task over a given period.
 
 ### *Who will use it?*
 
@@ -33,9 +38,9 @@ After completing these things, users can click on each labeled time block to see
 
 ### *Why is this project of interest to me?*
 
-When I'm planning my life, it's very common that my actual situation (like fluctuations in energy or some unexpected events) does not match what I expected, so the previous plan will be postponed, which means that I need to make a different schedule for the rest of the week because of the plan that I didn't finish on time. And obviously, my mood will be affected accordingly. By the way, after I set a long-term goal (like learning a new skill or course/sticking with some hobbies), it's hard to clearly see which phase I am in, so it's normal to be a bit anxious.
+When I'm planning my life, it's very common that ***my actual situation (like fluctuations in energy or some unexpected events) does not match what I expected***, so the previous plan will be postponed, which means that I need to make a different schedule for the rest of the week because of the plan that I didn't finish on time. And obviously, my mood will be affected accordingly. By the way, after I set a long-term goal (like learning a new skill or course/sticking with some hobbies), it's hard to clearly see which phase I am in, so it's normal to be a bit anxious.
 
-Therefore, I wish to create an app that can break the long-term goal into daily tasks, so that it will help me manage my progress more intuitively and increase the likelihood that I will persist. Through using this app, I want to manage tasks according to different energy levels, reduce the anxiety caused by delayed tasks, decrease the effort of planning done in my mind, and maintain long-term mental health.
+Therefore, I wish to create an app that can ***break the long-term goal into daily tasks***, so that it will help me manage my progress more intuitively and increase the likelihood that I will persist. Through using this app, I want to manage tasks according to different energy levels, ***reduce the anxiety caused by delayed tasks, decrease the effort of planning done in my mind, and maintain long-term mental health***.
 
 
 ## User Stories
@@ -56,4 +61,4 @@ As a user, I want to be able to select a **time block** and view a filtered **li
 
 As a user, I want to be able to mark a **task** as done.
 
-As a user, I want to be able to delete a task from the **weekly task list**.
+As a user, I want to be able to delete a **task** from the **weekly task list**.
