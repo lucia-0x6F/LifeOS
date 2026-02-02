@@ -10,6 +10,12 @@ public class Task {
     
     
     public Task(){
+        energyLevel = "";
+        name = "";
+        linkedGoal = "";
+        times = 0;
+        deadline = "0220";
+        completed = false;
 
     }
 
