@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class ShortTermModule {
     private ArrayList<Task> tasks;
-    
 
-    //EFFECTS: construct a ShortTerm object
+    //EFFECTS: construct a ShortTermModule object
     public ShortTermModule() {
-
+        tasks = new ArrayList<Task>();
     }
+    
 
     //MODIFIES: this
     //EFFECTS: add task to the ShortTerm's tasks
@@ -29,5 +29,4 @@ public class ShortTermModule {
     public ArrayList<Task> getTasks() {
         return tasks;
     } 
-
 }

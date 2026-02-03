@@ -13,31 +13,30 @@ public class Goal {
         name = "";
         linkedTasks = new ArrayList<>();
         completed = false;
-
     }
 
     //MODIFIES: this
     //EFFECTS: sets the Goal's name 
     public void setName(){
-        //stub
+        //Stub
     }
 
     //MODIFIES: this
     //EFFECTS: add linkedTasks to the Goal's linkedTasks
     public void addLinkedTask(Task linkedTask){
-        //stub
+        //Stub
     }
 
     //REQUIRES: linkedTasks cannot empty
     //MODIFIES: this
     //EFFECTS: remove linkedTask from the Goal's linkedTasks
     public void removeLinkedTask(Task linkedTask){
-        //stub
+        //Stub
     }
 
     //EFFECTS: returns the Goal's name
     public String getName() {
-        return "";
+        return  name;
     }
 
     //EFFECTS: returns the Goal's linkedTasks

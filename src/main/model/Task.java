@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class Task {
-    private String energyLevel;
+    private int energyLevel;
     private String name;
     private String linkedGoal;
     private int times;
@@ -13,7 +13,7 @@ public class Task {
      //EFFECTS: constructs an uncompleted Task object
     public Task() {
         Task task = new Task();
-        energyLevel = "";
+        energyLevel = 0;
         name = "";
         linkedGoal = "";
         times = 0;
@@ -25,23 +25,34 @@ public class Task {
     //MODIFIES: this
     //EFFECTS: sets the Task's name 
     public void setName(){
-        //stub
+        //Stub
+    }
+
+    //MODIFIES: this
+    //EFFECTS: sets the Task's energyLevel 
+    public void setEnergyLevel(){
+        //Stub
     }
 
     //MODIFIES: this
     //EFFECTS: sets linkedGoal to the Task
     public void setLinkedGoal(){
-        //stub
+        //Stub
     }
 
     //EFFECTS: returns the Task's name
     public String getName() {
-        return "";
+        return name;
+    }
+
+     //EFFECTS: returns the Task's energyLevel
+    public int getEnergyLevel() {
+        return energyLevel;
     }
 
     //EFFECTS: returns the Task's linkedGoal
     public String getLinkedGoal() {
-        return "";
+        return linkedGoal;
     }
 
 

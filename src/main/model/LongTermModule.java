@@ -8,6 +8,8 @@ public class LongTermModule {
 
     //EFFECTS: construct a LongTermModule object
     public LongTermModule() {
+        LongTermModule longTermModule = new LongTermModule();
+        goals = new ArrayList<Goal>();
 
     }
 
