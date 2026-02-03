@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Task {
     private String energyLevel;
     private String name;
@@ -8,8 +10,9 @@ public class Task {
     private String deadline;
     private boolean completed;
     
-    
-    public Task(){
+     //EFFECTS: constructs an uncompleted Task object
+    public Task() {
+        Task task = new Task();
         energyLevel = "";
         name = "";
         linkedGoal = "";
@@ -18,5 +21,28 @@ public class Task {
         completed = false;
 
     }
+
+    //MODIFIES: this
+    //EFFECTS: sets the Task's name 
+    public void setName(){
+        //stub
+    }
+
+    //MODIFIES: this
+    //EFFECTS: sets linkedGoal to the Task
+    public void setLinkedGoal(){
+        //stub
+    }
+
+    //EFFECTS: returns the Task's name
+    public String getName() {
+        return "";
+    }
+
+    //EFFECTS: returns the Task's linkedGoal
+    public String getLinkedGoal() {
+        return "";
+    }
+
 
 }
