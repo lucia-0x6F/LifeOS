@@ -35,7 +35,7 @@ public class Goal {
 
     //EFFECTS: returns the Goal's name
     public String getName() {
-        return  name;
+        return name;
     }
 
     //EFFECTS: returns the Goal's linkedTasks
@@ -45,12 +45,12 @@ public class Goal {
 
     //EFFECTS: returns the Goal's linkedTasks
     public void MarkAsCompleted() {
-        completed = true;
+        //Stub
     }
 
     //EFFECTS: returns the Goal's linkedTasks
     public void MarkAsUncompleted() {
-        completed = false;
+        //Stub
     }
 
      //EFFECTS: returns the Goal's linkedTasks
