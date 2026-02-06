@@ -42,4 +42,19 @@ public class Goal {
     public ArrayList<Task> getLinkedTasks() {
         return linkedTasks;
     }
+
+    //EFFECTS: returns the Goal's linkedTasks
+    public void MarkAsCompleted() {
+        completed = true;
+    }
+
+    //EFFECTS: returns the Goal's linkedTasks
+    public void MarkAsUncompleted() {
+        completed = false;
+    }
+
+     //EFFECTS: returns the Goal's linkedTasks
+    public boolean getCompleteStatus() {
+        return completed;
+    }
 }

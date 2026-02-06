@@ -5,5 +5,5 @@ import model.ShortTerm;
 import model.WeeklySchedule;
 
 public class LifeOSApp {
-
+    
 }
