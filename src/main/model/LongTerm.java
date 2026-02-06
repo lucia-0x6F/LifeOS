@@ -2,13 +2,12 @@ package model;
 
 import java.util.ArrayList;
 
-public class LongTermModule {
+public class LongTerm {
     private ArrayList<Goal> goals;
     
 
     //EFFECTS: construct a LongTermModule object
-    public LongTermModule() {
-        LongTermModule longTermModule = new LongTermModule();
+    public LongTerm() {
         goals = new ArrayList<Goal>();
 
     }

@@ -11,10 +11,9 @@ public class Task {
     private boolean completed;
     
      //EFFECTS: constructs an uncompleted Task object
-    public Task() {
-        Task task = new Task();
+    public Task(String name) {
+        this.name = name;
         energyLevel = 0;
-        name = "";
         linkedGoal = "";
         times = 0;
         deadline = "0220";

@@ -8,9 +8,8 @@ public class Goal {
     private boolean completed;
  
     //EFFECTS: constructs an uncompleted Goal object
-    public Goal() {
-        Goal goal = new Goal();
-        name = "";
+    public Goal(String name) {
+        this.name = name;
         linkedTasks = new ArrayList<>();
         completed = false;
     }

@@ -2,11 +2,11 @@ package model;
 
 import java.util.ArrayList;
 
-public class ShortTermModule {
+public class ShortTerm {
     private ArrayList<Task> tasks;
 
     //EFFECTS: construct a ShortTermModule object
-    public ShortTermModule() {
+    public ShortTerm() {
         tasks = new ArrayList<Task>();
     }
     
