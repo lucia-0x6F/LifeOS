@@ -43,9 +43,9 @@ public class TaskTest {
     @Test
     void testMarkCompleteStatus() {
         assertFalse(testTask.getCompleteStatus());
-        testTask.MarkAsCompleted();
+        testTask.markAsCompleted();
         assertTrue(testTask.getCompleteStatus());
-        testTask.MarkAsUncompleted();
+        testTask.markAsUncompleted();
         assertFalse(testTask.getCompleteStatus());
     }
 

@@ -65,9 +65,9 @@ public class GoalTest {
     @Test
     void testMarkCompleteStatus() {
         assertFalse(testGoal.getCompleteStatus());
-        testGoal.MarkAsCompleted();
+        testGoal.markAsCompleted();
         assertTrue(testGoal.getCompleteStatus());
-        testGoal.MarkAsUncompleted();
+        testGoal.markAsUncompleted();
         assertFalse(testGoal.getCompleteStatus());
     }
 

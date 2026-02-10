@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class Goal {
+public class Goal implements WorkUnit {
     private String name;
     private ArrayList<Task> linkedTasks;
     private boolean completeStatus;
@@ -16,16 +16,16 @@ public class Goal {
 
     //MODIFIES: this
     //EFFECTS: sets the the name as Goal's name 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
     //MODIFIES: this
     //EFFECTS: add linkedTasks to the Goal's linkedTasks if the linkedTask's name is not in the list
-    public void addLinkedTask(Task Task){
+    public void addLinkedTask(Task task) {
         for (Task t: linkedTasks) {
-            if (!linkedTasks.contains(Task)) {
-                linkedTasks.add(Task);
+            if (!linkedTasks.contains(task)) {
+                linkedTasks.add(task);
             }
         }
     }
@@ -33,7 +33,7 @@ public class Goal {
     //REQUIRES: linkedTasks cannot empty
     //MODIFIES: this
     //EFFECTS: remove linkedTask from the Goal's linkedTasks if the linkedTask's name is in the list
-    public void removeLinkedTask(Task task){
+    public void removeLinkedTask(Task task) {
         for (Task t: linkedTasks) {
             if (linkedTasks.contains(task) && t.getName().equals(task.getName())) {
                 linkedTasks.remove(t);
@@ -54,13 +54,13 @@ public class Goal {
 
     //MODIFIES: this
     //EFFECTS: sets the Goal as completed
-    public void MarkAsCompleted() {
+    public void markAsCompleted() {
         completeStatus = true;
     }
 
     //MODIFIES: this
     //EFFECTS: sets the Goal as uncompleted
-    public void MarkAsUncompleted() {
+    public void markAsUncompleted() {
         completeStatus = false;
     }
 

@@ -1,6 +1,6 @@
 package model;
 
-public class Task {
+public class Task implements WorkUnit {
     private int energyLevel;
     private String name;
     private String linkedGoal;
@@ -54,13 +54,13 @@ public class Task {
 
     //MODIFIES: this
     //EFFECTS: sets the completeStatus of the Task to be completed
-    public void MarkAsCompleted() {
+    public void markAsCompleted() {
         //Stub
     }
 
     //MODIFIES: this
      //EFFECTS: sets the completeStatus of the Task to be uncompleted
-    public void MarkAsUncompleted() {
+    public void markAsUncompleted() {
         //Stub
     }
 
@@ -82,7 +82,7 @@ public class Task {
 
     //MODIFIES: this
     //EFFECTS: sets the times as times of the Task
-    public void setTimes(int Times) {
+    public void setTimes(int times) {
         //Stub
     }
 
