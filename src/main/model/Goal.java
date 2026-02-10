@@ -5,32 +5,40 @@ import java.util.ArrayList;
 public class Goal {
     private String name;
     private ArrayList<Task> linkedTasks;
-    private boolean completed;
+    private boolean completeStatus;
  
     //EFFECTS: constructs an uncompleted Goal object
     public Goal(String name) {
         this.name = name;
         linkedTasks = new ArrayList<>();
-        completed = false;
+        completeStatus = false;
     }
 
     //MODIFIES: this
     //EFFECTS: sets the the name as Goal's name 
     public void setName(String name){
-        //Stub
+        this.name = name;
     }
 
     //MODIFIES: this
     //EFFECTS: add linkedTasks to the Goal's linkedTasks if the linkedTask's name is not in the list
-    public void addLinkedTask(Task linkedTask){
-        //Stub
+    public void addLinkedTask(Task Task){
+        for (Task t: linkedTasks) {
+            if (!linkedTasks.contains(Task)) {
+                linkedTasks.add(Task);
+            }
+        }
     }
 
     //REQUIRES: linkedTasks cannot empty
     //MODIFIES: this
     //EFFECTS: remove linkedTask from the Goal's linkedTasks if the linkedTask's name is in the list
-    public void removeLinkedTask(Task linkedTask){
-        //Stub
+    public void removeLinkedTask(Task task){
+        for (Task t: linkedTasks) {
+            if (linkedTasks.contains(task) && t.getName().equals(task.getName())) {
+                linkedTasks.remove(t);
+            }
+        }
     }
 
     //EFFECTS: returns the Goal's name
@@ -38,23 +46,26 @@ public class Goal {
         return name;
     }
 
+    //MODIFIES: this
     //EFFECTS: returns the Goal's linkedTasks
     public ArrayList<Task> getLinkedTasks() {
         return linkedTasks;
     }
 
-    //EFFECTS: returns the Goal's linkedTasks
+    //MODIFIES: this
+    //EFFECTS: sets the Goal as completed
     public void MarkAsCompleted() {
-        //Stub
+        completeStatus = true;
     }
 
-    //EFFECTS: returns the Goal's linkedTasks
+    //MODIFIES: this
+    //EFFECTS: sets the Goal as uncompleted
     public void MarkAsUncompleted() {
-        //Stub
+        completeStatus = false;
     }
 
-     //EFFECTS: returns the Goal's linkedTasks
+    //EFFECTS: returns the Goal's completeStatus
     public boolean getCompleteStatus() {
-        return completed;
+        return completeStatus;
     }
 }
