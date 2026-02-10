@@ -20,8 +20,8 @@ public class Task {
     }
 
     //MODIFIES: this
-    //EFFECTS: sets the Task's name 
-    public void setName() {
+    //EFFECTS: sets the name as the Task's name 
+    public void setName(String name) {
         //Stub
     }
 
@@ -32,8 +32,8 @@ public class Task {
     }
 
     //MODIFIES: this
-    //EFFECTS: sets linkedGoal to the Task
-    public void setLinkedGoal() {
+    //EFFECTS: sets the goal as linkedGoal to the Task 
+    public void setLinkedGoal(Goal goal) {
         //Stub
     }
 
@@ -70,8 +70,8 @@ public class Task {
     }
 
     //MODIFIES: this
-    //EFFECTS: sets the deadLine of the Task
-    public void setDeadline() {
+    //EFFECTS: sets the String as the deadLine of the Task
+    public void setDeadline(String deadline) {
         //Stub
     }
 
@@ -81,8 +81,8 @@ public class Task {
     }
 
     //MODIFIES: this
-    //EFFECTS: sets the times of the Task
-    public void setTimes() {
+    //EFFECTS: sets the times as times of the Task
+    public void setTimes(int Times) {
         //Stub
     }
 

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class testShortTerm{
+public class ShortTermTest{
     private ShortTerm testShortTerm;
     private Task task1;
     private Task task2;
@@ -15,7 +15,7 @@ public class testShortTerm{
     void runBefore() {
         testShortTerm= new ShortTerm();
         task1 = new Task("CPSC110");
-        task1 = new Task("CPSC121");
+        task2 = new Task("CPSC121");
     }
     @Test
     void testConstructor() {

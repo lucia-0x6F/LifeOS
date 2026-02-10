@@ -12,14 +12,14 @@ public class ShortTerm {
     
 
     //MODIFIES: this
-    //EFFECTS: add task to the ShortTerm's tasks
+    //EFFECTS: add task to the ShortTerm's tasks if the Task's name is not in the list
     public void addTask(Task task){
         //Stub
     }
 
     //REQUIRES: tasks cannot be empty
     //MODIFIES: this
-    //EFFECTS: removes task from the ShortTermModule's tasks
+    //EFFECTS: removes task from the ShortTermModule's tasks if the Task's name is in the list
     public void removeTask(Task task){
         //Stub
     }
@@ -29,4 +29,6 @@ public class ShortTerm {
     public ArrayList<Task> getTasks() {
         return tasks;
     } 
+
+    
 }

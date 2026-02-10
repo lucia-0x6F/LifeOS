@@ -13,14 +13,14 @@ public class LongTerm {
     }
 
     //MODIFIES: this
-    //EFFECTS: add the goal to the LongTermModule's goals
+    //EFFECTS: add the goal to the LongTermModule's goals if the goal's name is not in the list
     public void addGoal(Goal goal){
         //Stub
     }
 
     //REQUIRES: goals cannot be empty
     //MODIFIES: this
-    //EFFECTS: removes the goal from the LongTermModule's goals
+    //EFFECTS: removes the goal from the LongTermModule's goals if the goal's name is in the list
     public void removeGoal(Goal goal){
         //Stub
     }

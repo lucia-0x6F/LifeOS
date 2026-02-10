@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class testLongTerm{
+public class LongTermTest{
     private LongTerm testLongTerm;
     private Goal goal1;
     private Goal goal2;

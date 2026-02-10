@@ -15,20 +15,20 @@ public class Goal {
     }
 
     //MODIFIES: this
-    //EFFECTS: sets the Goal's name 
-    public void setName(){
+    //EFFECTS: sets the the name as Goal's name 
+    public void setName(String name){
         //Stub
     }
 
     //MODIFIES: this
-    //EFFECTS: add linkedTasks to the Goal's linkedTasks
+    //EFFECTS: add linkedTasks to the Goal's linkedTasks if the linkedTask's name is not in the list
     public void addLinkedTask(Task linkedTask){
         //Stub
     }
 
     //REQUIRES: linkedTasks cannot empty
     //MODIFIES: this
-    //EFFECTS: remove linkedTask from the Goal's linkedTasks
+    //EFFECTS: remove linkedTask from the Goal's linkedTasks if the linkedTask's name is in the list
     public void removeLinkedTask(Task linkedTask){
         //Stub
     }
