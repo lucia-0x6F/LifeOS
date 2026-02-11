@@ -19,25 +19,25 @@ public class TimeBlock {
     //MODIFIES: this
     //EFFECTS: sets the timePeriod for the timeBlock
     public void setTimePeriod(int timePeriod) {
-        //Stub
+        this.timePeriod = timePeriod;
     }
 
     //MODIFIES: this
     //EFFECTS: sets the task for the TimeBlock
     public void addTask(Task task) {
-        //Stub
+        tasks.add(task);
     }
 
     //MODIFIES: this
     //EFFECTS: sets the energyLevel for the TimeBlock
     public void setEnergyLevel(int energyLevel) {
-        //Stub
+        this.energyLevel = energyLevel;
     }
 
     //MODIFIES: this
     //EFFECTS: sets the dayOfWeek for the TimeBlock
     public void setDayOfWeek(int dayOfWeek) {
-        //Stub
+        this.dayOfWeek = dayOfWeek;
     }
 
 

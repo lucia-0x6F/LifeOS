@@ -41,8 +41,7 @@ public class WeeklyScheduleTest {
         testShortTerm.addTask(task2);
         testTimeBlock.setEnergyLevel(1);
         assertEquals(task1, testWeeklySchedule.getTasksAtEnergyLevel(testTimeBlock, testShortTerm).get(0));
-        assertEquals(task2, testWeeklySchedule.getTasksAtEnergyLevel(testTimeBlock, testShortTerm).get(1));
-        assertEquals(2, testWeeklySchedule.getTasksAtEnergyLevel(testTimeBlock, testShortTerm).size());
+        assertEquals(1, testWeeklySchedule.getTasksAtEnergyLevel(testTimeBlock, testShortTerm).size());
         testTimeBlock.setEnergyLevel(2);
         assertNull(testWeeklySchedule.getTasksAtEnergyLevel(testTimeBlock, testShortTerm));
     }

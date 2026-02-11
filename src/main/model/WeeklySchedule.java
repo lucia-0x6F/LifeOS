@@ -13,7 +13,7 @@ public class WeeklySchedule {
     //MODIFIES: this
     //EFFECTS: adds the timeBlock to timeBlocks of the WeeklySchedule
     public void addTimeBlock(TimeBlock timeBlock) {
-        //Stub
+        timeBlocks.add(timeBlock);
     }
 
     //EFFECTS: returns timeBlocks of WeeklySchedule
@@ -24,7 +24,18 @@ public class WeeklySchedule {
     //EFFECTS: returns tasks that has the same energyLevel as the timeBlock, if found nothing, return null
     public ArrayList<Task> getTasksAtEnergyLevel(TimeBlock timeBlock, ShortTerm shortTerm) {
         ArrayList<Task> tasksAtLevel = new ArrayList<>();
-        return tasksAtLevel;
+        Boolean found = false;
+        for (Task t: shortTerm.getTasks()) {
+            if (t.getEnergyLevel() == timeBlock.getEnergyLevel()) {
+                tasksAtLevel.add(t);
+                found = true;
+            }
+        }
+        if (found) {
+            return tasksAtLevel;
+        } else {
+            return null;
+        }
     }
 
 
