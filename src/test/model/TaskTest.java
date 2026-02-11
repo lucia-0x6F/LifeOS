@@ -58,7 +58,7 @@ public class TaskTest {
 
     @Test
     void testSetDeadline() {
-        assertEquals("", testTask.getDeadline());
+        assertEquals("0220", testTask.getDeadline());
         testTask.setDeadline("0111");
         assertEquals("0111", testTask.getDeadline());
         testTask.setDeadline("0220");

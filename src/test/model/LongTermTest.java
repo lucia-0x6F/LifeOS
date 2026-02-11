@@ -29,7 +29,7 @@ public class LongTermTest{
     void testAddTaskSingle() {
         testLongTerm.addGoal(goal1);
         assertEquals(1, testLongTerm.getGoals().size());
-        assertEquals("CPSC110", testLongTerm.getGoals().get(0).getName());
+        assertEquals("goal1", testLongTerm.getGoals().get(0).getName());
     }
 
     @Test
@@ -38,8 +38,8 @@ public class LongTermTest{
         testLongTerm.addGoal(goal1);
         testLongTerm.addGoal(goal2);
         assertEquals(2, testLongTerm.getGoals().size());
-        assertEquals("CPSC110", testLongTerm.getGoals().get(0).getName());
-        assertEquals("CPSC121", testLongTerm.getGoals().get(1).getName());
+        assertEquals("goal1", testLongTerm.getGoals().get(0).getName());
+        assertEquals("goal2", testLongTerm.getGoals().get(1).getName());
     }
 
     @Test
@@ -60,7 +60,7 @@ public class LongTermTest{
         testLongTerm.addGoal(goal2);
         testLongTerm.removeGoal(goal1);
         assertEquals(1, testLongTerm.getGoals().size());
-        assertEquals("CPSC121", testLongTerm.getGoals().get(0).getName());
+        assertEquals("goal2", testLongTerm.getGoals().get(0).getName());
     }
 
 }

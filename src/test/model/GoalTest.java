@@ -16,8 +16,8 @@ public class GoalTest {
     @BeforeEach
     void runBefore() {
         testGoal = new Goal("testGoal");
-        task1 = new Task("CPSC110");
-        task2 = new Task("CPSC121");
+        task1 = new Task("task1");
+        task2 = new Task("task2");
     }
 
     @Test
@@ -33,7 +33,7 @@ public class GoalTest {
         assertTrue(testGoal.getLinkedTasks().isEmpty());
         testGoal.addLinkedTask(task1);
         assertEquals(1, testGoal.getLinkedTasks().size());
-        assertEquals(1, testGoal.getLinkedTasks().get(0));
+        assertEquals(task1, testGoal.getLinkedTasks().get(0));
         testGoal.addLinkedTask(task1);
         assertEquals(1, testGoal.getLinkedTasks().size());
 

@@ -3,7 +3,7 @@ package model;
 public class Task implements WorkUnit {
     private int energyLevel;
     private String name;
-    private String linkedGoal;
+    private Goal linkedGoal;
     private int times;
     private String deadline;
     private boolean completeStatus;
@@ -12,7 +12,7 @@ public class Task implements WorkUnit {
     public Task(String name) {
         this.name = name;
         energyLevel = 0;
-        linkedGoal = "";
+        linkedGoal = null;
         times = 0;
         deadline = "0220";
         completeStatus = false;
@@ -34,7 +34,7 @@ public class Task implements WorkUnit {
     //MODIFIES: this
     //EFFECTS: sets the goal as linkedGoal to the Task 
     public void setLinkedGoal(Goal goal) {
-        this.goal = goal;
+        this.linkedGoal = goal;
     }
 
     //EFFECTS: returns the Task's name
@@ -48,7 +48,7 @@ public class Task implements WorkUnit {
     }
 
     //EFFECTS: returns the Task's linkedGoal
-    public String getLinkedGoal() {
+    public Goal getLinkedGoal() {
         return linkedGoal;
     }
 
