@@ -1,6 +1,7 @@
 package model;
 import java.util.ArrayList;
 
+
 public class WeeklySchedule {
     private ArrayList<TimeBlock> timeBlocks;
 
@@ -20,7 +21,7 @@ public class WeeklySchedule {
         return timeBlocks;
     }
 
-    //EFFECTS: returns tasks that has the same energyLevel as the timeBlock
+    //EFFECTS: returns tasks that has the same energyLevel as the timeBlock, if found nothing, return null
     public ArrayList<Task> getTasksAtEnergyLevel(TimeBlock timeBlock, ShortTerm shortTerm) {
         ArrayList<Task> tasksAtLevel = new ArrayList<>();
         return tasksAtLevel;
