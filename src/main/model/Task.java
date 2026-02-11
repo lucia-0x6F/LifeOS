@@ -22,19 +22,19 @@ public class Task implements WorkUnit {
     //MODIFIES: this
     //EFFECTS: sets the name as the Task's name 
     public void setName(String name) {
-        //Stub
+        this.name = name;
     }
 
     //MODIFIES: this
     //EFFECTS: sets the Task's energyLevel 
-    public void setEnergyLevel() {
-        //Stub
+    public void setEnergyLevel(int energyLevel) {
+        this.energyLevel = energyLevel;
     }
 
     //MODIFIES: this
     //EFFECTS: sets the goal as linkedGoal to the Task 
     public void setLinkedGoal(Goal goal) {
-        //Stub
+        this.goal = goal;
     }
 
     //EFFECTS: returns the Task's name
@@ -55,13 +55,13 @@ public class Task implements WorkUnit {
     //MODIFIES: this
     //EFFECTS: sets the completeStatus of the Task to be completed
     public void markAsCompleted() {
-        //Stub
+        completeStatus = true;
     }
 
     //MODIFIES: this
      //EFFECTS: sets the completeStatus of the Task to be uncompleted
     public void markAsUncompleted() {
-        //Stub
+        completeStatus = false;
     }
 
     //EFFECTS: sets the completeStatus of the Task to be uncompleted
@@ -72,7 +72,7 @@ public class Task implements WorkUnit {
     //MODIFIES: this
     //EFFECTS: sets the String as the deadLine of the Task
     public void setDeadline(String deadline) {
-        //Stub
+        this.deadline = deadline;
     }
 
     //EFFECTS: returns the deadLine of the Task
@@ -83,7 +83,7 @@ public class Task implements WorkUnit {
     //MODIFIES: this
     //EFFECTS: sets the times as times of the Task
     public void setTimes(int times) {
-        //Stub
+        this.times = times;
     }
 
 

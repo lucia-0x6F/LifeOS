@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class LongTerm {
-    private ArrayList<Goal> goals;
+    private ArrayList <Goal> goals;
     
 
     //EFFECTS: construct a LongTermModule object
@@ -13,16 +13,20 @@ public class LongTerm {
     }
 
     //MODIFIES: this
-    //EFFECTS: add the goal to the LongTermModule's goals if the goal's name is not in the list
+    //EFFECTS: add the goal to the LongTermModule's goals if the goal is not in the list
     public void addGoal(Goal goal){
-        //Stub
+        if (!goals.contains(goal)) {
+            goals.add(goal);
+        }
     }
 
     //REQUIRES: goals cannot be empty
     //MODIFIES: this
-    //EFFECTS: removes the goal from the LongTermModule's goals if the goal's name is in the list
+    //EFFECTS: removes the goal from the LongTermModule's goals if the goal is in the list
     public void removeGoal(Goal goal){
-        //Stub
+         if (goals.contains(goal)) {
+            goals.remove(goal);
+        }
     }
 
 

@@ -25,7 +25,7 @@ public class Goal implements WorkUnit {
     public void addLinkedTask(Task task) {
         for (Task t: linkedTasks) {
             if (!linkedTasks.contains(task)) {
-                linkedTasks.add(task);
+                linkedTasks.add(t);
             }
         }
     }

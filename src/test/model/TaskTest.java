@@ -50,6 +50,13 @@ public class TaskTest {
     }
 
     @Test
+    void testSetEnergyLevel() {
+        assertEquals(0, testTask.getEnergyLevel());
+        testTask.setEnergyLevel(1);
+        assertEquals(1, testTask.getEnergyLevel());
+    }
+
+    @Test
     void testSetDeadline() {
         assertEquals("", testTask.getDeadline());
         testTask.setDeadline("0111");

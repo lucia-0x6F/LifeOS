@@ -12,16 +12,20 @@ public class ShortTerm {
     
 
     //MODIFIES: this
-    //EFFECTS: add task to the ShortTerm's tasks if the Task's name is not in the list
+    //EFFECTS: add task to the ShortTerm's tasks if the Task is not in the list
     public void addTask(Task task){
-        //Stub
+        if (!tasks.contains(task)) {
+            tasks.add(task);
+        }
     }
 
     //REQUIRES: tasks cannot be empty
     //MODIFIES: this
-    //EFFECTS: removes task from the ShortTermModule's tasks if the Task's name is in the list
+    //EFFECTS: removes task from the ShortTermModule's tasks if the Task is in the list
     public void removeTask(Task task){
-        //Stub
+        if (tasks.contains(task)) {
+            tasks.remove(task);
+        }
     }
 
 
