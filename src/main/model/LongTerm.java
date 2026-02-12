@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class LongTerm {
-    private ArrayList <Goal> goals;
+    private ArrayList<Goal> goals;
     
 
     //EFFECTS: construct a LongTermModule object
@@ -12,20 +12,31 @@ public class LongTerm {
 
     }
 
+    //Requires: the goal's name length must >0
     //MODIFIES: this
-    //EFFECTS: add the goal to the LongTermModule's goals if the goal is not in the list
-    public void addGoal(Goal goal){
-        if (!goals.contains(goal)) {
-            goals.add(goal);
+    //EFFECTS: add the goal to the LongTermModule's goals if the goal's name is not in the list
+    public void addGoal(String name) throws NameErrorException {
+        for (Goal g: goals) {
+            if (g.getName().equals(name)) {
+                throw new NameErrorException();
+            } else {
+                Goal goal = new Goal(name);
+                goals.add(goal);
+            }
         }
     }
 
     //REQUIRES: goals cannot be empty
     //MODIFIES: this
-    //EFFECTS: removes the goal from the LongTermModule's goals if the goal is in the list
-    public void removeGoal(Goal goal){
-         if (goals.contains(goal)) {
-            goals.remove(goal);
+    //EFFECTS: removes the goal from the LongTermModule's goals if the goal's name is in the list
+    public void removeGoal(String name) throws NameErrorException {
+        for (Goal g: goals) {
+            if (g.getName().equals(name)) {
+                Goal goal = new Goal(name);
+                goals.add(goal);
+            } else {
+                throw new NameErrorException();
+            }
         }
     }
 

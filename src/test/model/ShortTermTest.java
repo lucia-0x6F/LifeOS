@@ -8,14 +8,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ShortTermTest{
     private ShortTerm testShortTerm;
-    private Task task1;
-    private Task task2;
+    private String task1;
+    private String task2;
     
     @BeforeEach
     void runBefore() {
         testShortTerm= new ShortTerm();
-        task1 = new Task("CPSC110");
-        task2 = new Task("CPSC121");
+        task1 = new String("CPSC110");
+        task2 = new String("CPSC121");
     }
     @Test
     void testConstructor() {
@@ -23,14 +23,14 @@ public class ShortTermTest{
     }
 
     @Test
-    void testAddTaskSingle() {
+    void testAddTaskSingle() throws NameErrorException {
         testShortTerm.addTask(task1);
         assertEquals(1, testShortTerm.getTasks().size());
         assertEquals("CPSC110", testShortTerm.getTasks().get(0).getName());
     }
 
     @Test
-    void testAddTaskMultiple() {
+    void testAddTaskMultiple() throws NameErrorException {
         assertTrue(testShortTerm.getTasks().isEmpty());
         testShortTerm.addTask(task1);
         testShortTerm.addTask(task2);
@@ -40,7 +40,7 @@ public class ShortTermTest{
     }
 
     @Test
-    void testRemoveTaskSingle() {
+    void testRemoveTaskSingle() throws NameErrorException {
         assertTrue(testShortTerm.getTasks().isEmpty());
         testShortTerm.addTask(task1);
         assertEquals(1, testShortTerm.getTasks().size());
@@ -50,7 +50,7 @@ public class ShortTermTest{
     }
 
       @Test
-    void testRemoveTaskMultiple() {
+    void testRemoveTaskMultiple() throws NameErrorException {
         assertTrue(testShortTerm.getTasks().isEmpty());
         testShortTerm.addTask(task1);
         testShortTerm.addTask(task2);

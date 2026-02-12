@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 public class WeeklyScheduleTest {
     private WeeklySchedule testWeeklySchedule;
     private TimeBlock testTimeBlock;
-    private Task task1;
-    private Task task2;
     private ShortTerm testShortTerm;
     
         
@@ -20,8 +18,6 @@ public class WeeklyScheduleTest {
     public void setup() {
         testWeeklySchedule = new WeeklySchedule();
         testTimeBlock = new TimeBlock();
-        task1 = new Task("task1");
-        task2 = new Task("task2");
         testShortTerm = new ShortTerm();
     }
 
@@ -34,11 +30,13 @@ public class WeeklyScheduleTest {
     }
 
     @Test
-    public void testGetTasksAtEnergyLevel() {
+    public void testGetTasksAtEnergyLevel() throws NameErrorException {
+        Task task1 = new Task("task1");
+        Task task2 = new Task("task1");
         task1.setEnergyLevel(1);
         task2.setEnergyLevel(3);
-        testShortTerm.addTask(task1);
-        testShortTerm.addTask(task2);
+        testShortTerm.addTask("task1");
+        testShortTerm.addTask("task2");
         testTimeBlock.setEnergyLevel(1);
         assertEquals(task1, testWeeklySchedule.getTasksAtEnergyLevel(testTimeBlock, testShortTerm).get(0));
         assertEquals(1, testWeeklySchedule.getTasksAtEnergyLevel(testTimeBlock, testShortTerm).size());

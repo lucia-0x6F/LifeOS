@@ -21,8 +21,8 @@ public class Goal implements WorkUnit {
     //MODIFIES: this
     //EFFECTS: add linkedTasks to the Goal's linkedTasks if the linkedTask's name is not in the list
     public void addLinkedTask(Task task) {
-            if (!linkedTasks.contains(task)) {
-                linkedTasks.add(task);
+        if (!linkedTasks.contains(task)) {
+            linkedTasks.add(task);
         }
     }
 
@@ -30,10 +30,10 @@ public class Goal implements WorkUnit {
     //MODIFIES: this
     //EFFECTS: remove linkedTask from the Goal's linkedTasks if the linkedTask's name is in the list
     public void removeLinkedTask(Task task) {
-            if (linkedTasks.contains(task)) {
-                linkedTasks.remove(task);
-            }
+        if (linkedTasks.contains(task)) {
+            linkedTasks.remove(task);
         }
+    }
     
 
     public String getName() {

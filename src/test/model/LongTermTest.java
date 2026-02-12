@@ -9,14 +9,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LongTermTest{
     private LongTerm testLongTerm;
-    private Goal goal1;
-    private Goal goal2;
+    private String goal1;
+    private String goal2;
     
     @BeforeEach
     void runBefore() {
         testLongTerm= new LongTerm();
-        goal1 = new Goal("goal1");
-        goal2 = new Goal("goal2");
+        goal1 = new String("goal1");
+        goal2 = new String("goal2");
 
     }
 
@@ -26,14 +26,14 @@ public class LongTermTest{
     }
 
     @Test
-    void testAddTaskSingle() {
+    void testAddTaskSingle() throws NameErrorException {
         testLongTerm.addGoal(goal1);
         assertEquals(1, testLongTerm.getGoals().size());
         assertEquals("goal1", testLongTerm.getGoals().get(0).getName());
     }
 
     @Test
-    void testAddTaskMultiple() {
+    void testAddTaskMultiple() throws NameErrorException {
         assertTrue(testLongTerm.getGoals().isEmpty());
         testLongTerm.addGoal(goal1);
         testLongTerm.addGoal(goal2);
@@ -43,7 +43,7 @@ public class LongTermTest{
     }
 
     @Test
-    void testRemoveTaskSingle() {
+    void testRemoveTaskSingle() throws NameErrorException {
         assertTrue(testLongTerm.getGoals().isEmpty());
         testLongTerm.addGoal(goal1);
         testLongTerm.addGoal(goal2);
@@ -54,7 +54,7 @@ public class LongTermTest{
     }
 
       @Test
-    void testRemoveTaskMultiple() {
+    void testRemoveTaskMultiple() throws NameErrorException {
         assertTrue(testLongTerm.getGoals().isEmpty());
         testLongTerm.addGoal(goal1);
         testLongTerm.addGoal(goal2);
