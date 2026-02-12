@@ -8,14 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ShortTermTest{
     private ShortTerm testShortTerm;
-    private String task1;
-    private String task2;
     
     @BeforeEach
     void runBefore() {
         testShortTerm= new ShortTerm();
-        task1 = new String("CPSC110");
-        task2 = new String("CPSC121");
     }
     @Test
     void testConstructor() {
@@ -24,27 +20,27 @@ public class ShortTermTest{
 
     @Test
     void testAddTaskSingle() throws NameErrorException {
-        testShortTerm.addTask(task1);
+        testShortTerm.addTask("task1");
         assertEquals(1, testShortTerm.getTasks().size());
-        assertEquals("CPSC110", testShortTerm.getTasks().get(0).getName());
+        assertEquals("task1", testShortTerm.getTasks().get(0).getName());
     }
 
     @Test
     void testAddTaskMultiple() throws NameErrorException {
         assertTrue(testShortTerm.getTasks().isEmpty());
-        testShortTerm.addTask(task1);
-        testShortTerm.addTask(task2);
+        testShortTerm.addTask("task1");
+        testShortTerm.addTask("task2");
         assertEquals(2, testShortTerm.getTasks().size());
-        assertEquals("CPSC110", testShortTerm.getTasks().get(0).getName());
-        assertEquals("CPSC121", testShortTerm.getTasks().get(1).getName());
+        assertEquals("task1", testShortTerm.getTasks().get(0).getName());
+        assertEquals("task2", testShortTerm.getTasks().get(1).getName());
     }
 
     @Test
     void testRemoveTaskSingle() throws NameErrorException {
         assertTrue(testShortTerm.getTasks().isEmpty());
-        testShortTerm.addTask(task1);
+        testShortTerm.addTask("task1");
         assertEquals(1, testShortTerm.getTasks().size());
-        testShortTerm.removeTask(task1);
+        testShortTerm.removeTask("task1");
         assertTrue(testShortTerm.getTasks().isEmpty());
 
     }
@@ -52,11 +48,11 @@ public class ShortTermTest{
       @Test
     void testRemoveTaskMultiple() throws NameErrorException {
         assertTrue(testShortTerm.getTasks().isEmpty());
-        testShortTerm.addTask(task1);
-        testShortTerm.addTask(task2);
-        testShortTerm.removeTask(task1);
+        testShortTerm.addTask("task1");
+        testShortTerm.addTask("task2");
+        testShortTerm.removeTask("task1");
         assertEquals(1, testShortTerm.getTasks().size());
-        assertEquals("CPSC121", testShortTerm.getTasks().get(0).getName());
+        assertEquals("task2", testShortTerm.getTasks().get(0).getName());
     }
 
 

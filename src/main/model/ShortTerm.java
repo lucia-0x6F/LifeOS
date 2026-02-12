@@ -17,23 +17,27 @@ public class ShortTerm {
         for (Task t: tasks) {
             if (t.getName().equals(name)) {
                 throw new NameErrorException();
-            } else {
-                Task task = new Task(name);
-                tasks.add(task);
-            }
+            } 
         }
+        Task task = new Task(name);
+        tasks.add(task);
     }
 
     //REQUIRES: tasks cannot be empty
     //MODIFIES: this
     //EFFECTS: removes task from the ShortTermModule's tasks if the Task's name is in the list
     public void removeTask(String name) throws NameErrorException {
-        for (Task t: tasks) {
+        Task removeTarget = null;
+        for (Task t : tasks) {
             if (t.getName().equals(name)) {
-                tasks.remove(t);
-            } else {
-                throw new NameErrorException();
+                removeTarget = t;
+                break;
             }
+        }
+        if (removeTarget != null) {
+            tasks.remove(removeTarget);
+        } else {
+            throw new NameErrorException();
         }
     }
 

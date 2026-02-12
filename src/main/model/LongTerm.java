@@ -19,26 +19,31 @@ public class LongTerm {
         for (Goal g: goals) {
             if (g.getName().equals(name)) {
                 throw new NameErrorException();
-            } else {
-                Goal goal = new Goal(name);
-                goals.add(goal);
-            }
+            } 
         }
+        Goal goal = new Goal(name);
+        goals.add(goal);
     }
+    
 
     //REQUIRES: goals cannot be empty
     //MODIFIES: this
     //EFFECTS: removes the goal from the LongTermModule's goals if the goal's name is in the list
     public void removeGoal(String name) throws NameErrorException {
-        for (Goal g: goals) {
+        Goal removeTarget = null;
+        for (Goal g : goals) {
             if (g.getName().equals(name)) {
-                Goal goal = new Goal(name);
-                goals.add(goal);
-            } else {
-                throw new NameErrorException();
+                removeTarget = g;
+                break;
             }
         }
+        if (removeTarget != null) {
+            goals.remove(removeTarget);
+        } else {
+            throw new NameErrorException();
+        }
     }
+
 
 
     public ArrayList<Goal> getGoals() {

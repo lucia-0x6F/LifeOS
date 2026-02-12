@@ -12,8 +12,6 @@ public class WeeklyScheduleTest {
     private TimeBlock testTimeBlock;
     private ShortTerm testShortTerm;
     
-        
-    
     @BeforeEach
     public void setup() {
         testWeeklySchedule = new WeeklySchedule();
@@ -31,14 +29,12 @@ public class WeeklyScheduleTest {
 
     @Test
     public void testGetTasksAtEnergyLevel() throws NameErrorException {
-        Task task1 = new Task("task1");
-        Task task2 = new Task("task1");
-        task1.setEnergyLevel(1);
-        task2.setEnergyLevel(3);
         testShortTerm.addTask("task1");
         testShortTerm.addTask("task2");
+        testShortTerm.getTasks().get(0).setEnergyLevel(1);
+        testShortTerm.getTasks().get(1).setEnergyLevel(3);
         testTimeBlock.setEnergyLevel(1);
-        assertEquals(task1, testWeeklySchedule.getTasksAtEnergyLevel(testTimeBlock, testShortTerm).get(0));
+        assertEquals("task1", testWeeklySchedule.getTasksAtEnergyLevel(testTimeBlock, testShortTerm).get(0).getName());
         assertEquals(1, testWeeklySchedule.getTasksAtEnergyLevel(testTimeBlock, testShortTerm).size());
         testTimeBlock.setEnergyLevel(2);
         assertNull(testWeeklySchedule.getTasksAtEnergyLevel(testTimeBlock, testShortTerm));
