@@ -29,7 +29,6 @@ public class ShortTerm {
     }
 
 
-    //EFFECTS: returns the ShortTermModule's tasks
     public ArrayList<Task> getTasks() {
         return tasks;
     } 

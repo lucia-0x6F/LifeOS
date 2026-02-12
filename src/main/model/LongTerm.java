@@ -30,7 +30,6 @@ public class LongTerm {
     }
 
 
-    //EFFECTS: returns the LongTermModule's goals
     public ArrayList<Goal> getGoals() {
         return goals;
     } 

@@ -16,12 +16,10 @@ public class WeeklySchedule {
         timeBlocks.add(timeBlock);
     }
 
-    //EFFECTS: returns timeBlocks of WeeklySchedule
     public ArrayList<TimeBlock> getTimeBlocks() {
         return timeBlocks;
     }
 
-    //EFFECTS: returns tasks that has the same energyLevel as the timeBlock, if found nothing, return null
     public ArrayList<Task> getTasksAtEnergyLevel(TimeBlock timeBlock, ShortTerm shortTerm) {
         ArrayList<Task> tasksAtLevel = new ArrayList<>();
         Boolean found = false;

@@ -16,8 +16,6 @@ public class TimeBlock {
         dayOfWeek = 1;
     }
 
-    //MODIFIES: this
-    //EFFECTS: sets the timePeriod for the timeBlock
     public void setTimePeriod(int timePeriod) {
         this.timePeriod = timePeriod;
     }
@@ -28,36 +26,27 @@ public class TimeBlock {
         tasks.add(task);
     }
 
-    //MODIFIES: this
-    //EFFECTS: sets the energyLevel for the TimeBlock
     public void setEnergyLevel(int energyLevel) {
         this.energyLevel = energyLevel;
     }
 
-    //MODIFIES: this
-    //EFFECTS: sets the dayOfWeek for the TimeBlock
     public void setDayOfWeek(int dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
 
 
-    //EFFECTS: returns the timePeriod of the timeBlock
     public int getTimePeriod() {
         return timePeriod;
     }
 
-    //EFFECTS: returns the task of the TimeBlock
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
-    //EFFECTS: returns the energyLevel of the TimeBlock
     public int getEnergyLevel() {
         return energyLevel;
     }
 
-    //MODIFIES: this
-    //EFFECTS: gets the dayOfWeek for the TimeBlock
     public int getDayOfWeek() {
         return dayOfWeek;
     }

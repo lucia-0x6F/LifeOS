@@ -14,8 +14,6 @@ public class Goal implements WorkUnit {
         completeStatus = false;
     }
 
-    //MODIFIES: this
-    //EFFECTS: sets the the name as Goal's name 
     public void setName(String name) {
         this.name = name;
     }
@@ -38,13 +36,10 @@ public class Goal implements WorkUnit {
         }
     
 
-    //EFFECTS: returns the Goal's name
     public String getName() {
         return name;
     }
 
-    //MODIFIES: this
-    //EFFECTS: returns the Goal's linkedTasks
     public ArrayList<Task> getLinkedTasks() {
         return linkedTasks;
     }
@@ -61,7 +56,6 @@ public class Goal implements WorkUnit {
         completeStatus = false;
     }
 
-    //EFFECTS: returns the Goal's completeStatus
     public boolean getCompleteStatus() {
         return completeStatus;
     }
