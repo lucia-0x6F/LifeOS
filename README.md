@@ -46,20 +46,30 @@ Therefore, I wish to create an app that can ***break the long-term goal into dai
 
 ## User Stories
 
-As a user, I want to be able to add a **long-term goal** to my **long-term goal list**.
+1. As a user, I want to be able to add or remove a **long-term goal** from the **long-term goal list** and link it to a **short-term task**.
 
-As a user, I want to be able to view the **long-term goal list**.
+2. As a user, I want to be able to view the **long-term goal list**.
 
-As a user, I want to be able to add a **task** to the **weekly task list** and link it to a **long-term goal**.
+3. As a user, I want to be able to mark a **long-term goal** as completed or uncompleted.
 
-As a user, I want to be able to view the **list of tasks** in the **weekly task list**.
+4. As a user, I want to be able to add or remove a **short-term task** from the **short-term task list** and link it to a **long-term goal**.
 
-As a user, I want to be able to assign an **energy level** (including "**compulsory**") to a **task**.
+5. As a user, I want to be able to view the **short-term task list**.
 
-As a user, I want to be able to assign an **energy level** to a **time block** in the **weekly schedule**.
+6. As a user, I want to be able to mark a **short-term task** as completed or uncompleted.
 
-As a user, I want to be able to select a **time block** and view a filtered **list of tasks** that match its **energy level** so that I can schedule a **task** into that **time block**.
+7. As a user, I want to be able to change the name or linked task of a **long-term goal**.
 
-As a user, I want to be able to mark a **task** as done.
+8. As a user, I want to be able to change the name or linked goal of a **short-term task**.
 
-As a user, I want to be able to delete a **task** from the **weekly task list**.
+9. As a user, I want to be able to view detailed information of a **long-term goal** or a **short-term task**.
+
+10. As a user, I want to be able to assign **energy level**, **number of times** and **deadline** to a **short-term task**.
+
+11. As a user, I want to be able to assign **energy level**, **day of week** and **time period** to a **time block**.
+
+12. As a user, I want to be able to add a **time block** in **weekly schedule**.
+
+13. As a user, I want to be able to select a **time block** and view **short-term task list** that match its **energy level** in **weekly schedule**.
+
+14. As a user, I want to be able to navigate back to **the previous menu**.
