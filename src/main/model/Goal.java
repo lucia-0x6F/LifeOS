@@ -17,6 +17,7 @@ public class Goal implements WorkUnit {
         completeStatus = false;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
@@ -38,7 +39,6 @@ public class Goal implements WorkUnit {
         return nameList;
     }
 
-    //REQUIRES: linkedTasks cannot empty
     //MODIFIES: this
     //EFFECTS: remove linkedTask from the Goal's linkedTasks if the linkedTask's name is in the list
     public void removeLinkedTask(Task task) {
@@ -56,15 +56,11 @@ public class Goal implements WorkUnit {
     }
 
     @Override
-    //MODIFIES: this
-    //EFFECTS: sets the Goal as completed
     public void markAsCompleted() {
         completeStatus = true;
     }
 
     @Override
-    //MODIFIES: this
-    //EFFECTS: sets the Goal as uncompleted
     public void markAsUncompleted() {
         completeStatus = false;
     }

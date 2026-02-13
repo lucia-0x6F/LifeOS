@@ -24,6 +24,7 @@ public class Task implements WorkUnit {
 
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
@@ -48,10 +49,12 @@ public class Task implements WorkUnit {
         return linkedGoal;
     }
     
+    @Override
     public void markAsCompleted() {
         completeStatus = true;
     }
 
+    @Override
     public void markAsUncompleted() {
         completeStatus = false;
     }
