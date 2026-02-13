@@ -17,7 +17,7 @@ public class LongTerm {
 
     //Requires: the goal's name length must >0
     //MODIFIES: this
-    //EFFECTS: add the goal to the LongTermModule's goals if the goal's name is not in the list, otherwise throw an exception
+    //EFFECTS: add the goal to the LongTermModule's goals if the goal's name is not in the list, otherwise exception
     public void addGoal(String name) throws NameErrorException {
         for (Goal g: goals) {
             if (g.getName().equals(name)) {
@@ -29,7 +29,7 @@ public class LongTerm {
     }
 
     //MODIFIES: this
-    //EFFECTS: removes the goal from the LongTermModule's goals if the goal's name is in the list, otherwise throw an exception
+    //EFFECTS: removes the goal from the LongTermModule's goals if the goal's name is in the list, otherwise exception
     public void removeGoal(String name) throws NameErrorException {
         Goal removeTarget = null;
         for (Goal g : goals) {

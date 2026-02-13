@@ -24,7 +24,7 @@ public class WeeklySchedule {
         return timeBlocks;
     }
 
-    //EFFECTS: returns the tasks that has the same energy level as the timeBlock if at least one task can found, otherwise returns null
+    //EFFECTS: returns the tasks that has the same energy level as the timeBlock if can found, otherwise returns null
     public ArrayList<Task> getTasksAtEnergyLevel(TimeBlock timeBlock, ShortTerm shortTerm) {
         ArrayList<Task> tasksAtLevel = new ArrayList<>();
         Boolean found = false;

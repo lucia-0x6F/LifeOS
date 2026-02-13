@@ -16,7 +16,7 @@ public class ShortTerm {
     
 
     //MODIFIES: this
-    //EFFECTS: add task to the ShortTerm's tasks if the Task's name is not in the list
+    //EFFECTS: add task to the ShortTerm's tasks if the Task's name is not in the list, otherwise exception
     public void addTask(String name) throws NameErrorException {
         for (Task t: tasks) {
             if (t.getName().equals(name)) {
@@ -29,7 +29,7 @@ public class ShortTerm {
 
     //REQUIRES: tasks cannot be empty
     //MODIFIES: this
-    //EFFECTS: removes task from the ShortTermModule's tasks if the Task's name is in the list, otherwise throw an exception
+    //EFFECTS: removes task from the ShortTermModule's tasks if the Task is in the list, otherwise exception
     public void removeTask(String name) throws NameErrorException {
         Task removeTarget = null;
         for (Task t : tasks) {
