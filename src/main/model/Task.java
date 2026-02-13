@@ -5,7 +5,7 @@ public class Task implements WorkUnit {
     private String name;
     private Goal linkedGoal;
     private int times;
-    private int deadline;
+    private String deadline;
     private boolean completeStatus;
     
     //EFFECTS: constructs an uncompleted Task object
@@ -14,7 +14,7 @@ public class Task implements WorkUnit {
         energyLevel = 0;
         linkedGoal = null;
         times = 0;
-        deadline = 0220;
+        deadline = "0101";
         completeStatus = false;
 
     }
@@ -43,7 +43,7 @@ public class Task implements WorkUnit {
     public Goal getLinkedGoal() {
         return linkedGoal;
     }
-
+    
     //MODIFIES: this
     //EFFECTS: sets the completeStatus of the Task to be completed
     public void markAsCompleted() {
@@ -60,11 +60,11 @@ public class Task implements WorkUnit {
         return completeStatus;
     }
 
-    public void setDeadline(int deadline) {
+    public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
 
-    public int getDeadline() {
+    public String getDeadline() {
         return deadline;
     }
 
@@ -76,6 +76,8 @@ public class Task implements WorkUnit {
     public int getTimes() {
         return times;
     }
+
+ 
 
 
 

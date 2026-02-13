@@ -44,12 +44,14 @@ public class Goal implements WorkUnit {
         return linkedTasks;
     }
 
+    @Override
     //MODIFIES: this
     //EFFECTS: sets the Goal as completed
     public void markAsCompleted() {
         completeStatus = true;
     }
 
+    @Override
     //MODIFIES: this
     //EFFECTS: sets the Goal as uncompleted
     public void markAsUncompleted() {
@@ -59,4 +61,6 @@ public class Goal implements WorkUnit {
     public boolean getCompleteStatus() {
         return completeStatus;
     }
+
+   
 }

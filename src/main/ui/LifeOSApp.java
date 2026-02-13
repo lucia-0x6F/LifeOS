@@ -8,6 +8,7 @@ import model.LongTerm;
 import model.NameErrorException;
 import model.ShortTerm;
 import model.Task;
+import model.WorkUnit;
 
 public class LifeOSApp {
     private LongTerm longTerm;
@@ -28,7 +29,7 @@ public class LifeOSApp {
             String cmd = input.next();
             cmd = cmd.toLowerCase();
 
-            if (cmd.equals("Q")) {
+            if (cmd.equals("q")) {
                 keepGoing = false;
             } else {
                 processCommand(cmd);
@@ -45,6 +46,8 @@ public class LifeOSApp {
             startShortTerm();
         } else if (cmd.equals("w")) {
             startWeeklySchedule();
+        } else if (cmd.equals("q")) {
+            System.out.println("Goodbye!");
         } else {
             System.out.println("Section does not exist...");
         }
@@ -82,16 +85,12 @@ public class LifeOSApp {
             String choice = input.next().toLowerCase();
             if (choice.equals("v")) {
                 viewGoals();
-                break;
             } else if (choice.equals("a")) {
                 addGoalToLongTerm();
-                break;
             } else if (choice.equals("r")) {
                 removeGoalFromLongTerm();
-                break;
             } else if (choice.equals("b")) {
-                displayMenu();
-                break;
+                return;
 
             }
         }
@@ -107,22 +106,32 @@ public class LifeOSApp {
         ArrayList<Goal> goals = longTerm.getGoals();
         for (Goal g: goals) {
             System.out.println(" " + g.getName());
+        }           
+        System.out.println("S -> Select a goal and view details: ");
+        System.out.println("B -> Go back to the goal setting menu");
+        String choice = input.next().toLowerCase();
+        if (choice.equals("s")) {
+            System.out.println("Enter a goal's name: ");
+            choice = input.next();
+            selectGoals(choice);
+        } else {
+            displayMenu();
         }
     }
-
 
     private void addGoalToLongTerm() throws NameErrorException {
         System.out.println("Please enter the name of the Goal you want to add!");
         String name = input.next();
         while (name.length() == 0) {
             System.out.println("Invalid name!");
-            name = input.next().toLowerCase();
+            name = input.next();
         } 
         try {
-            longTerm.removeGoal(name);
-            System.out.println("Goal removed successfully!");
+            Goal goal = longTerm.addGoal(name);
+            System.out.println("Goal added successfully!");
+            goalSettingMenu(goal);
         } catch (NameErrorException e)  {
-            System.out.println("Cannot find this goal!");
+            System.out.println("Goal already exist!");
         }
 
     }
@@ -140,8 +149,90 @@ public class LifeOSApp {
         } catch (NameErrorException e)  {
             System.out.println("Cannot find this goal!");
         }
-
     }
+    
+
+   
+    
+    
+
+    public void selectGoals(String choice) {
+        ArrayList<Goal> goals = longTerm.getGoals();
+        Goal found = null;
+        for (Goal g : goals) {
+            if (g.getName().equals(choice)) {
+                found = g;
+                break;
+            }   
+        }
+    
+
+        if (found != null) {
+            System.out.println("Goal " + found.getName() + "'s information is here!'");
+            System.out.println("Name: " + found.getName());
+            System.out.println("linkedTasks: " + found.getLinkedTasks());
+            System.out.println("CompleteStatus: " + found.getCompleteStatus());
+            goalSettingMenu(found); 
+        } else {
+            System.out.println("Cannot find this goal!");
+        }
+    }
+
+    public void goalSettingMenu(Goal goal) {
+        Boolean stay = true;
+        while (stay) {
+            System.out.println("Select from:  ");
+            System.out.println("\tn -> set name");
+            System.out.println("\tl -> set linked tasks");
+            System.out.println("\tc -> mark goal as completed");
+            System.out.println("\tu -> mark goal as uncompleted");
+            System.out.println("\tb -> to go back");
+            String choice = input.next().toLowerCase();
+            if (choice.equals("b")) {
+                return;
+            }
+            modifyGoal(choice, goal);
+        }
+    }
+
+    public void modifyGoal(String choice, Goal goal) {
+        switch (choice) {
+            case "n":
+                setName(goal);
+                break;
+            case "l":
+                setLinkedTasks(goal);
+                break;
+            case "c":
+                setAsCompleted(goal);
+                break;
+            case "u":
+                setAsUnCompleted(goal);
+                break;
+            case "b":
+                goalSettingMenu(goal);
+                break;
+        }
+    }
+
+    public void setLinkedTasks(Goal goal) {
+        System.out.println("Please enter a short term task's name to link it to the goal ");
+        String taskName = input.next();
+        while (taskName.length() == 0) {
+            System.out.println("Invalid name! Please try another name!");
+            taskName = input.next();
+        }
+        try {
+            Task foundTask = shortTerm.findTask(taskName);
+            goal.addLinkedTask(foundTask);
+            System.out.println("Set the linkedTask successfully!");
+        } catch (NameErrorException e) {
+            System.out.println("Cannot find this task!");
+        }
+    }
+    
+
+    
 
     public void viewTasks() {
         System.out.println("Your Tasks:    ");
@@ -151,8 +242,8 @@ public class LifeOSApp {
         }           
         System.out.println("S -> Select a task and view details: ");
         System.out.println("B -> Go back to the task setting menu");
-        String choice = input.next();
-        if (choice.equals("S")) {
+        String choice = input.next().toLowerCase();
+        if (choice.equals("s")) {
             System.out.println("Enter a task's name: ");
             choice = input.next();
             selectTasks(choice);
@@ -173,12 +264,12 @@ public class LifeOSApp {
         }
 
         if (found != null) {
-            System.out.println("Task" + found.getName() + "'s information is here!'");
+            System.out.println("Task " + found.getName() + "'s information is here!'");
             System.out.println("Name: " + found.getName());
             System.out.println("EnergyLevel: " + found.getEnergyLevel());
             System.out.println("LinkedGoal: " + found.getLinkedGoal());
             System.out.println("CompleteStatus: " + found.getCompleteStatus());
-            System.out.println("Deadline: " + found.getDeadline());     //TODO: fix the deadline's initial setting
+            System.out.println("Deadline: " + found.getDeadline());     
             System.out.println("Times: " + found.getTimes());
             taskSettingMenu(found); 
         } else {
@@ -193,53 +284,48 @@ public class LifeOSApp {
             System.out.println("\tn -> set name");
             System.out.println("\te -> set energylevel");
             System.out.println("\tl -> set linked goal");
-            System.out.println("\tc -> mark goal as completed");
-            System.out.println("\tu -> mark goal as uncompleted");
+            System.out.println("\tc -> mark task as completed");
+            System.out.println("\tu -> mark task as uncompleted");
             System.out.println("\td -> set deadline");
             System.out.println("\tt -> set times");
-        
+            System.out.println("\tb -> to go back");
             String choice = input.next().toLowerCase();
+            if (choice.equals("b")) {
+                return;
+            }
             modifyTask(choice, task);
         }
     }
 
     public void modifyTask(String choice, Task task) {
         switch (choice) {
-            case "n":
-                setName(task);
+            case "n": setName(task);
                 break;
-            case "e":
-                setEnergyLevel(task);
+            case "e": setEnergyLevel(task);
                 break;
-            case "l":
-                setLinkedGoals(task);
+            case "l": setLinkedGoals(task);
                 break;
-            case "c":
-                setAsCompleted(task);
+            case "c": setAsCompleted(task);
                 break;
-            case "u":
-                setAsUnCompleted(task);
+            case "u": setAsUnCompleted(task);
                 break;
-            case "d":
-                setDeadline(task);
+            case "d": setDeadline(task);
                 break;
-            case "t":
-                setTimes(task);
+            case "t": setTimes(task);
                 break;
-            case "b":
-                taskSettingMenu(task);
+            case "b": taskSettingMenu(task);
                 break;
         }
     }
 
-    public void setName(Task task) {
+    public void setName(WorkUnit unit) {
         System.out.println("Please enter the task name: ");
         String name = input.next();
         while (name.length() == 0) {
             System.out.println("Invalid name! Please try another name!");
             name = input.next();
         }
-        task.setName(name);
+        unit.setName(name);
         System.out.println("Name changed successfully!");
     }
 
@@ -268,25 +354,24 @@ public class LifeOSApp {
         } catch (NameErrorException e) {
             System.out.println("Cannot find this goal!");
         }
-        System.out.println("Energylevel set successfully!");
     }
 
 
-    public void setAsCompleted(Task task) {
-        task.markAsCompleted();
+    public void setAsCompleted(WorkUnit unit) {
+        unit.markAsCompleted();
         System.out.println("This task has been marked as completed!");
     }
 
 
-    public void setAsUnCompleted(Task task) {
-        task.markAsUncompleted();
+    public void setAsUnCompleted(WorkUnit unit) {
+        unit.markAsUncompleted();
         System.out.println("This task has been marked as uncompleted!");
     }
 
 
     public void setDeadline(Task task) {
         System.out.println("Please set an deadline (example: 0212, which means Feb 12): ");
-        int deadline = input.nextInt();
+        String deadline = input.next();
         if (isValidDate(deadline)) {
             task.setDeadline(deadline);
             System.out.println("Deadline set successfully!");
@@ -295,21 +380,25 @@ public class LifeOSApp {
         }
     }
 
-    public Boolean isValidDate(int deadline) {
-        if (deadline < 0101 || deadline > 1231) {
+    public boolean isValidDate(String deadline) {
+        int date = 0;
+        try {
+            date = Integer.parseInt(deadline);
+        } catch (NumberFormatException e) {
             return false;
         }
-        int monthNum = deadline / 100;
-        int dayNum = deadline % 100;
-
-        if (monthNum == 2 && dayNum > 29) {
+        if (date < 101 || date > 1231) {
             return false;
         }
-        if ((monthNum == 4 || monthNum == 6 || monthNum == 9 || monthNum == 11) && dayNum > 30) {
+        int monthNum = date / 100;
+        int dayNum = date % 100;
+        if ((monthNum < 1 || monthNum > 12 || dayNum < 1) || (monthNum == 2 && dayNum > 29) 
+                || ((monthNum == 4 || monthNum == 6 || monthNum == 9 || monthNum == 11) && dayNum > 30) 
+                || (dayNum > 31)) {
             return false;
         }
         return true;
-    }     //TODO: use some tests to validate!
+    }
 
 
 
@@ -343,7 +432,7 @@ public class LifeOSApp {
             } else if (choice.equals("r")) {
                 removeGoalFromShortTerm();
             } else if (choice.equals("b")) {
-                displayMenu();
+                return;
             }
         }
     }
@@ -357,10 +446,11 @@ public class LifeOSApp {
             name = input.next();
         } 
         try {
-            shortTerm.addTask(name);
+            Task task = shortTerm.addTask(name);
             System.out.println("Task added successfully!");
+            taskSettingMenu(task);
         } catch (NameErrorException e)  {
-            System.out.println("Cannot find this task!");
+            System.out.println("Task already exist!");
         }
 
     }
@@ -382,11 +472,6 @@ public class LifeOSApp {
 
     }
         
-        //if 'S'
-    //'V' to view the shortTermTask List
-    //'A' to add a new task to the task list
-    //'R' to remove a task from the task list
-    //'B' to go back to the main menu
 
     private void startWeeklySchedule() {
         
@@ -399,25 +484,6 @@ public class LifeOSApp {
     //'M' to view the tasks that matches the energyLevel of the selected timeBlock
 
 }
-
-    //if 'LV'
-    //'N' to see the next goal
-    //'NM' to reset the name of the goal
-    //'L' to add linkedTask
-    //'R' to remove linkedTask
-    //'C' to mark goal as completed
-    //'U' to mark goal as uncompleted
-
-    //if 'SV'
-    //'N' to see the next task
-    //'N' to reset the name of the task
-    //'L' to add linkedGoal
-    //'E' to set energyLevel
-    //'R' to remove linkedGoal
-    //'C' to mark task as completed
-    //'U' to mark task as uncompleted
-    //'D' to set deadline
-    //'T' to set times
 
      //if 'WV'
     //'N' to see the next timeBlock
