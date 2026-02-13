@@ -50,5 +50,14 @@ public class LongTerm {
         return goals;
     } 
 
+    public Goal findGoal(String name) throws NameErrorException {
+        for (Goal g: goals) {
+            if (g.getName().equals(name)) {
+                return g;
+            }
+        }
+        throw new NameErrorException();
+    }
+
 
 }
