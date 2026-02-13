@@ -13,7 +13,7 @@ import model.WorkUnit;
 public class LifeOSApp {
     private LongTerm longTerm;
     private ShortTerm shortTerm;
-    private Scanner input;
+    private Scanner input;  
     
 
     public LifeOSApp() throws NameErrorException {
@@ -60,6 +60,7 @@ public class LifeOSApp {
     }
 
     private void displayMenu() {
+        System.out.println("Welcome to LifeOS!");
         System.out.println("Select from:  ");
         System.out.println("\tL -> LongTermModule");
         System.out.println("\tS -> ShortTermModule");
@@ -115,7 +116,7 @@ public class LifeOSApp {
             choice = input.next();
             selectGoals(choice);
         } else {
-            displayMenu();
+            return;
         }
     }
 
@@ -127,7 +128,8 @@ public class LifeOSApp {
             name = input.next();
         } 
         try {
-            Goal goal = longTerm.addGoal(name);
+            longTerm.addGoal(name);
+            Goal goal = longTerm.findGoal(name);
             System.out.println("Goal added successfully!");
             goalSettingMenu(goal);
         } catch (NameErrorException e)  {
@@ -165,17 +167,20 @@ public class LifeOSApp {
                 break;
             }   
         }
-    
-
         if (found != null) {
-            System.out.println("Goal " + found.getName() + "'s information is here!'");
-            System.out.println("Name: " + found.getName());
-            System.out.println("linkedTasks: " + found.getLinkedTasks());
-            System.out.println("CompleteStatus: " + found.getCompleteStatus());
-            goalSettingMenu(found); 
+            printGoalInfo(found);
         } else {
             System.out.println("Cannot find this goal!");
         }
+    }
+    
+    public void printGoalInfo(Goal found) {
+        System.out.println("Goal " + found.getName() + "'s information is here!'");
+        System.out.println("Name: " + found.getName());
+        System.out.println("linkedTasks: " + found.getLinkedTaskNames());
+        System.out.println("CompleteStatus: " + found.getCompleteStatus());
+        goalSettingMenu(found); 
+        
     }
 
     public void goalSettingMenu(Goal goal) {
@@ -186,6 +191,7 @@ public class LifeOSApp {
             System.out.println("\tl -> set linked tasks");
             System.out.println("\tc -> mark goal as completed");
             System.out.println("\tu -> mark goal as uncompleted");
+            System.out.println("\ti -> to see information of this goal");
             System.out.println("\tb -> to go back");
             String choice = input.next().toLowerCase();
             if (choice.equals("b")) {
@@ -209,22 +215,24 @@ public class LifeOSApp {
             case "u":
                 setAsUnCompleted(goal);
                 break;
-            case "b":
-                goalSettingMenu(goal);
+            case "i":
+                printGoalInfo(goal);
                 break;
+            case "b":
+                return;
         }
     }
 
     public void setLinkedTasks(Goal goal) {
         System.out.println("Please enter a short term task's name to link it to the goal ");
-        String taskName = input.next();
-        while (taskName.length() == 0) {
+        String name = input.next();
+        while (name.length() == 0) {
             System.out.println("Invalid name! Please try another name!");
-            taskName = input.next();
+            name = input.next();
         }
         try {
-            Task foundTask = shortTerm.findTask(taskName);
-            goal.addLinkedTask(foundTask);
+            Task foundTask = shortTerm.findTask(name);
+            goal.setLinkedTask(foundTask);
             System.out.println("Set the linkedTask successfully!");
         } catch (NameErrorException e) {
             System.out.println("Cannot find this task!");
@@ -248,7 +256,7 @@ public class LifeOSApp {
             choice = input.next();
             selectTasks(choice);
         } else {
-            displayMenu();
+            return;
         }
     }
     
@@ -262,20 +270,24 @@ public class LifeOSApp {
                 break;
             }   
         }
-
         if (found != null) {
-            System.out.println("Task " + found.getName() + "'s information is here!'");
-            System.out.println("Name: " + found.getName());
-            System.out.println("EnergyLevel: " + found.getEnergyLevel());
-            System.out.println("LinkedGoal: " + found.getLinkedGoal());
-            System.out.println("CompleteStatus: " + found.getCompleteStatus());
-            System.out.println("Deadline: " + found.getDeadline());     
-            System.out.println("Times: " + found.getTimes());
-            taskSettingMenu(found); 
+            printTaskInfo(found);
         } else {
             System.out.println("Cannot find this task!");
         }
     }
+    
+    public void printTaskInfo(Task found) {
+        System.out.println("Task " + found.getName() + "'s information is here!'");
+        System.out.println("Name: " + found.getName());
+        System.out.println("EnergyLevel: " + found.getEnergyLevel());
+        System.out.println("LinkedGoal: " + found.getLinkedGoal().getName());
+        System.out.println("CompleteStatus: " + found.getCompleteStatus());
+        System.out.println("Deadline: " + found.getDeadline());     
+        System.out.println("Times: " + found.getTimes());
+        taskSettingMenu(found); 
+    }
+    
 
     public void taskSettingMenu(Task task) {
         Boolean stay = true;
@@ -288,6 +300,7 @@ public class LifeOSApp {
             System.out.println("\tu -> mark task as uncompleted");
             System.out.println("\td -> set deadline");
             System.out.println("\tt -> set times");
+            System.out.println("\ti -> to see information of this task");
             System.out.println("\tb -> to go back");
             String choice = input.next().toLowerCase();
             if (choice.equals("b")) {
@@ -313,8 +326,9 @@ public class LifeOSApp {
                 break;
             case "t": setTimes(task);
                 break;
-            case "b": taskSettingMenu(task);
+            case "i": printTaskInfo(task);
                 break;
+            case "b": return;
         }
     }
 
@@ -342,13 +356,13 @@ public class LifeOSApp {
 
     public void setLinkedGoals(Task task) {
         System.out.println("Please enter a long term goal's name to link it to the task ");
-        String goalName = input.next();
-        while (goalName.length() == 0) {
+        String name = input.next();
+        while (name.length() == 0) {
             System.out.println("Invalid name! Please try another name!");
-            goalName = input.next();
+            name = input.next();
         }
         try {
-            Goal foundGoal = longTerm.findGoal(goalName);
+            Goal foundGoal = longTerm.findGoal(name);
             task.setLinkedGoal(foundGoal);
             System.out.println("Set the linkedGoal successfully!");
         } catch (NameErrorException e) {
@@ -446,7 +460,8 @@ public class LifeOSApp {
             name = input.next();
         } 
         try {
-            Task task = shortTerm.addTask(name);
+            shortTerm.addTask(name);
+            Task task = shortTerm.findTask(name);
             System.out.println("Task added successfully!");
             taskSettingMenu(task);
         } catch (NameErrorException e)  {

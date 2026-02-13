@@ -1,6 +1,7 @@
 package model;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,6 +40,17 @@ public class LongTermTest{
     }
 
     @Test
+    void testAddGoalNameDuplicate() {
+        try {
+            testLongTerm.addGoal("goal1");
+            testLongTerm.addGoal("goal1");
+            fail("Cause NameErrorException");
+        } catch (NameErrorException e) {
+
+        }
+    }
+
+    @Test
     void testRemoveGoalsingle() throws NameErrorException {
         assertTrue(testLongTerm.getGoals().isEmpty());
         testLongTerm.addGoal("goal1");
@@ -49,7 +61,7 @@ public class LongTermTest{
 
     }
 
-      @Test
+    @Test
     void testRemoveGoalsMultiple() throws NameErrorException {
         assertTrue(testLongTerm.getGoals().isEmpty());
         testLongTerm.addGoal("goal1");
@@ -58,5 +70,46 @@ public class LongTermTest{
         assertEquals(1, testLongTerm.getGoals().size());
         assertEquals("goal2", testLongTerm.getGoals().get(0).getName());
     }
+
+    @Test
+    void testRemoveGoalNameDuplicate() {
+        try {
+            testLongTerm.addGoal("goal1");
+            testLongTerm.removeGoal("goal1");
+            testLongTerm.removeGoal("goal1");
+            fail("Cause NameErrorException");
+        } catch (NameErrorException e) {
+
+        }
+    }
+
+    @Test
+    void testRemoveGoalNameNotFound() {
+        try {
+            testLongTerm.addGoal("goal1");
+            testLongTerm.removeGoal("goal2");
+            fail("Cause NameErrorException");
+        } catch (NameErrorException e) {
+
+        }
+    }
+
+    @Test
+    void testFindGoal() {
+        assertTrue(testLongTerm.getGoals().isEmpty());
+        try {
+            testLongTerm.addGoal("goal1");
+            assertEquals("goal1",testLongTerm.findGoal("goal1").getName());
+        } catch (NameErrorException e) {
+            fail("There's no exception");
+        }
+        try{
+            testLongTerm.findGoal("goal2");
+            fail("Cannot find this task");
+        } catch (NameErrorException e){
+
+        }
+    }
+
 
 }

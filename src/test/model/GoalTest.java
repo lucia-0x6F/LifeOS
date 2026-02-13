@@ -31,10 +31,10 @@ public class GoalTest {
     @Test
     void testAddLinkedTasks(){
         assertTrue(testGoal.getLinkedTasks().isEmpty());
-        testGoal.addLinkedTask(task1);
+        testGoal.setLinkedTask(task1);
         assertEquals(1, testGoal.getLinkedTasks().size());
         assertEquals(task1, testGoal.getLinkedTasks().get(0));
-        testGoal.addLinkedTask(task1);
+        testGoal.setLinkedTask(task1);
         assertEquals(1, testGoal.getLinkedTasks().size());
 
     }   
@@ -42,8 +42,8 @@ public class GoalTest {
     @Test
     void testAddLinkedListNotAlreadyMultiple(){
         assertTrue(testGoal.getLinkedTasks().isEmpty());
-        testGoal.addLinkedTask(task1);
-        testGoal.addLinkedTask(task2);
+        testGoal.setLinkedTask(task1);
+        testGoal.setLinkedTask(task2);
         assertEquals(2, testGoal.getLinkedTasks().size());
         assertEquals(task1, testGoal.getLinkedTasks().get(0));
         assertEquals(task2, testGoal.getLinkedTasks().get(1));
@@ -53,13 +53,20 @@ public class GoalTest {
     @Test
     void testRemoveLinkedList(){
         assertTrue(testGoal.getLinkedTasks().isEmpty());
-        testGoal.addLinkedTask(task1);
-        testGoal.addLinkedTask(task2);
-        assertEquals(2, testGoal.getLinkedTasks().size());
+        testGoal.setLinkedTask(task1);
+        testGoal.setLinkedTask(task2);
+        assertTrue(testGoal.getLinkedTasks().contains(task1));
+        assertTrue(testGoal.getLinkedTasks().contains(task2));
         testGoal.removeLinkedTask(task1);
         assertEquals(1, testGoal.getLinkedTasks().size());
         assertEquals(task2, testGoal.getLinkedTasks().get(0));
+        Task task3 = new Task("Task3");
+        testGoal.removeLinkedTask(task3);
+        assertEquals(1, testGoal.getLinkedTasks().size());
+        assertEquals(task2, testGoal.getLinkedTasks().get(0));
     }
+
+    
 
 
     @Test
@@ -69,6 +76,17 @@ public class GoalTest {
         assertTrue(testGoal.getCompleteStatus());
         testGoal.markAsUncompleted();
         assertFalse(testGoal.getCompleteStatus());
+    }
+
+    @Test
+    void testGetLinkedTaskNames() {
+        assertTrue(testGoal.getLinkedTasks().isEmpty());
+        testGoal.setLinkedTask(task1);
+        assertEquals(1, testGoal.getLinkedTaskNames().size());
+        assertEquals("task1", testGoal.getLinkedTaskNames().get(0));
+        testGoal.setLinkedTask(task2);
+        assertEquals(2, testGoal.getLinkedTaskNames().size());
+        assertEquals("task2", testGoal.getLinkedTaskNames().get(1));
     }
 
 

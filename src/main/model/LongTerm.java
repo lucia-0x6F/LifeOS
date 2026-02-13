@@ -14,8 +14,8 @@ public class LongTerm {
 
     //Requires: the goal's name length must >0
     //MODIFIES: this
-    //EFFECTS: add the goal to the LongTermModule's goals if the goal's name is not in the list, and return this goal
-    public Goal addGoal(String name) throws NameErrorException {
+    //EFFECTS: add the goal to the LongTermModule's goals if the goal's name is not in the list
+    public void addGoal(String name) throws NameErrorException {
         for (Goal g: goals) {
             if (g.getName().equals(name)) {
                 throw new NameErrorException();
@@ -23,9 +23,7 @@ public class LongTerm {
         }
         Goal goal = new Goal(name);
         goals.add(goal);
-        return goal;
     }
-    //TODO: add tests
 
     //REQUIRES: goals cannot be empty
     //MODIFIES: this
@@ -50,7 +48,8 @@ public class LongTerm {
     public ArrayList<Goal> getGoals() {
         return goals;
     } 
-    //TODO: specification
+
+    //EFFECTS: returns the goal that has the same name as the name
     public Goal findGoal(String name) throws NameErrorException {
         for (Goal g: goals) {
             if (g.getName().equals(name)) {

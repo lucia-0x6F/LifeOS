@@ -12,8 +12,8 @@ public class ShortTerm {
     
 
     //MODIFIES: this
-    //EFFECTS: add task to the ShortTerm's tasks if the Task's name is not in the list, and return this task
-    public Task addTask(String name) throws NameErrorException {
+    //EFFECTS: add task to the ShortTerm's tasks if the Task's name is not in the list
+    public void addTask(String name) throws NameErrorException {
         for (Task t: tasks) {
             if (t.getName().equals(name)) {
                 throw new NameErrorException();
@@ -21,9 +21,7 @@ public class ShortTerm {
         }
         Task task = new Task(name);
         tasks.add(task);
-        return task;
     }
-      //TODO: add tests
 
     //REQUIRES: tasks cannot be empty
     //MODIFIES: this
@@ -48,7 +46,7 @@ public class ShortTerm {
         return tasks;
     } 
 
-    //TODO: specification and test
+    //EFFECTS: returns the task that has the same name as the name
     public Task findTask(String name) throws NameErrorException {
         for (Task t: tasks) {
             if (t.getName().equals(name)) {

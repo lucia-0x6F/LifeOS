@@ -20,10 +20,19 @@ public class Goal implements WorkUnit {
 
     //MODIFIES: this
     //EFFECTS: add linkedTasks to the Goal's linkedTasks if the linkedTask's name is not in the list
-    public void addLinkedTask(Task task) {
+    public void setLinkedTask(Task task) {
         if (!linkedTasks.contains(task)) {
             linkedTasks.add(task);
         }
+    }
+    
+    //EFFECTS: returns the name list of linkedTasks
+    public ArrayList<String> getLinkedTaskNames() {
+        ArrayList<String> nameList = new ArrayList<>();
+        for (Task t: linkedTasks) {
+            nameList.add(t.getName());
+        }
+        return nameList;
     }
 
     //REQUIRES: linkedTasks cannot empty
