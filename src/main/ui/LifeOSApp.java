@@ -76,7 +76,7 @@ public class LifeOSApp {
     
     //MODIFIES: this
     //EFFECTS: shows long-term goal menu
-    private void startLongTerm() throws NameErrorException {
+    private void startLongTerm() {
         Boolean stay = true;
         while (stay) {
             System.out.println("Select from:  ");
@@ -120,7 +120,7 @@ public class LifeOSApp {
 
     //MODIFIES: this
     //EFFECTS: adds a new goal with given name if the goal does not exists, otherwise goes back to goal setting menu
-    private void addGoalToLongTerm() throws NameErrorException {
+    private void addGoalToLongTerm() {
         System.out.println("Please enter the name of the Goal you want to add!");
         String name = input.next();
         while (name.length() == 0) {
@@ -138,10 +138,9 @@ public class LifeOSApp {
 
     }
 
-    //REQUIRES: tasks cannot be empty
     //MODIFIES: this
     //EFFECTS: removes the goal with the name if it can be found
-    private void removeGoalFromLongTerm() throws NameErrorException {
+    private void removeGoalFromLongTerm() {
         System.out.println("Please enter the name of the Goal you want to remove!");
         String name = input.next();
         while (name.length() == 0) {
@@ -156,7 +155,6 @@ public class LifeOSApp {
         }
     }
     
-    //REQUIRES: choice is a non-null string
     //EFFECTS: prints goal info if goal can be found
     public void selectGoals(String choice) {
         ArrayList<Goal> goals = longTerm.getGoals();
@@ -174,7 +172,6 @@ public class LifeOSApp {
         }
     }
     
-    //REQUIRES: found != null
     //EFFECTS: prints complete information of the goal and goes to goal setting menu  
     public void printGoalInfo(Goal found) {
         System.out.println("Goal " + found.getName() + "'s information is here!'");
@@ -185,7 +182,6 @@ public class LifeOSApp {
         
     }
 
-    //REQUIRES: goal != null
     //MODIFIES: goal
     //EFFECTS: processes user commands to modify goal
     public void goalSettingMenu(Goal goal) {
@@ -206,7 +202,6 @@ public class LifeOSApp {
         }
     }
 
-    //REQUIRES: choice != null, goal != null
     //MODIFIES: goal
     //EFFECTS: modify the goal based on user choice
     public void modifyGoal(String choice, Goal goal) {
@@ -231,7 +226,6 @@ public class LifeOSApp {
         }
     }
 
-    //REQUIRES: goal != null
     //MODIFIES: goal
     //EFFECTS: links a task to the goal if task can be found
     public void setLinkedTasks(Goal goal) {
@@ -295,7 +289,6 @@ public class LifeOSApp {
 
     }
 
-    //REQUIRES: tasks cannot be empty
     //MODIFIES: this
     //EFFECTS: removes the task with the name if it can be found
     public void removeTaskFromShortTerm() throws NameErrorException {
@@ -314,7 +307,6 @@ public class LifeOSApp {
 
     }
 
-    
     //EFFECTS: prints all tasks and allows user to select one
     public void viewTasks() {
         System.out.println("Your Tasks:    ");
@@ -334,7 +326,6 @@ public class LifeOSApp {
         }
     }
     
-    //REQUIRES: choice != null
     //EFFECTS: prints task info if the task can be found
     public void selectTasks(String choice) {
         ArrayList<Task> tasks = shortTerm.getTasks();
@@ -352,7 +343,6 @@ public class LifeOSApp {
         }
     }
 
-    //REQUIRES: found != null
     //EFFECTS: prints complete information of the task and goes to task setting menu  
     public void printTaskInfo(Task found) {
         System.out.println("Task " + found.getName() + "'s information is here!'");
@@ -389,7 +379,6 @@ public class LifeOSApp {
         }
     }
 
-    //REQUIRES: choice non-null; task != null
     //MODIFIES: task
     //EFFECTS: modify the goal based on user choice
     public void modifyTask(String choice, Task task) {
@@ -414,7 +403,6 @@ public class LifeOSApp {
         }
     }
 
-    //REQUIRES: unit != null
     //MODIFIES: unit
     //EFFECTS: sets a new name for the unit
     public void setName(WorkUnit unit) {
@@ -428,7 +416,6 @@ public class LifeOSApp {
         System.out.println("Name changed successfully!");
     }
 
-    //REQUIRES: task != null
     //MODIFIES: task
     //EFFECTS: sets energy level between 1–5
     public void setEnergyLevel(Task task) {
@@ -442,7 +429,6 @@ public class LifeOSApp {
         System.out.println("Energylevel set successfully!");
     }
 
-    //REQUIRES: task != null
     //MODIFIES: task
     //EFFECTS: links a goal to the task if the goal can be found
     public void setLinkedGoals(Task task) {
@@ -461,7 +447,6 @@ public class LifeOSApp {
         }
     }
 
-    //REQUIRES: unit != null
     //MODIFIES: unit
     //EFFECTS: sets the unit as completed
     public void setAsCompleted(WorkUnit unit) {
@@ -469,7 +454,6 @@ public class LifeOSApp {
         System.out.println("This task has been marked as completed!");
     }
 
-    //REQUIRES: unit != null
     //MODIFIES: unit
     //EFFECTS: sets the unit as uncompleted
     public void setAsUnCompleted(WorkUnit unit) {
@@ -477,7 +461,6 @@ public class LifeOSApp {
         System.out.println("This task has been marked as uncompleted!");
     }
 
-    // REQUIRES: task != null
     // MODIFIES: task
     // EFFECTS: set the deadline if it is valid
     public void setDeadline(Task task) {
@@ -512,7 +495,6 @@ public class LifeOSApp {
         return true;
     }
 
-    // REQUIRES: task != null
     // MODIFIES: task
     // EFFECTS: sets times for the task if time is not 0
     public void setTimes(Task task) {
