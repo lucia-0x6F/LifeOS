@@ -10,16 +10,19 @@ import model.ShortTerm;
 import model.Task;
 import model.WorkUnit;
 
+//LifeOS App
 public class LifeOSApp {
     private LongTerm longTerm;
     private ShortTerm shortTerm;
     private Scanner input;  
     
-
+    //EFFECTS: runs the LifeOSApp
     public LifeOSApp() throws NameErrorException {
         runLifeOSApp();
     }
 
+    //MODIFIES: this
+    //EFFECTS: processes user input
     public void runLifeOSApp() throws NameErrorException {
         boolean keepGoing = true;
         init();
@@ -38,14 +41,14 @@ public class LifeOSApp {
         }
         System.out.println("Goodbye!");
     }
-
+    
+    //MODIFIES: this
+    //EFFECTS: processes user command
     private void processCommand(String cmd) throws NameErrorException {
         if (cmd.equals("l")) {
             startLongTerm();
         } else if (cmd.equals("s")) {
             startShortTerm();
-        } else if (cmd.equals("w")) {
-            startWeeklySchedule();
         } else if (cmd.equals("q")) {
             System.out.println("Goodbye!");
         } else {
@@ -53,27 +56,26 @@ public class LifeOSApp {
         }
     }
 
+    //MODIFIES: this
+    // EFFECTS: initializes longTerm, shortTerm, and input scanner
     private void init() {
         longTerm = new LongTerm();
         shortTerm = new ShortTerm();
         input = new Scanner(System.in);
     }
 
+    //EFFECTS: displays menu of options to user
     private void displayMenu() {
         System.out.println("Welcome to LifeOS!");
         System.out.println("Select from:  ");
         System.out.println("\tL -> LongTermModule");
         System.out.println("\tS -> ShortTermModule");
-        System.out.println("\tW -> WeeklyScheduleModule");
         System.out.println("\tQ -> Quit the app");
     }
-    //First start the app and there's a welcome
-    //then three options to choose
-    //'L' to enter the LongTermModule
-    //'S' to enter the ShortTermModule
-    //'W' to enter the WeeklyScheduleModule
-    //'Q' to quit the app
 
+    
+    //MODIFIES: this
+    //EFFECTS: shows long-term goal menu
     private void startLongTerm() throws NameErrorException {
         Boolean stay = true;
         while (stay) {
@@ -96,12 +98,8 @@ public class LifeOSApp {
             }
         }
     }
-        //if 'L'
-        //'V' to view the longTermGoal List
-        //'A' to add a new goal to the goal list
-        //'R' to remove a goal from the goal list
-        //'B' to go back to the main menu
 
+    //EFFECTS: prints all long-term goals and allows user to select one
     public void viewGoals() {
         System.out.println("Your Goals:    ");
         ArrayList<Goal> goals = longTerm.getGoals();
@@ -120,6 +118,8 @@ public class LifeOSApp {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds a new goal with given name if the goal does not exists, otherwise goes back to goal setting menu
     private void addGoalToLongTerm() throws NameErrorException {
         System.out.println("Please enter the name of the Goal you want to add!");
         String name = input.next();
@@ -138,6 +138,9 @@ public class LifeOSApp {
 
     }
 
+    //REQUIRES: tasks cannot be empty
+    //MODIFIES: this
+    //EFFECTS: removes the goal with the name if it can be found
     private void removeGoalFromLongTerm() throws NameErrorException {
         System.out.println("Please enter the name of the Goal you want to remove!");
         String name = input.next();
@@ -153,11 +156,8 @@ public class LifeOSApp {
         }
     }
     
-
-   
-    
-    
-
+    //REQUIRES: choice is a non-null string
+    //EFFECTS: prints goal info if goal can be found
     public void selectGoals(String choice) {
         ArrayList<Goal> goals = longTerm.getGoals();
         Goal found = null;
@@ -174,6 +174,8 @@ public class LifeOSApp {
         }
     }
     
+    //REQUIRES: found != null
+    //EFFECTS: prints complete information of the goal and goes to goal setting menu  
     public void printGoalInfo(Goal found) {
         System.out.println("Goal " + found.getName() + "'s information is here!'");
         System.out.println("Name: " + found.getName());
@@ -183,6 +185,9 @@ public class LifeOSApp {
         
     }
 
+    //REQUIRES: goal != null
+    //MODIFIES: goal
+    //EFFECTS: processes user commands to modify goal
     public void goalSettingMenu(Goal goal) {
         Boolean stay = true;
         while (stay) {
@@ -201,6 +206,9 @@ public class LifeOSApp {
         }
     }
 
+    //REQUIRES: choice != null, goal != null
+    //MODIFIES: goal
+    //EFFECTS: modify the goal based on user choice
     public void modifyGoal(String choice, Goal goal) {
         switch (choice) {
             case "n":
@@ -223,6 +231,9 @@ public class LifeOSApp {
         }
     }
 
+    //REQUIRES: goal != null
+    //MODIFIES: goal
+    //EFFECTS: links a task to the goal if task can be found
     public void setLinkedTasks(Goal goal) {
         System.out.println("Please enter a short term task's name to link it to the goal ");
         String name = input.next();
@@ -238,10 +249,73 @@ public class LifeOSApp {
             System.out.println("Cannot find this task!");
         }
     }
-    
 
     
+    // MODIFIES: this
+    // EFFECTS: shows shortTerm goal menu
+    public void startShortTerm() throws NameErrorException {
+        Boolean stay = true;
+        while (stay) {
+            System.out.println("Select from:  ");
+            System.out.println("\tV -> View the task list");
+            System.out.println("\tA -> add a task to the task list");
+            System.out.println("\tR -> remove a task from the task list");
+            System.out.println("\tB -> Go back to the main menu");
+        
+            String choice = input.next().toLowerCase();
+            if (choice.equals("v")) {
+                viewTasks();
+            } else if (choice.equals("a")) {
+                addTaskToShortTerm();
+            } else if (choice.equals("r")) {
+                removeTaskFromShortTerm();
+            } else if (choice.equals("b")) {
+                return;
+            }
+        }
+    }
 
+    //MODIFIES: this
+    //EFFECTS: adds a new task with given name if the task does not exist, otherwise goes back to task setting menu
+    public void addTaskToShortTerm() throws NameErrorException {
+        System.out.println("Please enter the name of the Task you want to add!");
+        String name = input.next();
+        while (name.length() == 0) {
+            System.out.println("Invalid name!");
+            name = input.next();
+        } 
+        try {
+            shortTerm.addTask(name);
+            Task task = shortTerm.findTask(name);
+            System.out.println("Task added successfully!");
+            taskSettingMenu(task);
+        } catch (NameErrorException e)  {
+            System.out.println("Task already exist!");
+        }
+
+    }
+
+    //REQUIRES: tasks cannot be empty
+    //MODIFIES: this
+    //EFFECTS: removes the task with the name if it can be found
+    public void removeTaskFromShortTerm() throws NameErrorException {
+        System.out.println("Please enter the name of the Task you want to remove!");
+        String name = input.next();
+        while (name.length() == 0) {
+            System.out.println("Invalid name!");
+            name = input.next();
+        } 
+        try {
+            shortTerm.removeTask(name);
+            System.out.println("Task removed successfully!");
+        } catch (NameErrorException e)  {
+            System.out.println("Cannot find this task!");
+        }
+
+    }
+
+    
+    //EFFECTS: prints all tasks and allows user to select one
     public void viewTasks() {
         System.out.println("Your Tasks:    ");
         ArrayList<Task> tasks = shortTerm.getTasks();
@@ -260,7 +334,8 @@ public class LifeOSApp {
         }
     }
     
-
+    //REQUIRES: choice != null
+    //EFFECTS: prints task info if the task can be found
     public void selectTasks(String choice) {
         ArrayList<Task> tasks = shortTerm.getTasks();
         Task found = null;
@@ -276,19 +351,23 @@ public class LifeOSApp {
             System.out.println("Cannot find this task!");
         }
     }
-    
+
+    //REQUIRES: found != null
+    //EFFECTS: prints complete information of the task and goes to task setting menu  
     public void printTaskInfo(Task found) {
         System.out.println("Task " + found.getName() + "'s information is here!'");
         System.out.println("Name: " + found.getName());
         System.out.println("EnergyLevel: " + found.getEnergyLevel());
-        System.out.println("LinkedGoal: " + found.getLinkedGoal().getName());
+        if (found.getLinkedGoal() != null) {
+            System.out.println("LinkedGoal: " + found.getLinkedGoal().getName());
+        }
         System.out.println("CompleteStatus: " + found.getCompleteStatus());
         System.out.println("Deadline: " + found.getDeadline());     
         System.out.println("Times: " + found.getTimes());
         taskSettingMenu(found); 
     }
     
-
+    //EFFECTS: processes user commands to modify goal
     public void taskSettingMenu(Task task) {
         Boolean stay = true;
         while (stay) {
@@ -310,6 +389,9 @@ public class LifeOSApp {
         }
     }
 
+    //REQUIRES: choice non-null; task != null
+    //MODIFIES: task
+    //EFFECTS: modify the goal based on user choice
     public void modifyTask(String choice, Task task) {
         switch (choice) {
             case "n": setName(task);
@@ -332,6 +414,9 @@ public class LifeOSApp {
         }
     }
 
+    //REQUIRES: unit != null
+    //MODIFIES: unit
+    //EFFECTS: sets a new name for the unit
     public void setName(WorkUnit unit) {
         System.out.println("Please enter the task name: ");
         String name = input.next();
@@ -343,6 +428,9 @@ public class LifeOSApp {
         System.out.println("Name changed successfully!");
     }
 
+    //REQUIRES: task != null
+    //MODIFIES: task
+    //EFFECTS: sets energy level between 1–5
     public void setEnergyLevel(Task task) {
         System.out.println("Please choose an energylevel (from 1 to 5): ");
         int energylevel = input.nextInt();
@@ -354,6 +442,9 @@ public class LifeOSApp {
         System.out.println("Energylevel set successfully!");
     }
 
+    //REQUIRES: task != null
+    //MODIFIES: task
+    //EFFECTS: links a goal to the task if the goal can be found
     public void setLinkedGoals(Task task) {
         System.out.println("Please enter a long term goal's name to link it to the task ");
         String name = input.next();
@@ -370,19 +461,25 @@ public class LifeOSApp {
         }
     }
 
-
+    //REQUIRES: unit != null
+    //MODIFIES: unit
+    //EFFECTS: sets the unit as completed
     public void setAsCompleted(WorkUnit unit) {
         unit.markAsCompleted();
         System.out.println("This task has been marked as completed!");
     }
 
-
+    //REQUIRES: unit != null
+    //MODIFIES: unit
+    //EFFECTS: sets the unit as uncompleted
     public void setAsUnCompleted(WorkUnit unit) {
         unit.markAsUncompleted();
         System.out.println("This task has been marked as uncompleted!");
     }
 
-
+    // REQUIRES: task != null
+    // MODIFIES: task
+    // EFFECTS: set the deadline if it is valid
     public void setDeadline(Task task) {
         System.out.println("Please set an deadline (example: 0212, which means Feb 12): ");
         String deadline = input.next();
@@ -394,6 +491,7 @@ public class LifeOSApp {
         }
     }
 
+    // EFFECTS: returns true if deadline is a valid date number, otherwise false    
     public boolean isValidDate(String deadline) {
         int date = 0;
         try {
@@ -414,8 +512,9 @@ public class LifeOSApp {
         return true;
     }
 
-
-
+    // REQUIRES: task != null
+    // MODIFIES: task
+    // EFFECTS: sets times for the task if time is not 0
     public void setTimes(Task task) {
         System.out.println("Please enter the times to do this task: ");
         int times = input.nextInt();
@@ -428,83 +527,8 @@ public class LifeOSApp {
     }
 
 
-    public void startShortTerm() throws NameErrorException {
-        Boolean stay = true;
-        while (stay) {
-            System.out.println("Select from:  ");
-            System.out.println("\tV -> View the task list");
-            System.out.println("\tA -> add a task to the task list");
-            System.out.println("\tR -> remove a task from the task list");
-            System.out.println("\tB -> Go back to the main menu");
-        
-
-            String choice = input.next().toLowerCase();
-            if (choice.equals("v")) {
-                viewTasks();
-            } else if (choice.equals("a")) {
-                addTaskToShortTerm();
-            } else if (choice.equals("r")) {
-                removeGoalFromShortTerm();
-            } else if (choice.equals("b")) {
-                return;
-            }
-        }
-    }
-
-        
-    public void addTaskToShortTerm() throws NameErrorException {
-        System.out.println("Please enter the name of the Task you want to add!");
-        String name = input.next();
-        while (name.length() == 0) {
-            System.out.println("Invalid name!");
-            name = input.next();
-        } 
-        try {
-            shortTerm.addTask(name);
-            Task task = shortTerm.findTask(name);
-            System.out.println("Task added successfully!");
-            taskSettingMenu(task);
-        } catch (NameErrorException e)  {
-            System.out.println("Task already exist!");
-        }
-
-    }
-
-    public void removeGoalFromShortTerm() throws NameErrorException {
-        System.out.println("Please enter the name of the Task you want to remove!");
-        String name = input.next();
-        while (name.length() == 0) {
-            System.out.println("Invalid name!");
-            name = input.next();
-        } 
-        try {
-            shortTerm.removeTask(name);
-            System.out.println("Task removed successfully!");
-        } catch (NameErrorException e)  {
-            System.out.println("Cannot find this task!");
-        }
-
-
-    }
-        
-
-    private void startWeeklySchedule() {
-        
-    }
-
-        
-    //if 'W'
-    //'V' to view the timeBlocks List
-    //'A' to add a timeBlock to the timeBlock list
-    //'M' to view the tasks that matches the energyLevel of the selected timeBlock
-
 }
 
-     //if 'WV'
-    //'N' to see the next timeBlock
-    //'P' to set the time period
-    //'E' to set energyLevel
-    //'D' to set dayOfWeek
 
 
 

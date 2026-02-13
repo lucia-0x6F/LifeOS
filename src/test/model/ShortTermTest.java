@@ -7,13 +7,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ShortTermTest{
+public class ShortTermTest {
     private ShortTerm testShortTerm;
     
     @BeforeEach
     void runBefore() {
-        testShortTerm= new ShortTerm();
+        testShortTerm = new ShortTerm();
     }
+
     @Test
     void testConstructor() {
         assertTrue(testShortTerm.getTasks().isEmpty());
@@ -43,7 +44,7 @@ public class ShortTermTest{
             testShortTerm.addTask("task1");
             fail("Cause NameErrorException");
         } catch (NameErrorException e) {
-
+            //stub
         }
     }
 
@@ -67,8 +68,8 @@ public class ShortTermTest{
         assertEquals("task2", testShortTerm.getTasks().get(0).getName());
     }
 
-     @Test
-    void testRemoveTask() throws NameErrorException{
+    @Test
+    void testRemoveTask() throws NameErrorException {
         assertTrue(testShortTerm.getTasks().isEmpty());
         testShortTerm.addTask("task1");
         assertEquals(1, testShortTerm.getTasks().size());
@@ -78,7 +79,7 @@ public class ShortTermTest{
     }
 
     @Test
-    void testRemoveTaskNameNotFound() throws NameErrorException{
+    void testRemoveTaskNameNotFound() throws NameErrorException {
         assertTrue(testShortTerm.getTasks().isEmpty());
         testShortTerm.addTask("task2");
         assertEquals(1, testShortTerm.getTasks().size());
@@ -86,7 +87,7 @@ public class ShortTermTest{
             testShortTerm.removeTask("task1");
             fail("Cannot find this task!");
         } catch (NameErrorException e) {
-
+            //stub
         }
 
     }
@@ -100,11 +101,11 @@ public class ShortTermTest{
         } catch (NameErrorException e) {
             fail("There's no exception");
         }
-        try{
+        try {
             testShortTerm.findTask("task2");
             fail("Cannot find this task");
-        } catch (NameErrorException e){
-
+        } catch (NameErrorException e) {
+            //stub
         }
     }
 

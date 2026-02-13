@@ -1,5 +1,9 @@
 package model;
 
+/**
+ * Sets the name, energyLevel, times, deadline and complete status and linkedTask for the task
+ */
+
 public class Task implements WorkUnit {
     private int energyLevel;
     private String name;
@@ -8,7 +12,8 @@ public class Task implements WorkUnit {
     private String deadline;
     private boolean completeStatus;
     
-    //EFFECTS: constructs an uncompleted Task object
+    //EFFECTS: constructs an uncompleted Task object with 0 energylevel, 
+    // no linkedGoal, 0 times, "0101" deadline and the completeStatus is false
     public Task(String name) {
         this.name = name;
         energyLevel = 0;
@@ -22,7 +27,6 @@ public class Task implements WorkUnit {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public void setEnergyLevel(int energyLevel) {
         this.energyLevel = energyLevel;
@@ -44,14 +48,10 @@ public class Task implements WorkUnit {
         return linkedGoal;
     }
     
-    //MODIFIES: this
-    //EFFECTS: sets the completeStatus of the Task to be completed
     public void markAsCompleted() {
         completeStatus = true;
     }
 
-    //MODIFIES: this
-     //EFFECTS: sets the completeStatus of the Task to be uncompleted
     public void markAsUncompleted() {
         completeStatus = false;
     }

@@ -21,7 +21,7 @@ public class GoalTest {
     }
 
     @Test
-    void setName(){
+    void setName() {
         assertEquals("testGoal", testGoal.getName());
         testGoal.setName("newName");
         assertEquals("newName", testGoal.getName());
@@ -29,7 +29,7 @@ public class GoalTest {
     }
 
     @Test
-    void testAddLinkedTasks(){
+    void testAddLinkedTasks() {
         assertTrue(testGoal.getLinkedTasks().isEmpty());
         testGoal.setLinkedTask(task1);
         assertEquals(1, testGoal.getLinkedTasks().size());
@@ -40,7 +40,7 @@ public class GoalTest {
     }   
 
     @Test
-    void testAddLinkedListNotAlreadyMultiple(){
+    void testAddLinkedListNotAlreadyMultiple() {
         assertTrue(testGoal.getLinkedTasks().isEmpty());
         testGoal.setLinkedTask(task1);
         testGoal.setLinkedTask(task2);
@@ -51,7 +51,7 @@ public class GoalTest {
     }   
 
     @Test
-    void testRemoveLinkedList(){
+    void testRemoveLinkedList() {
         assertTrue(testGoal.getLinkedTasks().isEmpty());
         testGoal.setLinkedTask(task1);
         testGoal.setLinkedTask(task2);

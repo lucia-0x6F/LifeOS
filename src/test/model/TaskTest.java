@@ -22,7 +22,7 @@ public class TaskTest {
     }
 
     @Test
-    void setName(){
+    void setName() {
         assertEquals("testTask", testTask.getName());
         testTask.setName("newName");
         assertEquals("newName", testTask.getName());
@@ -30,7 +30,7 @@ public class TaskTest {
     }
 
     @Test
-    void testAddLinkedTasks(){
+    void testAddLinkedTasks() {
         assertNull(testTask.getLinkedGoal());
         testTask.setLinkedGoal(goal1);
         assertEquals(goal1, testTask.getLinkedGoal());
@@ -71,7 +71,7 @@ public class TaskTest {
         assertEquals(0, testTask.getTimes());
         testTask.setTimes(2);
         assertEquals(2, testTask.getTimes());
-         testTask.setTimes(1);
+        testTask.setTimes(1);
         assertEquals(1, testTask.getTimes());
     }
     

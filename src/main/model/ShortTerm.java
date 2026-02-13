@@ -2,10 +2,14 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * Add or remove task, find a task that has a specific name, view the task list 
+ */
+ 
 public class ShortTerm {
     private ArrayList<Task> tasks;
 
-    //EFFECTS: construct a ShortTermModule object
+    //EFFECTS: construct a ShortTermModule object with no tasks 
     public ShortTerm() {
         tasks = new ArrayList<Task>();
     }
@@ -25,7 +29,7 @@ public class ShortTerm {
 
     //REQUIRES: tasks cannot be empty
     //MODIFIES: this
-    //EFFECTS: removes task from the ShortTermModule's tasks if the Task's name is in the list
+    //EFFECTS: removes task from the ShortTermModule's tasks if the Task's name is in the list, otherwise throw an exception
     public void removeTask(String name) throws NameErrorException {
         Task removeTarget = null;
         for (Task t : tasks) {
@@ -46,7 +50,7 @@ public class ShortTerm {
         return tasks;
     } 
 
-    //EFFECTS: returns the task that has the same name as the name
+    //EFFECTS: returns the task that has the same name as the name, otherwise throw an exception
     public Task findTask(String name) throws NameErrorException {
         for (Task t: tasks) {
             if (t.getName().equals(name)) {

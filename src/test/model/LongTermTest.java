@@ -8,12 +8,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class LongTermTest{
+public class LongTermTest {
     private LongTerm testLongTerm;
     
     @BeforeEach
     void runBefore() {
-        testLongTerm= new LongTerm();
+        testLongTerm = new LongTerm();
     }
 
     @Test
@@ -46,7 +46,7 @@ public class LongTermTest{
             testLongTerm.addGoal("goal1");
             fail("Cause NameErrorException");
         } catch (NameErrorException e) {
-
+            //stub
         }
     }
 
@@ -79,7 +79,7 @@ public class LongTermTest{
             testLongTerm.removeGoal("goal1");
             fail("Cause NameErrorException");
         } catch (NameErrorException e) {
-
+            //stub
         }
     }
 
@@ -90,7 +90,7 @@ public class LongTermTest{
             testLongTerm.removeGoal("goal2");
             fail("Cause NameErrorException");
         } catch (NameErrorException e) {
-
+            //stub
         }
     }
 
@@ -103,11 +103,11 @@ public class LongTermTest{
         } catch (NameErrorException e) {
             fail("There's no exception");
         }
-        try{
+        try {
             testLongTerm.findGoal("goal2");
             fail("Cannot find this task");
-        } catch (NameErrorException e){
-
+        } catch (NameErrorException e) {
+            //stub
         }
     }
 

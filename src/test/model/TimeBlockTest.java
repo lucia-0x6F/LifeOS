@@ -37,7 +37,7 @@ public class TimeBlockTest {
         assertEquals(2, testTimeBlock.getEnergyLevel());
     }
 
-     @Test
+    @Test
     public void testSetDayOfWeek() {
         assertEquals(1, testTimeBlock.getDayOfWeek());
         testTimeBlock.setDayOfWeek(5);

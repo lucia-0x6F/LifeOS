@@ -1,6 +1,9 @@
 package model;
 
 import java.util.ArrayList;
+/**
+ * Sets the name and complete status for the goal, add or remove linkedTask of the goal
+ */
 
 public class Goal implements WorkUnit {
     private String name;
@@ -44,7 +47,6 @@ public class Goal implements WorkUnit {
         }
     }
     
-
     public String getName() {
         return name;
     }

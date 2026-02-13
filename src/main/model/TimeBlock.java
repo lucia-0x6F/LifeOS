@@ -2,6 +2,10 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * Sets the timePeriod, dayOfWeek, energyLevel for the timeblock, add tasks into the timeBlock
+ */
+
 public class TimeBlock {
     private int timePeriod;
     private ArrayList<Task> tasks;
@@ -21,7 +25,7 @@ public class TimeBlock {
     }
 
     //MODIFIES: this
-    //EFFECTS: sets the task for the TimeBlock
+    //EFFECTS: add the task to tasks of the timeBlock
     public void addTask(Task task) {
         tasks.add(task);
     }
