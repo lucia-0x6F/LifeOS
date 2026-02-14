@@ -66,10 +66,4 @@ Therefore, I wish to create an app that can ***break the long-term goal into dai
 
 10. As a user, I want to be able to assign **energy level**, **number of times** and **deadline** to a **short-term task**.
 
-11. As a user, I want to be able to assign **energy level**, **day of week** and **time period** to a **time block**.
-
-12. As a user, I want to be able to add a **time block** in **weekly schedule**.
-
-13. As a user, I want to be able to select a **time block** and view **short-term task list** that match its **energy level** in **weekly schedule**.
-
-14. As a user, I want to be able to navigate back to **the previous menu**.
+11. As a user, I want to be able to navigate back to **the previous menu**.
