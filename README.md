@@ -46,6 +46,8 @@ Therefore, I wish to create an app that can ***break the long-term goal into dai
 
 ## User Stories
 
+- Phase 0 & Phase 1:
+
 1. As a user, I want to be able to add or remove a **long-term goal** from the **long-term goal list** and link it to a **short-term task**.
 
 2. As a user, I want to be able to view the **long-term goal list**.
@@ -67,3 +69,10 @@ Therefore, I wish to create an app that can ***break the long-term goal into dai
 10. As a user, I want to be able to assign **energy level**, **number of times** and **deadline** to a **short-term task**.
 
 11. As a user, I want to be able to navigate back to **the previous menu**.
+
+
+- Phase 2:
+
+1. As a user, I want to have the option to **save the entire state** (including all long-term goals and short-term tasks) to file.
+
+2. As a user, I want to have the option to **load a previously saved state** from file, so that I can resume exactly where I left off in a past session.
