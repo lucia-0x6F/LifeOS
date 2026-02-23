@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 import model.Goal;
 import model.LongTerm;
-import model.NameErrorException;
 import model.ShortTerm;
 import model.Task;
 import model.WorkUnit;
+import model.exception.NameErrorException;
 
 //LifeOS App
 public class LifeOSApp {

@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import model.exception.NameErrorException;
+
 /**
  * Add or remove task, find a task that has a specific name, view the task list 
  */

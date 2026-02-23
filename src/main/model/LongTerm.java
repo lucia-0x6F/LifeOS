@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import model.exception.NameErrorException;
+
 /**
  * Add or remove goal, find a goal that has a specific name, view the goal list 
  */

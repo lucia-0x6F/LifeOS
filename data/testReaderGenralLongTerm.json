@@ -1,0 +1,14 @@
+{
+    "goal1": [
+        {
+            "name": "goal1",
+            "linkedTasks": ["task1"],
+            "completeStatus": false
+        },
+        {
+            "name": "goal2",
+            "linkedTasks": null,
+            "completeStatus": true
+        }
+    ]
+}
