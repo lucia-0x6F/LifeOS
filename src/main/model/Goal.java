@@ -1,11 +1,15 @@
 package model;
 
 import java.util.ArrayList;
+
+import org.json.JSONObject;
+
+import persistence.Writable;
 /**
  * Sets the name and complete status for the goal, add or remove linkedTask of the goal
  */
 
-public class Goal implements WorkUnit {
+public class Goal implements WorkUnit, Writable {
     private String name;
     private ArrayList<Task> linkedTasks;
     private boolean completeStatus;
@@ -67,6 +71,13 @@ public class Goal implements WorkUnit {
 
     public boolean getCompleteStatus() {
         return completeStatus;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        return json;
     }
 
    

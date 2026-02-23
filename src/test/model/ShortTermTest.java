@@ -15,7 +15,7 @@ public class ShortTermTest {
     
     @BeforeEach
     void runBefore() {
-        testShortTerm = new ShortTerm();
+        testShortTerm = new ShortTerm("My short term");
     }
 
     @Test

@@ -2,17 +2,23 @@ package model;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import model.exception.NameErrorException;
+import persistence.Writable;
 
 /**
  * Add or remove task, find a task that has a specific name, view the task list 
  */
  
-public class ShortTerm {
+public class ShortTerm implements Writable{
     private ArrayList<Task> tasks;
+    private String name;
 
     //EFFECTS: construct a ShortTermModule object with no tasks 
-    public ShortTerm() {
+    public ShortTerm(String name) {
+        this.name = name;
         tasks = new ArrayList<Task>();
     }
     
@@ -63,4 +69,21 @@ public class ShortTerm {
     }
 
     
+       @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        return json;
+    }
+
+    // EFFECTS: returns goals in this longTerm as a JSON array
+    private JSONArray tasksToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Task t : tasks) {
+            jsonArray.put(t.toJson());
+        }
+
+        return jsonArray;
+    }
 }

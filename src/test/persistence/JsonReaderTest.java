@@ -18,7 +18,7 @@ class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderNonExistentFileLongTerm() {
-        JsonReader reader = new JsonReader("./data/noSuchFile.json");
+        JsonReader reader = new JsonReader("data/noSuchFile.json");
         try {
             LongTerm longTerm = reader.readLongTerm();
             fail("IOException expected");
@@ -29,7 +29,7 @@ class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderEmptyLongTerm() {
-        JsonReader reader = new JsonReader("./data/testReaderEmptyLongTerm.json");
+        JsonReader reader = new JsonReader("data/testReaderEmptyLongTerm.json");
         try {
             LongTerm longTerm = reader.readLongTerm();
             assertEquals(0, longTerm.getGoals().size());
@@ -40,7 +40,7 @@ class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderGeneralLongTerm() {
-        JsonReader reader = new JsonReader("./data/testReaderGeneralLongTerm.json");
+        JsonReader reader = new JsonReader("data/testReaderGeneralLongTerm.json");
         try {
             LongTerm longTerm = reader.readLongTerm();
             List<Goal> goals = longTerm.getGoals();
@@ -54,7 +54,7 @@ class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderNonExistentFileShortTerm() {
-        JsonReader reader = new JsonReader("./data/noSuchFile.json");
+        JsonReader reader = new JsonReader("data/noSuchFile.json");
         try {
             ShortTerm shortTerm = reader.readShortTerm();
             fail("IOException expected");
@@ -65,7 +65,7 @@ class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderEmptyShortTerm() {
-        JsonReader reader = new JsonReader("./data/testReaderEmptyShortTerm.json");
+        JsonReader reader = new JsonReader("data/testReaderEmptyShortTerm.json");
         try {
             ShortTerm shortTerm = reader.readShortTerm();
             assertEquals(0, shortTerm.getTasks().size());
@@ -76,7 +76,7 @@ class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderGeneralShortTerm() {
-        JsonReader reader = new JsonReader("./data/testReaderGeneralShortTerm.json");
+        JsonReader reader = new JsonReader("data/testReaderGeneralShortTerm.json");
         try {
             ShortTerm shortTerm = reader.readShortTerm();
             List<Task> tasks = shortTerm.getTasks();

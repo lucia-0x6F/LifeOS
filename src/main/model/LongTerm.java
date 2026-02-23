@@ -2,17 +2,23 @@ package model;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import model.exception.NameErrorException;
+import persistence.Writable;
 
 /**
  * Add or remove goal, find a goal that has a specific name, view the goal list 
  */
 
-public class LongTerm {
+public class LongTerm implements Writable{
     private ArrayList<Goal> goals;
+    private String name;
     
     //EFFECTS: construct a LongTermModule object with no goals
-    public LongTerm() {
+    public LongTerm(String name) {
+        this.name = name;
         goals = new ArrayList<Goal>();
 
     }
@@ -60,5 +66,23 @@ public class LongTerm {
         throw new NameErrorException();
     }
 
+    
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        return json;
+    }
+
+    // EFFECTS: returns goals in this longTerm as a JSON array
+    private JSONArray goalsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Goal g : goals) {
+            jsonArray.put(g.toJson());
+        }
+
+        return jsonArray;
+    }
 
 }

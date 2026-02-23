@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 /**
  * Sets the name, energyLevel, times, deadline and complete status and linkedTask for the task
  */
 
-public class Task implements WorkUnit {
+public class Task implements WorkUnit, Writable {
     private int energyLevel;
     private String name;
     private Goal linkedGoal;
@@ -78,6 +82,13 @@ public class Task implements WorkUnit {
 
     public int getTimes() {
         return times;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        return json;
     }
 
  

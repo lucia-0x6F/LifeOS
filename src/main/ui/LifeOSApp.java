@@ -59,8 +59,8 @@ public class LifeOSApp {
     //MODIFIES: this
     // EFFECTS: initializes longTerm, shortTerm, and input scanner
     private void init() {
-        longTerm = new LongTerm();
-        shortTerm = new ShortTerm();
+        longTerm = new LongTerm("My long term");
+        shortTerm = new ShortTerm("My short term");
         input = new Scanner(System.in);
     }
 

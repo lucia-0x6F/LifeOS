@@ -18,7 +18,7 @@ public class WeeklyScheduleTest {
     public void setup() {
         testWeeklySchedule = new WeeklySchedule();
         testTimeBlock = new TimeBlock();
-        testShortTerm = new ShortTerm();
+        testShortTerm = new ShortTerm("My short term");
     }
 
     @Test

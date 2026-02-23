@@ -1,5 +1,6 @@
-{
-    "goal1": [
+{   
+    "name":"My long term",
+    "goals": [
         {
             "name": "goal1",
             "linkedTasks": ["task1"],

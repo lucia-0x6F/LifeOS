@@ -1,4 +1,5 @@
-{
+{   
+    "name":"My short term",
     "tasks": [
         {
             "name": "task1",

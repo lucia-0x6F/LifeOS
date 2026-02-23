@@ -15,7 +15,7 @@ public class LongTermTest {
     
     @BeforeEach
     void runBefore() {
-        testLongTerm = new LongTerm();
+        testLongTerm = new LongTerm("My long term");
     }
 
     @Test
