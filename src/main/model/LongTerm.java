@@ -12,7 +12,7 @@ import persistence.Writable;
  * Add or remove goal, find a goal that has a specific name, view the goal list 
  */
 
-public class LongTerm implements Writable{
+public class LongTerm implements Writable {
     private ArrayList<Goal> goals;
     private String name;
     

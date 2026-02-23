@@ -38,9 +38,6 @@ public class JsonReader {
 
     // EFFECTS: reads source file as string and returns it
     private String readFile(String source) throws IOException {
-        System.out.println("TRY READ: " + source);
-        System.out.println("ABS PATH: " + Paths.get(source).toAbsolutePath());
-        System.out.println("EXISTS? " + Files.exists(Paths.get(source)));
         StringBuilder contentBuilder = new StringBuilder();
 
         try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
@@ -108,7 +105,7 @@ public class JsonReader {
     // MODIFIES: shortTerm
     // EFFECTS: parses task from JSON object and adds it to shortTerm
     private void addTask(ShortTerm shortTerm, JSONObject jsonObject) {
-         String name = jsonObject.getString("name");
+        String name = jsonObject.getString("name");
         try {
             shortTerm.addTask(name);
         } catch (NameErrorException e) {

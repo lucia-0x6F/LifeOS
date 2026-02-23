@@ -12,7 +12,7 @@ import persistence.Writable;
  * Add or remove task, find a task that has a specific name, view the task list 
  */
  
-public class ShortTerm implements Writable{
+public class ShortTerm implements Writable {
     private ArrayList<Task> tasks;
     private String name;
 
@@ -69,7 +69,7 @@ public class ShortTerm implements Writable{
     }
 
     
-       @Override
+    @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
