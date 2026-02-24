@@ -1,8 +1,11 @@
 package ui;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.Goal;
 import model.LongTerm;
 import model.ShortTerm;
@@ -10,14 +13,29 @@ import model.Task;
 import model.WorkUnit;
 import model.exception.NameErrorException;
 
+import persistence.JsonReader;
+import persistence.JsonWriter;
+
+@ExcludeFromJacocoGeneratedReport
 //LifeOS App
 public class LifeOSApp {
+    private static final String JSON_STORE_LONG = "./data/longTerm.json";
+    private static final String JSON_STORE_SHORT = "./data/shortTerm.json";
     private LongTerm longTerm;
     private ShortTerm shortTerm;
-    private Scanner input;  
+    private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     
-    //EFFECTS: runs the LifeOSApp
+    //EFFECTS: constructs longTerm and shortTerm and runs the LifeOSApp
     public LifeOSApp() throws NameErrorException {
+        input = new Scanner(System.in);
+        longTerm = new LongTerm("My long term");
+        shortTerm = new ShortTerm("My short term");
+        jsonWriter = new JsonWriter(JSON_STORE_LONG);
+        jsonWriter = new JsonWriter(JSON_STORE_SHORT);
+        jsonReader = new JsonReader(JSON_STORE_LONG);
+        jsonReader = new JsonReader(JSON_STORE_SHORT);
         runLifeOSApp();
     }
 
@@ -83,6 +101,8 @@ public class LifeOSApp {
             System.out.println("\tV -> View the goal list");
             System.out.println("\tA -> add a goal to the goal list");
             System.out.println("\tR -> remove a goal from the goal list");
+            System.out.println("\tS -> save long term to file");
+            System.out.println("\tL -> load long term from file");
             System.out.println("\tB -> Go back to the main menu");
         
             String choice = input.next().toLowerCase();
@@ -92,7 +112,11 @@ public class LifeOSApp {
                 addGoalToLongTerm();
             } else if (choice.equals("r")) {
                 removeGoalFromLongTerm();
-            } else if (choice.equals("b")) {
+            } else if (choice.equals("s")) {
+                saveLongTerm();
+            } else if (choice.equals("l")) {
+                loadLongTerm();
+            }else if (choice.equals("b")) {
                 return;
 
             }
@@ -254,6 +278,8 @@ public class LifeOSApp {
             System.out.println("\tV -> View the task list");
             System.out.println("\tA -> add a task to the task list");
             System.out.println("\tR -> remove a task from the task list");
+            System.out.println("\tS -> save short term to file");
+            System.out.println("\tL -> load short term from file");
             System.out.println("\tB -> Go back to the main menu");
         
             String choice = input.next().toLowerCase();
@@ -263,6 +289,10 @@ public class LifeOSApp {
                 addTaskToShortTerm();
             } else if (choice.equals("r")) {
                 removeTaskFromShortTerm();
+            } else if (choice.equals("s")) {
+                saveShortTerm();
+            } else if (choice.equals("l")) {
+                loadShortTerm();
             } else if (choice.equals("b")) {
                 return;
             }
@@ -507,6 +537,54 @@ public class LifeOSApp {
         task.setTimes(times);
         System.out.println("Times set successfully!");
     }
+
+    // EFFECTS: saves the longTerm to file
+    private void saveLongTerm() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(longTerm);
+            jsonWriter.close();
+            System.out.println("Saved " + longTerm.getName() + " to " + JSON_STORE_LONG);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE_LONG);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private void loadLongTerm() {
+        try {
+            longTerm = jsonReader.readLongTerm();
+            System.out.println("Loaded " + longTerm.getName() + " from " + JSON_STORE_LONG);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_LONG);
+        }
+    }
+
+    // EFFECTS: saves the longTerm to file
+    private void saveShortTerm() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(shortTerm);
+            jsonWriter.close();
+            System.out.println("Saved " + shortTerm.getName() + " to " + JSON_STORE_SHORT);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE_SHORT);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private void loadShortTerm() {
+        try {
+            shortTerm = jsonReader.readShortTerm();
+            System.out.println("Loaded " + shortTerm.getName() + " from " + JSON_STORE_SHORT);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_SHORT);
+        }
+    }
+
+
 
 
 }

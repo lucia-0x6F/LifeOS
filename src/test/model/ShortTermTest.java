@@ -6,10 +6,12 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.exception.NameErrorException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExcludeFromJacocoGeneratedReport
 public class ShortTermTest {
     private ShortTerm testShortTerm;
     

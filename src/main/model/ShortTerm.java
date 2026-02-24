@@ -22,7 +22,7 @@ public class ShortTerm implements Writable {
         tasks = new ArrayList<Task>();
     }
 
-     public String getName() {
+    public String getName() {
         return name;
     }
     

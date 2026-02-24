@@ -61,12 +61,12 @@ class JsonWriterTest extends JsonTest {
             } catch (NameErrorException e) {
                 //pass
             }
-            JsonWriter writer = new JsonWriter("data/testWriterGeneralLongTerm.json");
+            JsonWriter writer = new JsonWriter("./data/testWriterGeneralLongTerm.json");
             writer.open();
             writer.write(longTerm);
             writer.close();
 
-            JsonReader reader = new JsonReader("data/testWriterGeneralLongTerm.json");
+            JsonReader reader = new JsonReader("./data/testWriterGeneralLongTerm.json");
             longTerm = reader.readLongTerm();
             assertEquals("My long term", longTerm.getName());
             List<Goal> goals = longTerm.getGoals();
@@ -83,12 +83,12 @@ class JsonWriterTest extends JsonTest {
     void testWriterEmptyShortTerm() {
           try {
             ShortTerm shortTerm = new ShortTerm("My short term");
-            JsonWriter writer = new JsonWriter("data/testWriterEmptyShortTerm.json");
+            JsonWriter writer = new JsonWriter("./data/testWriterEmptyShortTerm.json");
             writer.open();
             writer.write(shortTerm);
             writer.close();
 
-            JsonReader reader = new JsonReader("data/testWriterEmptyShortTerm.json");
+            JsonReader reader = new JsonReader("./data/testWriterEmptyShortTerm.json");
             shortTerm = reader.readShortTerm();
             assertEquals("My short term", shortTerm.getName());
             assertEquals(0, shortTerm.getTasks().size());
@@ -111,12 +111,12 @@ class JsonWriterTest extends JsonTest {
             } catch (NameErrorException e) {
                 //pass
             }
-            JsonWriter writer = new JsonWriter("data/testWriterGeneralShortTerm.json");
+            JsonWriter writer = new JsonWriter("./data/testWriterGeneralShortTerm.json");
             writer.open();
             writer.write(shortTerm);
             writer.close();
 
-            JsonReader reader = new JsonReader("data/testWriterGeneralShortTerm.json");
+            JsonReader reader = new JsonReader("./data/testWriterGeneralShortTerm.json");
             shortTerm = reader.readShortTerm();
             assertEquals("My short term", shortTerm.getName());
             List<Task> tasks = shortTerm.getTasks();
