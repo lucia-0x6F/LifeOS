@@ -97,8 +97,7 @@ public class LifeOSApp {
     //MODIFIES: this
     //EFFECTS: shows long-term goal menu
     private void startLongTerm() {
-        Boolean stay = true;
-        while (stay) {
+        while (true) {
             System.out.println("Select from:  ");
             System.out.println("\tV -> View the goal list");
             System.out.println("\tA -> add a goal to the goal list");
@@ -118,7 +117,7 @@ public class LifeOSApp {
                 saveLongTerm();
             } else if (choice.equals("l")) {
                 loadLongTerm();
-            }else if (choice.equals("b")) {
+            } else if (choice.equals("b")) {
                 return;
 
             }
@@ -274,8 +273,7 @@ public class LifeOSApp {
     // MODIFIES: this
     // EFFECTS: shows shortTerm goal menu
     public void startShortTerm() throws NameErrorException {
-        Boolean stay = true;
-        while (stay) {
+        while (true) {
             System.out.println("Select from:  ");
             System.out.println("\tV -> View the task list");
             System.out.println("\tA -> add a task to the task list");

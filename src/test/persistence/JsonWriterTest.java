@@ -31,7 +31,7 @@ class JsonWriterTest extends JsonTest {
 
     @Test
     void testWriterEmptyLongTerm() {
-          try {
+        try {
             LongTerm longTerm = new LongTerm("My long term");
             JsonWriter writer = new JsonWriter("./data/testWriterEmptyLongTerm.json");
             writer.open();
@@ -53,10 +53,6 @@ class JsonWriterTest extends JsonTest {
             LongTerm longTerm = new LongTerm("My long term");
             try {
                 longTerm.addGoal("goal1");
-            } catch (NameErrorException e) {
-                //pass
-            }
-            try {
                 longTerm.addGoal("goal2");
             } catch (NameErrorException e) {
                 //pass
@@ -79,9 +75,9 @@ class JsonWriterTest extends JsonTest {
         }
     }
 
-     @Test
+    @Test
     void testWriterEmptyShortTerm() {
-          try {
+        try {
             ShortTerm shortTerm = new ShortTerm("My short term");
             JsonWriter writer = new JsonWriter("./data/testWriterEmptyShortTerm.json");
             writer.open();
@@ -103,10 +99,6 @@ class JsonWriterTest extends JsonTest {
             ShortTerm shortTerm = new ShortTerm("My short term");
             try {
                 shortTerm.addTask("task1");
-            } catch (NameErrorException e) {
-                //pass
-            }
-            try {
                 shortTerm.addTask("task2");
             } catch (NameErrorException e) {
                 //pass
