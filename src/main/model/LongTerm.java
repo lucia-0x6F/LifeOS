@@ -23,6 +23,10 @@ public class LongTerm implements Writable {
 
     }
 
+    public String getName() {
+        return name;
+    }
+
     //MODIFIES: this
     //EFFECTS: add the goal to the LongTermModule's goals if the goal's name is not in the list, otherwise exception
     public void addGoal(String name) throws NameErrorException {

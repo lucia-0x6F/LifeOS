@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import java.io.*;
 
 public class JsonWriter {
-     private static final int TAB = 4;
+    private static final int TAB = 4;
     private PrintWriter writer;
     private String destination;
 
@@ -28,7 +28,7 @@ public class JsonWriter {
     public void write(LongTerm longTerm) {
     }
 
-       // MODIFIES: this
+    // MODIFIES: this
     // EFFECTS: writes JSON representation of longTerm to file
     public void write(ShortTerm shortTerm) {
     }

@@ -32,6 +32,7 @@ class JsonReaderTest extends JsonTest {
         JsonReader reader = new JsonReader("data/testReaderEmptyLongTerm.json");
         try {
             LongTerm longTerm = reader.readLongTerm();
+            assertEquals("My long term", longTerm.getName());
             assertEquals(0, longTerm.getGoals().size());
         } catch (IOException e) {
             fail("Couldn't read from file");
@@ -43,6 +44,7 @@ class JsonReaderTest extends JsonTest {
         JsonReader reader = new JsonReader("data/testReaderGeneralLongTerm.json");
         try {
             LongTerm longTerm = reader.readLongTerm();
+            assertEquals("My long term", longTerm.getName());
             List<Goal> goals = longTerm.getGoals();
             assertEquals(2, goals.size());
             checkGoal("goal1", goals.get(0));
@@ -68,6 +70,7 @@ class JsonReaderTest extends JsonTest {
         JsonReader reader = new JsonReader("data/testReaderEmptyShortTerm.json");
         try {
             ShortTerm shortTerm = reader.readShortTerm();
+            assertEquals("My short term", shortTerm.getName());
             assertEquals(0, shortTerm.getTasks().size());
         } catch (IOException e) {
             fail("Couldn't read from file");
@@ -79,6 +82,7 @@ class JsonReaderTest extends JsonTest {
         JsonReader reader = new JsonReader("data/testReaderGeneralShortTerm.json");
         try {
             ShortTerm shortTerm = reader.readShortTerm();
+            assertEquals("My short term", shortTerm.getName());
             List<Task> tasks = shortTerm.getTasks();
             assertEquals(2, tasks.size());
             checkTask("task1", tasks.get(0));

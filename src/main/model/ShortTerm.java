@@ -21,6 +21,10 @@ public class ShortTerm implements Writable {
         this.name = name;
         tasks = new ArrayList<Task>();
     }
+
+     public String getName() {
+        return name;
+    }
     
 
     //MODIFIES: this
