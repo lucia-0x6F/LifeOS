@@ -1,7 +1,5 @@
 package model;
 
-import org.json.JSONObject;
-
 /**
  * A unit of work that has a name and completion status.
  */
