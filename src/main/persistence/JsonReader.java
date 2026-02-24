@@ -14,7 +14,6 @@ import org.json.*;
 
 // Represents a reader that reads longTerm and shortTerm from JSON data stored in file
 //TODO: Citation
-//TODO: add lines related to the change of parameters for longTerm and shortTerm
 public class JsonReader {
     private String source;
 

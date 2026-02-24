@@ -77,10 +77,11 @@ public class ShortTerm implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
+        json.put("tasks", tasks);
         return json;
     }
 
-    // EFFECTS: returns goals in this longTerm as a JSON array
+    // EFFECTS: returns goals in this shortTern as a JSON array
     private JSONArray tasksToJson() {
         JSONArray jsonArray = new JSONArray();
 

@@ -75,6 +75,7 @@ public class LongTerm implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
+        json.put("goals", goals);
         return json;
     }
 

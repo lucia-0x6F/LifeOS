@@ -17,9 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExcludeFromJacocoGeneratedReport
 class JsonWriterTest extends JsonTest {
-    //NOTE TO CPSC 210 STUDENTS: the strategy in designing tests for the JsonWriter is to
-    //write data to a file and then use the reader to read it back in and check that we
-    //read in a copy of what was written out.
 
     @Test
     void testWriterInvalidFile() {
@@ -35,16 +32,16 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterEmptyLongTerm() {
           try {
-            LongTerm wr = new LongTerm("My work room");
+            LongTerm longTerm = new LongTerm("My long term");
             JsonWriter writer = new JsonWriter("./data/testWriterEmptyLongTerm.json");
             writer.open();
-            writer.write(wr);
+            writer.write(longTerm);
             writer.close();
 
             JsonReader reader = new JsonReader("./data/testWriterEmptyLongTerm.json");
-            wr = reader.readLongTerm();
-            assertEquals("My work room", wr.getName());
-            assertEquals(0, wr.getGoals().size());
+            longTerm = reader.readLongTerm();
+            assertEquals("My long term", longTerm.getName());
+            assertEquals(0, longTerm.getGoals().size());
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
@@ -53,9 +50,14 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterGeneralLongTerm() {
         try {
-            LongTerm longTerm = new LongTerm("My work room");
+            LongTerm longTerm = new LongTerm("My long term");
             try {
                 longTerm.addGoal("goal1");
+            } catch (NameErrorException e) {
+                //pass
+            }
+            try {
+                longTerm.addGoal("goal2");
             } catch (NameErrorException e) {
                 //pass
             }
@@ -88,7 +90,7 @@ class JsonWriterTest extends JsonTest {
 
             JsonReader reader = new JsonReader("data/testWriterEmptyShortTerm.json");
             shortTerm = reader.readShortTerm();
-            assertEquals("My work room", shortTerm.getName());
+            assertEquals("My short term", shortTerm.getName());
             assertEquals(0, shortTerm.getTasks().size());
         } catch (IOException e) {
             fail("Exception should not have been thrown");
@@ -101,6 +103,11 @@ class JsonWriterTest extends JsonTest {
             ShortTerm shortTerm = new ShortTerm("My short term");
             try {
                 shortTerm.addTask("task1");
+            } catch (NameErrorException e) {
+                //pass
+            }
+            try {
+                shortTerm.addTask("task2");
             } catch (NameErrorException e) {
                 //pass
             }
