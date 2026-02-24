@@ -77,7 +77,7 @@ public class ShortTerm implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
-        json.put("tasks", tasks);
+        json.put("tasks", tasksToJson());
         return json;
     }
 

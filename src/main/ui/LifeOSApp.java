@@ -24,18 +24,20 @@ public class LifeOSApp {
     private LongTerm longTerm;
     private ShortTerm shortTerm;
     private Scanner input;
-    private JsonWriter jsonWriter;
-    private JsonReader jsonReader;
+    private JsonWriter jsonWriterLong;
+    private JsonWriter jsonWriterShort;
+    private JsonReader jsonReaderLong;
+    private JsonReader jsonReaderShort;
     
     //EFFECTS: constructs longTerm and shortTerm and runs the LifeOSApp
     public LifeOSApp() throws NameErrorException {
         input = new Scanner(System.in);
         longTerm = new LongTerm("My long term");
         shortTerm = new ShortTerm("My short term");
-        jsonWriter = new JsonWriter(JSON_STORE_LONG);
-        jsonWriter = new JsonWriter(JSON_STORE_SHORT);
-        jsonReader = new JsonReader(JSON_STORE_LONG);
-        jsonReader = new JsonReader(JSON_STORE_SHORT);
+        jsonWriterLong = new JsonWriter(JSON_STORE_LONG);
+        jsonWriterShort = new JsonWriter(JSON_STORE_SHORT);
+        jsonReaderLong = new JsonReader(JSON_STORE_LONG);
+        jsonReaderShort = new JsonReader(JSON_STORE_SHORT);
         runLifeOSApp();
     }
 
@@ -541,9 +543,9 @@ public class LifeOSApp {
     // EFFECTS: saves the longTerm to file
     private void saveLongTerm() {
         try {
-            jsonWriter.open();
-            jsonWriter.write(longTerm);
-            jsonWriter.close();
+            jsonWriterLong.open();
+            jsonWriterLong.write(longTerm);
+            jsonWriterLong.close();
             System.out.println("Saved " + longTerm.getName() + " to " + JSON_STORE_LONG);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE_LONG);
@@ -554,7 +556,7 @@ public class LifeOSApp {
     // EFFECTS: loads workroom from file
     private void loadLongTerm() {
         try {
-            longTerm = jsonReader.readLongTerm();
+            longTerm = jsonReaderLong.readLongTerm();
             System.out.println("Loaded " + longTerm.getName() + " from " + JSON_STORE_LONG);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE_LONG);
@@ -564,9 +566,9 @@ public class LifeOSApp {
     // EFFECTS: saves the longTerm to file
     private void saveShortTerm() {
         try {
-            jsonWriter.open();
-            jsonWriter.write(shortTerm);
-            jsonWriter.close();
+            jsonWriterShort.open();
+            jsonWriterShort.write(shortTerm);
+            jsonWriterShort.close();
             System.out.println("Saved " + shortTerm.getName() + " to " + JSON_STORE_SHORT);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE_SHORT);
@@ -577,7 +579,7 @@ public class LifeOSApp {
     // EFFECTS: loads workroom from file
     private void loadShortTerm() {
         try {
-            shortTerm = jsonReader.readShortTerm();
+            shortTerm = jsonReaderShort.readShortTerm();
             System.out.println("Loaded " + shortTerm.getName() + " from " + JSON_STORE_SHORT);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE_SHORT);

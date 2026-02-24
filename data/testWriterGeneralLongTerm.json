@@ -1,17 +1,7 @@
 {
     "name": "My long term",
     "goals": [
-        {
-            "linkedTasks": [],
-            "name": "goal1",
-            "linkedTaskNames": [],
-            "completeStatus": false
-        },
-        {
-            "linkedTasks": [],
-            "name": "goal2",
-            "linkedTaskNames": [],
-            "completeStatus": false
-        }
+        {"name": "goal1"},
+        {"name": "goal2"}
     ]
 }
