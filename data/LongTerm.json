@@ -1,4 +1,15 @@
 {
     "name": "My long term",
-    "goals": [{"name": "CPSC"}]
+    "goals": [
+        {
+            "linkedTasks": ["CPSC110"],
+            "name": "CPSC210",
+            "completeStatus": false
+        },
+        {
+            "linkedTasks": [],
+            "name": "A",
+            "completeStatus": false
+        }
+    ]
 }

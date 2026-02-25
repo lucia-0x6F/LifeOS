@@ -88,11 +88,21 @@ public class Task implements WorkUnit, Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
+        json.put("energyLevel", energyLevel);
+        if (linkedGoal == null) {
+            json.put("linkedGoal", JSONObject.NULL);
+        } else {
+            json.put("linkedGoal", linkedGoal.getName());
+        }
+        json.put("times", times);
+        json.put("deadline", deadline);
+        json.put("completeStatus", completeStatus);
         return json;
     }
+}
 
  
 
 
 
-}
+

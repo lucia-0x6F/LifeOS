@@ -1,4 +1,11 @@
-{   
+{
     "name": "My short term",
-    "tasks": []
+    "tasks": [{
+        "times": 0,
+        "energyLevel": 0,
+        "name": "CPSC110",
+        "linkedGoal": "CPSC210",
+        "completeStatus": false,
+        "deadline": "0101"
+    }]
 }

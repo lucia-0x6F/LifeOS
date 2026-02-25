@@ -1,13 +1,16 @@
 package persistence;
 
+import model.Goal;
 import model.LongTerm;
 import model.ShortTerm;
+import model.Task;
 import model.exception.NameErrorException;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.json.*;
@@ -16,6 +19,8 @@ import org.json.*;
 //TODO: Citation
 public class JsonReader {
     private String source;
+    private List<Goal> goals;
+    private List<Task> tasks;
 
     // EFFECTS: constructs reader to read from source file
     public JsonReader(String source) {
@@ -48,6 +53,47 @@ public class JsonReader {
         addGoals(longTerm, jsonObject);
         return longTerm;
     }
+
+    // EFFECTS: parses Task from JSON object and returns it
+    private Task parseTask(JSONObject jsonObject) {
+        String name = jsonObject.getString("name");
+        int energyLevel = jsonObject.getInt("energyLevel");
+        String linkedGoal = jsonObject.getString("linkedGoal");
+        int times = jsonObject.getInt("times");
+        String deadline = jsonObject.getString("deadline");
+        Boolean completeStatus = jsonObject.getBoolean("completeStatus");
+        Task task = new Task(name);
+        task.setName(name);
+        task.setLinkedGoal(null);
+        task.setEnergyLevel(energyLevel);
+        task.setTimes(times);
+        task.setDeadline(deadline);
+
+        if (completeStatus) {
+            task.markAsCompleted();
+        } else {
+            task.markAsUncompleted();
+        }
+
+        if (linkedGoal != null) {
+            Goal goal = findGoalByName(linkedGoal, goals);
+            task.setLinkedGoal(goal);
+        }
+
+        return task;
+        
+        }
+
+    // EFFECTS: returns the goal if the name is in goals, otherwise returns null 
+    private Goal findGoalByName(String name, List<Goal> goals) {
+        for (Goal g : goals) {
+            if (g.getName().equals(name)) {
+                return g;
+            }
+        }
+        return null;
+    }
+    
 
     // MODIFIES: longTerm
     // EFFECTS: parses goals from JSON object and adds them to longTerm
@@ -84,6 +130,38 @@ public class JsonReader {
         ShortTerm shortTerm = new ShortTerm(name);
         addTasks(shortTerm, jsonObject);
         return shortTerm;
+    }
+
+    private Goal parseGoal(JSONObject jsonObject) {
+        String name = jsonObject.getString("name");
+        Boolean completeStatus = jsonObject.getBoolean("completeStatus");
+        Goal goal = new Goal(name);
+
+        if (completeStatus) {
+            goal.markAsCompleted();
+        } else {
+            goal.markAsUncompleted();
+        }
+
+        JSONArray jsonArray = jsonObject.getJSONArray("linkedTasks");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                String taskName = jsonArray.getString(i);
+                goal.setLinkedTask(findTaskByName(taskName, tasks));
+        }
+
+        return goal;
+
+    }
+
+
+    // EFFECTS: returns the goal if the name is in goals, otherwise returns null 
+    private Task findTaskByName(String name, List<Task> tasks) {
+        for (Task t : tasks) {
+            if (t.getName().equals(name)) {
+                return t;
+            }
+        }
+        return null;
     }
 
     // MODIFIES: shortTerm

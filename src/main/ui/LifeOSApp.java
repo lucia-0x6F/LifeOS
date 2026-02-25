@@ -552,6 +552,7 @@ public class LifeOSApp {
 
     // MODIFIES: this
     // EFFECTS: loads workroom from file
+    //TODO： put the load choice into a single one
     private void loadLongTerm() {
         try {
             longTerm = jsonReaderLong.readLongTerm();
