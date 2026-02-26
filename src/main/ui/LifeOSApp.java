@@ -69,6 +69,9 @@ public class LifeOSApp {
             startLongTerm();
         } else if (cmd.equals("s")) {
             startShortTerm();
+        } else if (cmd.equals("load")) {
+            loadLongTerm();
+            loadShortTerm();
         } else if (cmd.equals("q")) {
             System.out.println("Goodbye!");
         } else {
@@ -90,6 +93,7 @@ public class LifeOSApp {
         System.out.println("Select from:  ");
         System.out.println("\tL -> LongTermModule");
         System.out.println("\tS -> ShortTermModule");
+        System.out.println("\tLoad -> Load the previous status");
         System.out.println("\tQ -> Quit the app");
     }
 
@@ -103,7 +107,6 @@ public class LifeOSApp {
             System.out.println("\tA -> add a goal to the goal list");
             System.out.println("\tR -> remove a goal from the goal list");
             System.out.println("\tS -> save long term to file");
-            System.out.println("\tL -> load long term from file");
             System.out.println("\tB -> Go back to the main menu");
         
             String choice = input.next().toLowerCase();
@@ -115,8 +118,6 @@ public class LifeOSApp {
                 removeGoalFromLongTerm();
             } else if (choice.equals("s")) {
                 saveLongTerm();
-            } else if (choice.equals("l")) {
-                loadLongTerm();
             } else if (choice.equals("b")) {
                 return;
 
@@ -291,8 +292,6 @@ public class LifeOSApp {
                 removeTaskFromShortTerm();
             } else if (choice.equals("s")) {
                 saveShortTerm();
-            } else if (choice.equals("l")) {
-                loadShortTerm();
             } else if (choice.equals("b")) {
                 return;
             }
@@ -552,7 +551,6 @@ public class LifeOSApp {
 
     // MODIFIES: this
     // EFFECTS: loads workroom from file
-    //TODO： put the load choice into a single one
     private void loadLongTerm() {
         try {
             longTerm = jsonReaderLong.readLongTerm();
@@ -585,7 +583,9 @@ public class LifeOSApp {
         }
     }
 
-
+//TODO: when the user enter the long term module, display the goal list instead of the choice menu
+//TODO: set linked goal/tasks should let the user navigate to the long/short term add menu directly
+//TODO: optimize the view goals and view tasks menu
 
 
 }

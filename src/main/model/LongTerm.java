@@ -39,6 +39,10 @@ public class LongTerm implements Writable {
         goals.add(goal);
     }
 
+    public void addGoal(Goal goal) {
+        goals.add(goal);
+    } 
+
     //MODIFIES: this
     //EFFECTS: removes the goal from the LongTermModule's goals if the goal's name is in the list, otherwise exception
     public void removeGoal(String name) throws NameErrorException {

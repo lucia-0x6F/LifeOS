@@ -39,6 +39,11 @@ public class ShortTerm implements Writable {
         tasks.add(task);
     }
 
+    
+    public void addTask(Task task) {
+        tasks.add(task);
+    } 
+
     //REQUIRES: tasks cannot be empty
     //MODIFIES: this
     //EFFECTS: removes task from the ShortTermModule's tasks if the Task is in the list, otherwise exception
