@@ -26,8 +26,6 @@ public class LifeOSApp {
     private Scanner input;
     private JsonWriter jsonWriterLong;
     private JsonWriter jsonWriterShort;
-    private JsonReader jsonReaderLong;
-    private JsonReader jsonReaderShort;
     
     //EFFECTS: constructs longTerm and shortTerm and runs the LifeOSApp
     public LifeOSApp() throws NameErrorException {
@@ -36,8 +34,6 @@ public class LifeOSApp {
         shortTerm = new ShortTerm("My short term");
         jsonWriterLong = new JsonWriter(JSON_STORE_LONG);
         jsonWriterShort = new JsonWriter(JSON_STORE_SHORT);
-        jsonReaderLong = new JsonReader(JSON_STORE_LONG);
-        jsonReaderShort = new JsonReader(JSON_STORE_SHORT);
         runLifeOSApp();
     }
 
@@ -69,9 +65,8 @@ public class LifeOSApp {
             startLongTerm();
         } else if (cmd.equals("s")) {
             startShortTerm();
-        } else if (cmd.equals("load")) {
-            loadLongTerm();
-            loadShortTerm();
+        } else if (cmd.equals("p")) {
+            load();
         } else if (cmd.equals("q")) {
             System.out.println("Goodbye!");
         } else {
@@ -82,8 +77,6 @@ public class LifeOSApp {
     //MODIFIES: this
     // EFFECTS: initializes longTerm, shortTerm, and input scanner
     private void init() {
-        longTerm = new LongTerm("My long term");
-        shortTerm = new ShortTerm("My short term");
         input = new Scanner(System.in);
     }
 
@@ -93,7 +86,7 @@ public class LifeOSApp {
         System.out.println("Select from:  ");
         System.out.println("\tL -> LongTermModule");
         System.out.println("\tS -> ShortTermModule");
-        System.out.println("\tLoad -> Load the previous status");
+        System.out.println("\tP -> Load the previous status");
         System.out.println("\tQ -> Quit the app");
     }
 
@@ -551,14 +544,27 @@ public class LifeOSApp {
 
     // MODIFIES: this
     // EFFECTS: loads workroom from file
-    private void loadLongTerm() {
+    private void load() {
+        JsonReader jsonReaderShort = new JsonReader(JSON_STORE_SHORT);
+        JsonReader jsonReaderLong = new JsonReader(JSON_STORE_LONG);
+        try {
+            shortTerm = jsonReaderShort.readShortTerm();
+            System.out.println("Loaded " + shortTerm.getName() + " from " + JSON_STORE_SHORT);
+
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_SHORT);
+        }
+        
         try {
             longTerm = jsonReaderLong.readLongTerm();
             System.out.println("Loaded " + longTerm.getName() + " from " + JSON_STORE_LONG);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE_LONG);
         }
-    }
+            jsonReaderShort.setLinks(jsonReaderLong.getGoals());
+            System.out.println("Links betwen longTerm and shortTerm set successfully!");
+        }
+    
 
     // EFFECTS: saves the longTerm to file
     private void saveShortTerm() {
@@ -572,16 +578,7 @@ public class LifeOSApp {
         }
     }
 
-    // MODIFIES: this
-    // EFFECTS: loads workroom from file
-    private void loadShortTerm() {
-        try {
-            shortTerm = jsonReaderShort.readShortTerm();
-            System.out.println("Loaded " + shortTerm.getName() + " from " + JSON_STORE_SHORT);
-        } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE_SHORT);
-        }
-    }
+    
 
 //TODO: when the user enter the long term module, display the goal list instead of the choice menu
 //TODO: set linked goal/tasks should let the user navigate to the long/short term add menu directly

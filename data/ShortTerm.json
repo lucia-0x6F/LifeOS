@@ -1,11 +1,11 @@
 {
     "name": "My short term",
     "tasks": [{
-        "times": 0,
-        "energyLevel": 0,
+        "times": 3,
+        "energyLevel": 2,
         "name": "C",
         "linkedGoal": "C",
         "completeStatus": false,
-        "deadline": "0101"
+        "deadline": "0225"
     }]
 }

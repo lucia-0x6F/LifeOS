@@ -15,7 +15,6 @@ public class Task implements WorkUnit, Writable {
     private int times;
     private String deadline;
     private boolean completeStatus;
-    private String linkedGoalName;
     
     //EFFECTS: constructs an uncompleted Task object with 0 energylevel, 
     // no linkedGoal, 0 times, "0101" deadline and the completeStatus is false

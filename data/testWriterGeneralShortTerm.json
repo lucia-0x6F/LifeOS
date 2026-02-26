@@ -1,7 +1,21 @@
 {
     "name": "My short term",
     "tasks": [
-        {"name": "task1"},
-        {"name": "task2"}
+        {
+            "times": 0,
+            "energyLevel": 0,
+            "name": "task1",
+            "linkedGoal": null,
+            "completeStatus": false,
+            "deadline": "0101"
+        },
+        {
+            "times": 0,
+            "energyLevel": 0,
+            "name": "task2",
+            "linkedGoal": null,
+            "completeStatus": false,
+            "deadline": "0101"
+        }
     ]
 }

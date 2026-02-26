@@ -2,9 +2,6 @@ package persistence;
 
 import model.LongTerm;
 import model.ShortTerm;
-import model.WorkUnit;
-
-import org.json.JSONArray;
 import org.json.JSONObject; 
 
 
