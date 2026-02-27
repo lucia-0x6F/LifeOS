@@ -17,6 +17,9 @@ import java.util.stream.Stream;
 
 import org.json.*;
 
+// Referenced from the JsonSerialization Demo
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
 // Represents a reader that reads longTerm and shortTerm from JSON data stored in file
 //TODO: Citation
 public class JsonReader {
@@ -132,7 +135,7 @@ public class JsonReader {
         return shortTerm;
     }
 
-    
+    // EFFECTS: parses goal from JSON object and returns it
     private Goal parseGoal(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         Boolean completeStatus = jsonObject.getBoolean("completeStatus");
@@ -164,8 +167,10 @@ public class JsonReader {
         shortTerm.addTask(task);
         tasks.add(task);
     }
-
-    //EFFECTS: sets linkedGoal for each tasks and sets linkedTasks for the goal
+    // MODIFIES: goals, task
+    // EFFECTS: if a task's pendingGoalName can be found in the goal list,
+    //          set the goal as linkedGoal for the task,
+    //          and set this task as the linkedTask for the goal
     public void setLinks(List<Goal> goals) {
         for (Task task : pendingGoalNames.keySet()) {
             String goalName = pendingGoalNames.get(task);
