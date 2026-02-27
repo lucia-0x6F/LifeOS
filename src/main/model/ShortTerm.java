@@ -68,13 +68,13 @@ public class ShortTerm implements Writable {
     } 
 
     //EFFECTS: returns the task that has the same name as the name, otherwise throw an exception
-    public Task findTask(String name) throws NameErrorException {
+    public Task findTask(String name) {
         for (Task t: tasks) {
             if (t.getName().equals(name)) {
                 return t;
             }
         }
-        throw new NameErrorException();
+        return null;
     }
 
     

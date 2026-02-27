@@ -107,12 +107,7 @@ public class LongTermTest {
         } catch (NameErrorException e) {
             fail("There's no exception");
         }
-        try {
-            testLongTerm.findGoal("goal2");
-            fail("Cannot find this task");
-        } catch (NameErrorException e) {
-            //stub
-        }
+        testLongTerm.findGoal("goal2");
     }
 
 

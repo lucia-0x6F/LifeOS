@@ -14,14 +14,12 @@ public class Goal implements WorkUnit, Writable {
     private String name;
     private ArrayList<Task> linkedTasks;
     private boolean completeStatus;
-    private ArrayList<String> nameList;
  
     //EFFECTS: constructs an uncompleted Goal object
     public Goal(String name) {
         this.name = name;
         linkedTasks = new ArrayList<>();
         completeStatus = false;
-        nameList = new ArrayList<>();
     }
 
     @Override
@@ -34,7 +32,6 @@ public class Goal implements WorkUnit, Writable {
     public void setLinkedTask(Task task) {
         if (!linkedTasks.contains(task)) {
             linkedTasks.add(task);
-            nameList.add(task.getName());
         }
     }
     
@@ -54,7 +51,6 @@ public class Goal implements WorkUnit, Writable {
             linkedTasks.remove(task);
         }
     }
-    //TODO: UI
     
     public String getName() {
         return name;
@@ -91,8 +87,8 @@ public class Goal implements WorkUnit, Writable {
     private JSONArray linkedTasksToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (String taskName : nameList) {
-            jsonArray.put(taskName);
+        for (Task t : linkedTasks) {
+            jsonArray.put(t.getName());
         }
 
         return jsonArray;

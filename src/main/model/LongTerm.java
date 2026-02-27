@@ -65,13 +65,13 @@ public class LongTerm implements Writable {
     } 
 
     //EFFECTS: returns the goal that has the same name as the name, otherwise throw an exception
-    public Goal findGoal(String name) throws NameErrorException {
+    public Goal findGoal(String name) {
         for (Goal g: goals) {
             if (g.getName().equals(name)) {
                 return g;
             }
         }
-        throw new NameErrorException();
+        return null;
     }
 
     

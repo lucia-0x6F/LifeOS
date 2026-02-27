@@ -1,8 +1,19 @@
 {
     "name": "My long term",
-    "goals": [{
-        "linkedTasks": ["CPSC210"],
-        "name": "GraduateFromUBC",
-        "completeStatus": false
-    }]
+    "goals": [
+        {
+            "linkedTasks": [
+                "CPSC121",
+                "CPSC110",
+                "CPSC210"
+            ],
+            "name": "Graduate",
+            "completeStatus": false
+        },
+        {
+            "linkedTasks": ["CPSC110"],
+            "name": "HAHAHA",
+            "completeStatus": false
+        }
+    ]
 }

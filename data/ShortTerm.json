@@ -1,11 +1,29 @@
 {
     "name": "My short term",
-    "tasks": [{
-        "times": 0,
-        "energyLevel": 0,
-        "name": "CPSC210",
-        "linkedGoal": "GraduateFromUBC",
-        "completeStatus": false,
-        "deadline": "0101"
-    }]
+    "tasks": [
+        {
+            "times": 15,
+            "energyLevel": 3,
+            "name": "CPSC121",
+            "linkedGoal": "Graduate",
+            "completeStatus": true,
+            "deadline": "0301"
+        },
+        {
+            "times": 100,
+            "energyLevel": 5,
+            "name": "CPSC210",
+            "linkedGoal": "Graduate",
+            "completeStatus": false,
+            "deadline": "0501"
+        },
+        {
+            "times": 99999,
+            "energyLevel": 5,
+            "name": "CPSC110",
+            "linkedGoal": "HAHAHA",
+            "completeStatus": false,
+            "deadline": "0801"
+        }
+    ]
 }

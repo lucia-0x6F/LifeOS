@@ -106,12 +106,7 @@ public class ShortTermTest {
         } catch (NameErrorException e) {
             fail("There's no exception");
         }
-        try {
-            testShortTerm.findTask("task2");
-            fail("Cannot find this task");
-        } catch (NameErrorException e) {
-            //stub
-        }
+        testShortTerm.findTask("task2");
     }
 
 

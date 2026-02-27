@@ -71,7 +71,6 @@ public class JsonReader {
         task.setEnergyLevel(energyLevel);
         task.setTimes(times);
         task.setDeadline(deadline);
-        String linkedGoal = null;
     
         if (completeStatus) {
             task.markAsCompleted();
@@ -80,8 +79,9 @@ public class JsonReader {
         }
 
         if (jsonObject.has("linkedGoal") && !jsonObject.isNull("linkedGoal")) {
-            linkedGoal = jsonObject.getString("linkedGoal");
-            pendingGoalNames.put(task, linkedGoal);
+            String goalNames = null;
+            goalNames = jsonObject.getString("linkedGoal");
+            pendingGoalNames.put(task, goalNames);
         }
        
         return task;
@@ -132,6 +132,7 @@ public class JsonReader {
         return shortTerm;
     }
 
+    
     private Goal parseGoal(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         Boolean completeStatus = jsonObject.getBoolean("completeStatus");
