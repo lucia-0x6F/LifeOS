@@ -39,12 +39,12 @@ public class ShortTerm implements Writable {
         tasks.add(task);
     }
 
-    
+    //MODIFIES: this
+    //EFFECTS: add task to the ShortTerm's tasks
     public void addTask(Task task) {
         tasks.add(task);
     } 
 
-    //REQUIRES: tasks cannot be empty
     //MODIFIES: this
     //EFFECTS: removes task from the ShortTermModule's tasks if the Task is in the list, otherwise exception
     public void removeTask(String name) throws NameErrorException {
@@ -67,7 +67,7 @@ public class ShortTerm implements Writable {
         return tasks;
     } 
 
-    //EFFECTS: returns the task that has the same name as the name, otherwise throw an exception
+    //EFFECTS: returns the task if the name can be found, otherwise returns null
     public Task findTask(String name) {
         for (Task t: tasks) {
             if (t.getName().equals(name)) {
@@ -86,7 +86,7 @@ public class ShortTerm implements Writable {
         return json;
     }
 
-    // EFFECTS: returns goals in this shortTern as a JSON array
+    // EFFECTS: returns tasks in this shortTerm as a JSON array
     private JSONArray tasksToJson() {
         JSONArray jsonArray = new JSONArray();
 

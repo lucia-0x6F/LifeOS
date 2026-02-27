@@ -128,22 +128,22 @@ class JsonWriterTest extends JsonTest {
 
     @Test
     void testWriterSetLinks() {
-    try {
-        Goal goal = new Goal("goal1");
-        Task task = new Task("task1");
-        goal.setLinkedTask(task);
-        task.setLinkedGoal(goal);
+        try {
+            Goal goal = new Goal("goal1");
+            Task task = new Task("task1");
+            goal.setLinkedTask(task);
+            task.setLinkedGoal(goal);
 
-        JSONObject goal1 = goal.toJson();
-        JSONObject task1 = task.toJson();
-        JSONArray jsonArray = goal1.getJSONArray("linkedTasks");
-        
-        assertEquals("task1", jsonArray.getString(0));
-        assertEquals("goal1", task1.getString("linkedGoal"));
-        assertEquals(1, jsonArray.length());
+            JSONObject goal1 = goal.toJson();
+            JSONObject task1 = task.toJson();
+            JSONArray jsonArray = goal1.getJSONArray("linkedTasks");
+            
+            assertEquals("task1", jsonArray.getString(0));
+            assertEquals("goal1", task1.getString("linkedGoal"));
+            assertEquals(1, jsonArray.length());
 
-    } catch (Exception e) {
-        fail("Exception should not have been thrown");
-    }
+        } catch (Exception e) {
+            fail("Exception should not have been thrown");
+        }
     }
 }

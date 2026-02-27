@@ -7,7 +7,7 @@ package model;
 public interface WorkUnit {
     void setName(String name);
 
-    void markAsCompleted();
+    void setAsCompleted();
     
-    void markAsUncompleted();
+    void setAsUncompleted();
 }

@@ -60,13 +60,17 @@ public class Goal implements WorkUnit, Writable {
         return linkedTasks;
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets the goal as completed
     @Override
-    public void markAsCompleted() {
+    public void setAsCompleted() {
         completeStatus = true;
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets the goal as uncompleted
     @Override
-    public void markAsUncompleted() {
+    public void setAsUncompleted() {
         completeStatus = false;
     }
 

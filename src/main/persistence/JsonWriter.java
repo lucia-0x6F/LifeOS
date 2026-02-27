@@ -9,6 +9,7 @@ import java.io.*;
 // Referenced from the JsonSerialization Demo
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 
+// Represents a writer that writes JSON representation of longTerm and shortTerm to file
 public class JsonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;
@@ -34,7 +35,7 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of longTerm to file
+    // EFFECTS: writes JSON representation of shortTerm to file
     public void write(ShortTerm shortTerm) {
         JSONObject json = shortTerm.toJson();
         saveToFile(json.toString(TAB));

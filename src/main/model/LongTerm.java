@@ -39,6 +39,8 @@ public class LongTerm implements Writable {
         goals.add(goal);
     }
 
+    //MODIFIES: this
+    //EFFECTS: add the goal to the LongTerm's goals
     public void addGoal(Goal goal) {
         goals.add(goal);
     } 
@@ -64,7 +66,7 @@ public class LongTerm implements Writable {
         return goals;
     } 
 
-    //EFFECTS: returns the goal that has the same name as the name, otherwise throw an exception
+    //EFFECTS: returns the goal if the name can be found, otherwise returns null
     public Goal findGoal(String name) {
         for (Goal g: goals) {
             if (g.getName().equals(name)) {

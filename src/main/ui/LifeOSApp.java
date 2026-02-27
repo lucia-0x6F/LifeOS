@@ -16,8 +16,8 @@ import model.exception.NameErrorException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+// Represents the LifeOS application
 @ExcludeFromJacocoGeneratedReport
-//LifeOS App
 public class LifeOSApp {
     private static final String JSON_STORE_LONG = "./data/longTerm.json";
     private static final String JSON_STORE_SHORT = "./data/shortTerm.json";
@@ -27,6 +27,7 @@ public class LifeOSApp {
     private JsonWriter jsonWriterLong;
     private JsonWriter jsonWriterShort;
     
+    // MODIFIES: this
     //EFFECTS: constructs longTerm and shortTerm and runs the LifeOSApp
     public LifeOSApp() throws NameErrorException {
         input = new Scanner(System.in);
@@ -59,6 +60,7 @@ public class LifeOSApp {
         System.out.println("Goodbye!");
     }
     
+    // EFFECTS: asks the user whether to save before quitting the app
     private void saveChoice() {
         System.out.println("Do you want to save your progress before quitting? (y/n)");
         String choice = input.next().toLowerCase();
@@ -87,7 +89,7 @@ public class LifeOSApp {
     }
 
     //MODIFIES: this
-    // EFFECTS: initializes longTerm, shortTerm, and input scanner
+    // EFFECTS: initializes input scanner
     private void init() {
         input = new Scanner(System.in);
     }
@@ -130,7 +132,8 @@ public class LifeOSApp {
             }
         }
     }
-
+    
+    // EFFECTS: displays the names of the goals in longTerm
     private void displayGoals() {
         System.out.println("Your Goals:    ");
         ArrayList<Goal> goals = longTerm.getGoals();
@@ -176,6 +179,7 @@ public class LifeOSApp {
         }
     }
     
+    //MODIFIES: this
     //EFFECTS: prints goal info if goal can be found
     public void selectGoals(String choice) throws NameErrorException {
         ArrayList<Goal> goals = longTerm.getGoals();
@@ -193,6 +197,7 @@ public class LifeOSApp {
         }
     }
     
+    //MODIFIES: this
     //EFFECTS: prints complete information of the goal and goes to goal setting menu  
     public void printGoalInfo(Goal found) throws NameErrorException {
         System.out.println("Goal " + found.getName() + "'s information is here!'");
@@ -251,8 +256,8 @@ public class LifeOSApp {
         }
     }
 
-    //MODIFIES: goal
-    //EFFECTS: links a task to the goal if task can be found
+    //MODIFIES: goal, shortTerm
+    //EFFECTS: links a task to the goal if task can be found, otherwise add it to the shortTerm
     public void setLinkedTasks(Goal goal) throws NameErrorException {
         System.out.println("Please enter a short term task's name to link it to the goal ");
         String name = input.next();
@@ -269,6 +274,8 @@ public class LifeOSApp {
         System.out.println("Set the link successfully!");
     }
 
+    //MODIFIES: this, goal
+    //EFFECTS: removes a task from the goal if task can be found
     public void removeLinkedTask(Goal goal) {
         while (true) {
             System.out.println("Type a task's name -> remove it from the linkedTasks (B to go back)");
@@ -295,6 +302,8 @@ public class LifeOSApp {
         }
     }
 
+    //MODIFIES: goal, foundTask
+    //EFFECTS: removes a task from the goal if task can be found
     private void removeLinks(Goal goal, Task foundTask) {
         goal.removeLinkedTask(foundTask);
         foundTask.setLinkedGoal(null);
@@ -330,6 +339,7 @@ public class LifeOSApp {
         }
     }
 
+    //EFFECTS: displays the names of the tasks in shortTerm
     private void displayTasks() {
         System.out.println("Your Tasks:    ");
         ArrayList<Task> tasks = shortTerm.getTasks();
@@ -375,9 +385,8 @@ public class LifeOSApp {
         }
 
     }
-
-   
     
+    //MODIFIES: this
     //EFFECTS: prints task info if the task can be found
     public void selectTasks(String choice) throws NameErrorException {
         ArrayList<Task> tasks = shortTerm.getTasks();
@@ -395,6 +404,7 @@ public class LifeOSApp {
         }
     }
 
+    //MODIFIES: this
     //EFFECTS: prints complete information of the task and goes to task setting menu  
     public void printTaskInfo(Task found) throws NameErrorException {
         System.out.println("Task " + found.getName() + "'s information is here!'");
@@ -411,7 +421,8 @@ public class LifeOSApp {
         taskSettingMenu(found); 
     }
     
-    //EFFECTS: processes user commands to modify goal
+    //MODIFIES: this
+    //EFFECTS: processes user commands to modify task
     public void taskSettingMenu(Task task) throws NameErrorException {
         Boolean stay = true;
         while (stay) {
@@ -434,7 +445,7 @@ public class LifeOSApp {
     }
 
     //MODIFIES: task
-    //EFFECTS: modify the goal based on user choice
+    //EFFECTS: modify the task based on user choice
     public void modifyTask(String choice, Task task) throws NameErrorException {
         switch (choice) {
             case "n": setName(task);
@@ -483,8 +494,8 @@ public class LifeOSApp {
         System.out.println("Energylevel set successfully!");
     }
 
-    //MODIFIES: task
-    //EFFECTS: links a goal to the task if the goal can be found
+    //MODIFIES: task, foundGoal, longTerm
+    //EFFECTS: links a goal to the task if goal can be found, otherwise add it to longTerm
     public void setLinkedGoal(Task task) throws NameErrorException {
         System.out.println("Please enter a long term goal's name to link it to the task ");
         String name = input.next();
@@ -493,7 +504,7 @@ public class LifeOSApp {
             name = input.next();
         }
         if (longTerm.findGoal(name) == null) {
-            shortTerm.addTask(name);
+            longTerm.addGoal(name);
         }
         Goal foundGoal = longTerm.findGoal(name);
         task.setLinkedGoal(foundGoal);
@@ -506,14 +517,14 @@ public class LifeOSApp {
     //MODIFIES: unit
     //EFFECTS: sets the unit as completed
     public void setAsCompleted(WorkUnit unit) {
-        unit.markAsCompleted();
+        unit.setAsCompleted();
         System.out.println("This task has been marked as completed!");
     }
 
     //MODIFIES: unit
     //EFFECTS: sets the unit as uncompleted
     public void setAsUnCompleted(WorkUnit unit) {
-        unit.markAsUncompleted();
+        unit.setAsUncompleted();
         System.out.println("This task has been marked as uncompleted!");
     }
 

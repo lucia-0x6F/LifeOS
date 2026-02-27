@@ -60,9 +60,9 @@ Therefore, I wish to create an app that can ***break the long-term goal into dai
 
 6. As a user, I want to be able to mark a **short-term task** as completed or uncompleted.
 
-7. As a user, I want to be able to change the name or linked task of a **long-term goal**.
+7. As a user, I want to be able to add or remove a linked task of a **long-term goal**.
 
-8. As a user, I want to be able to change the name or linked goal of a **short-term task**.
+8. As a user, I want to be able to reset a linked goal of a **short-term task**.
 
 9. As a user, I want to be able to view detailed information of a **long-term goal** or a **short-term task**.
 

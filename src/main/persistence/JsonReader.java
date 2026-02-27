@@ -21,7 +21,6 @@ import org.json.*;
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 
 // Represents a reader that reads longTerm and shortTerm from JSON data stored in file
-//TODO: Citation
 public class JsonReader {
     private String source;
     private List<Goal> goals;
@@ -63,6 +62,7 @@ public class JsonReader {
         return longTerm;
     }
 
+    // MODIFIES: this
     // EFFECTS: parses Task from JSON object and returns it
     private Task parseTask(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
@@ -76,9 +76,9 @@ public class JsonReader {
         task.setDeadline(deadline);
     
         if (completeStatus) {
-            task.markAsCompleted();
+            task.setAsCompleted();
         } else {
-            task.markAsUncompleted();
+            task.setAsUncompleted();
         }
 
         if (jsonObject.has("linkedGoal") && !jsonObject.isNull("linkedGoal")) {
@@ -101,7 +101,7 @@ public class JsonReader {
         return null;
     }
 
-    // MODIFIES: longTerm
+    // MODIFIES: longTerm, this
     // EFFECTS: parses goals from JSON object and adds them to longTerm
     private void addGoals(LongTerm longTerm, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("goals");
@@ -142,9 +142,9 @@ public class JsonReader {
         Goal goal = new Goal(name);
 
         if (completeStatus) {
-            goal.markAsCompleted();
+            goal.setAsCompleted();
         } else {
-            goal.markAsUncompleted();
+            goal.setAsUncompleted();
         }
 
         return goal;
@@ -160,7 +160,7 @@ public class JsonReader {
         }
     }
 
-    // MODIFIES: shortTerm
+    // MODIFIES: shortTerm, this
     // EFFECTS: parses task from JSON object and adds it to shortTerm
     private void addTask(ShortTerm shortTerm, JSONObject jsonObject) {
         Task task = parseTask(jsonObject);
@@ -168,7 +168,7 @@ public class JsonReader {
         tasks.add(task);
     }
     
-    // MODIFIES: goals, task
+    // MODIFIES: goals
     // EFFECTS: if a task's pendingGoalName can be found in the goal list,
     //          set the goal as linkedGoal for the task,
     //          and set this task as the linkedTask for the goal

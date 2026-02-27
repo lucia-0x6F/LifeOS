@@ -72,9 +72,9 @@ public class GoalTest {
     @Test
     void testMarkCompleteStatus() {
         assertFalse(testGoal.getCompleteStatus());
-        testGoal.markAsCompleted();
+        testGoal.setAsCompleted();
         assertTrue(testGoal.getCompleteStatus());
-        testGoal.markAsUncompleted();
+        testGoal.setAsUncompleted();
         assertFalse(testGoal.getCompleteStatus());
     }
 
