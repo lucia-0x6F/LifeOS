@@ -85,7 +85,8 @@ public class Goal implements WorkUnit, Writable {
         json.put("completeStatus", completeStatus);
         json.put("linkedTasks", linkedTasksToJson());
         return json;
-}
+    }
+    
     // EFFECTS: returns linkedTasks in this Goal as a JSON array
     private JSONArray linkedTasksToJson() {
         JSONArray jsonArray = new JSONArray();

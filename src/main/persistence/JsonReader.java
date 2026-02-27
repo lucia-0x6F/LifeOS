@@ -23,14 +23,14 @@ public class JsonReader {
     private String source;
     private List<Goal> goals;
     private List<Task> tasks;
-    private Map<Task, String> pendingGoalNames;
+    private Map<Task, String> linkedGoalNames;
 
     // EFFECTS: constructs reader to read from source file
     public JsonReader(String source) {
         this.source = source;
         goals = new ArrayList<>();
         tasks = new ArrayList<>();
-        pendingGoalNames = new HashMap<Task, String>();
+        linkedGoalNames = new HashMap<Task, String>();
     }
 
     // EFFECTS: reads longTerm from file and returns it;
@@ -64,28 +64,29 @@ public class JsonReader {
     private Task parseTask(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         int energyLevel = jsonObject.getInt("energyLevel");
-        String linkedGoal = jsonObject.optString("linkedGoal", "");
         int times = jsonObject.getInt("times");
         String deadline = jsonObject.getString("deadline");
         Boolean completeStatus = jsonObject.getBoolean("completeStatus");
         Task task = new Task(name);
-        task.setName(name);
         task.setEnergyLevel(energyLevel);
         task.setTimes(times);
         task.setDeadline(deadline);
-
+        String linkedGoal = null;
+    
         if (completeStatus) {
             task.markAsCompleted();
         } else {
             task.markAsUncompleted();
         }
 
-        if (!(linkedGoal == null)) {
-            pendingGoalNames.put(task, linkedGoal);
-    }
+        if (jsonObject.has("linkedGoal") && !jsonObject.isNull("linkedGoal")) {
+            linkedGoal = jsonObject.getString("linkedGoal");
+            linkedGoalNames.put(task, linkedGoal);
+        }
+       
         return task;
         
-        }
+    }
 
     // EFFECTS: returns the goal if the name is in goals, otherwise returns null 
     private Goal findGoalByName(String name, List<Goal> goals) {
@@ -162,11 +163,12 @@ public class JsonReader {
         shortTerm.addTask(task);
         tasks.add(task);
     }
-    public void setLinks(List<Goal> longTermGoals) {
-        for (Task task : pendingGoalNames.keySet()) {
-            String goalName = pendingGoalNames.get(task);
 
-            Goal goal = findGoalByName(goalName, longTermGoals);
+    //EFFECTS: sets the 
+    public void setLinks(List<Goal> goals) {
+        for (Task task : linkedGoalNames.keySet()) {
+            String goalName = linkedGoalNames.get(task);
+            Goal goal = findGoalByName(goalName, goals);
             if (goal != null) {
                 task.setLinkedGoal(goal);
                 goal.setLinkedTask(task);

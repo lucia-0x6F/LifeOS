@@ -561,9 +561,9 @@ public class LifeOSApp {
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE_LONG);
         }
-            jsonReaderShort.setLinks(jsonReaderLong.getGoals());
-            System.out.println("Links betwen longTerm and shortTerm set successfully!");
-        }
+        jsonReaderShort.setLinks(jsonReaderLong.getGoals());
+        System.out.println("Links betwen longTerm and shortTerm set successfully!");
+    }
     
 
     // EFFECTS: saves the longTerm to file

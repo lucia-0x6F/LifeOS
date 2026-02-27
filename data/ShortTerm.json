@@ -1,11 +1,11 @@
 {
     "name": "My short term",
     "tasks": [{
-        "times": 3,
-        "energyLevel": 2,
-        "name": "C",
-        "linkedGoal": "C",
+        "times": 0,
+        "energyLevel": 0,
+        "name": "CPSC210",
+        "linkedGoal": "GraduateFromUBC",
         "completeStatus": false,
-        "deadline": "0225"
+        "deadline": "0101"
     }]
 }
