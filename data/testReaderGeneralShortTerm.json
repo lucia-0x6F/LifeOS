@@ -16,6 +16,29 @@
             "times": 1,
             "deadline": "0111",
             "completeStatus": true
+        },
+          {
+            "name": "task3",
+            "energyLevel": 2,
+            "linkedGoal": "goal1",
+            "times": 2,
+            "deadline": "0901",
+            "completeStatus": true
+        },
+        {
+            "name": "task4",
+            "energyLevel": 2,
+            "times": 2,
+            "deadline": "0901",
+            "completeStatus": true
+        },
+        {
+            "name": "task5",
+            "energyLevel": 2,
+            "linkedGoal": "FAKE_GOAL",
+            "times": 2,
+            "deadline": "0901",
+            "completeStatus": true
         }
     ]
 }

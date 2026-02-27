@@ -167,6 +167,7 @@ public class JsonReader {
         shortTerm.addTask(task);
         tasks.add(task);
     }
+    
     // MODIFIES: goals, task
     // EFFECTS: if a task's pendingGoalName can be found in the goal list,
     //          set the goal as linkedGoal for the task,
@@ -178,7 +179,7 @@ public class JsonReader {
             if (goal != null) {
                 task.setLinkedGoal(goal);
                 goal.setLinkedTask(task);
-            }
+            }   
         }
     }
 

@@ -3,7 +3,7 @@
     "goals": [
         {
             "name": "goal1",
-            "linkedTasks": ["task1"],
+            "linkedTasks": ["task1","task3"],
             "completeStatus": false
         },
         {

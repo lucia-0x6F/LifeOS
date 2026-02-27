@@ -69,9 +69,6 @@ public class GoalTest {
         assertEquals(task2, testGoal.getLinkedTasks().get(0));
     }
 
-    
-
-
     @Test
     void testMarkCompleteStatus() {
         assertFalse(testGoal.getCompleteStatus());
