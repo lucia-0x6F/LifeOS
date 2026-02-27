@@ -23,14 +23,14 @@ public class JsonReader {
     private String source;
     private List<Goal> goals;
     private List<Task> tasks;
-    private Map<Task, String> linkedGoalNames;
+    private Map<Task, String> pendingGoalNames;
 
     // EFFECTS: constructs reader to read from source file
     public JsonReader(String source) {
         this.source = source;
         goals = new ArrayList<>();
         tasks = new ArrayList<>();
-        linkedGoalNames = new HashMap<Task, String>();
+        pendingGoalNames = new HashMap<Task, String>();
     }
 
     // EFFECTS: reads longTerm from file and returns it;
@@ -81,7 +81,7 @@ public class JsonReader {
 
         if (jsonObject.has("linkedGoal") && !jsonObject.isNull("linkedGoal")) {
             linkedGoal = jsonObject.getString("linkedGoal");
-            linkedGoalNames.put(task, linkedGoal);
+            pendingGoalNames.put(task, linkedGoal);
         }
        
         return task;
@@ -164,10 +164,10 @@ public class JsonReader {
         tasks.add(task);
     }
 
-    //EFFECTS: sets the 
+    //EFFECTS: sets linkedGoal for each tasks and sets linkedTasks for the goal
     public void setLinks(List<Goal> goals) {
-        for (Task task : linkedGoalNames.keySet()) {
-            String goalName = linkedGoalNames.get(task);
+        for (Task task : pendingGoalNames.keySet()) {
+            String goalName = pendingGoalNames.get(task);
             Goal goal = findGoalByName(goalName, goals);
             if (goal != null) {
                 task.setLinkedGoal(goal);

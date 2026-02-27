@@ -257,7 +257,8 @@ public class LifeOSApp {
         try {
             Task foundTask = shortTerm.findTask(name);
             goal.setLinkedTask(foundTask);
-            System.out.println("Set the linkedTask successfully!");
+            foundTask.setLinkedGoal(goal);
+            System.out.println("Set the link successfully!");
         } catch (NameErrorException e) {
             System.out.println("Cannot find this task!");
         }
@@ -463,6 +464,7 @@ public class LifeOSApp {
         try {
             Goal foundGoal = longTerm.findGoal(name);
             task.setLinkedGoal(foundGoal);
+            foundGoal.setLinkedTask(task);
             System.out.println("Set the linkedGoal successfully!");
         } catch (NameErrorException e) {
             System.out.println("Cannot find this goal!");
