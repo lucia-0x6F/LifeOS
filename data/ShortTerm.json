@@ -5,7 +5,7 @@
             "times": 15,
             "energyLevel": 3,
             "name": "CPSC121",
-            "linkedGoal": "Graduate",
+            "linkedGoal": null,
             "completeStatus": true,
             "deadline": "0301"
         },

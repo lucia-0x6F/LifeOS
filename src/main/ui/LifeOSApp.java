@@ -211,6 +211,7 @@ public class LifeOSApp {
             System.out.println("Select from:  ");
             System.out.println("\tn -> set name");
             System.out.println("\tl -> set linked tasks");
+            System.out.println("\tr -> remove linked tasks");
             System.out.println("\tc -> mark goal as completed");
             System.out.println("\tu -> mark goal as uncompleted");
             System.out.println("\ti -> to see information of this goal");
@@ -232,6 +233,9 @@ public class LifeOSApp {
                 break;
             case "l":
                 setLinkedTasks(goal);
+                break;
+            case "r":
+                removeLinkedTask(goal);
                 break;
             case "c":
                 setAsCompleted(goal);
@@ -256,19 +260,47 @@ public class LifeOSApp {
             System.out.println("Invalid name! Please try another name!");
             name = input.next();
         }
-        if (shortTerm.findTask(name) != null) {
-            Task foundTask = shortTerm.findTask(name);
-            goal.setLinkedTask(foundTask);
-            foundTask.setLinkedGoal(goal);
-            System.out.println("Set the link successfully!");
-        } else {
+        if (shortTerm.findTask(name) == null) {
             shortTerm.addTask(name);
+        }
             Task foundTask = shortTerm.findTask(name);
             goal.setLinkedTask(foundTask);
             foundTask.setLinkedGoal(goal);
             System.out.println("Set the link successfully!");
+    }
+
+    public void removeLinkedTask(Goal goal) {
+        while (true) {
+            System.out.println("Please enter a short term task's name to remove from the linkedTasks ");
+            System.out.println("B-> Go back to the previous menu");
+
+            String choiceInitial = input.next();
+            String choice = choiceInitial.toLowerCase();
+
+            if (choice.equals("b")) {
+                return;
+            }
+            while (choice.length() == 0) {
+                System.out.println("Invalid name! Please try another name!");
+                choice = input.next();
+            }
+            Task foundTask = null;
+            for (Task t: goal.getLinkedTasks()) {
+                if (t.getName().equals(choiceInitial)) {
+                    foundTask = t;
+                }
+            }
+            if (foundTask == null) {
+                System.out.println("Cannot find this task!");
+                continue;
+            }
+                goal.removeLinkedTask(foundTask);
+                foundTask.setLinkedGoal(null);
+                System.out.println("Removed the link successfully!");
+                return;
         }
     }
+    
 
     // MODIFIES: this
     // EFFECTS: shows shortTerm goal menu
@@ -409,7 +441,7 @@ public class LifeOSApp {
                 break;
             case "e": setEnergyLevel(task);
                 break;
-            case "l": setLinkedGoals(task);
+            case "l": setLinkedGoal(task);
                 break;
             case "c": setAsCompleted(task);
                 break;
@@ -453,27 +485,23 @@ public class LifeOSApp {
 
     //MODIFIES: task
     //EFFECTS: links a goal to the task if the goal can be found
-    public void setLinkedGoals(Task task) throws NameErrorException {
+    public void setLinkedGoal(Task task) throws NameErrorException {
         System.out.println("Please enter a long term goal's name to link it to the task ");
         String name = input.next();
         while (name.length() == 0) {
             System.out.println("Invalid name! Please try another name!");
             name = input.next();
         }
-        if (longTerm.findGoal(name) != null) {
-            Goal foundGoal = longTerm.findGoal(name);
-            task.setLinkedGoal(foundGoal);
-            foundGoal.setLinkedTask(task);
-            System.out.println("Set the link successfully!");
-        } else {
+        if (longTerm.findGoal(name) == null) {
             shortTerm.addTask(name);
+        }
             Goal foundGoal = longTerm.findGoal(name);
             task.setLinkedGoal(foundGoal);
             foundGoal.setLinkedTask(task);
             System.out.println("Set the link successfully!");
             
-        }
     }
+    
 
     //MODIFIES: unit
     //EFFECTS: sets the unit as completed
