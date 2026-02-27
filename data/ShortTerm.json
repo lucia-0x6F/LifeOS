@@ -5,7 +5,7 @@
             "times": 15,
             "energyLevel": 3,
             "name": "CPSC121",
-            "linkedGoal": null,
+            "linkedGoal": "HAHAHA",
             "completeStatus": true,
             "deadline": "0301"
         },
@@ -21,9 +21,17 @@
             "times": 99999,
             "energyLevel": 5,
             "name": "CPSC110",
-            "linkedGoal": "HAHAHA",
+            "linkedGoal": null,
             "completeStatus": false,
             "deadline": "0801"
+        },
+        {
+            "times": 0,
+            "energyLevel": 0,
+            "name": "CPSC100",
+            "linkedGoal": "HAHAHA",
+            "completeStatus": false,
+            "deadline": "0101"
         }
     ]
 }

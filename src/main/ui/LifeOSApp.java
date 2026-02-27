@@ -263,21 +263,17 @@ public class LifeOSApp {
         if (shortTerm.findTask(name) == null) {
             shortTerm.addTask(name);
         }
-            Task foundTask = shortTerm.findTask(name);
-            goal.setLinkedTask(foundTask);
-            foundTask.setLinkedGoal(goal);
-            System.out.println("Set the link successfully!");
+        Task foundTask = shortTerm.findTask(name);
+        goal.setLinkedTask(foundTask);
+        foundTask.setLinkedGoal(goal);
+        System.out.println("Set the link successfully!");
     }
 
     public void removeLinkedTask(Goal goal) {
         while (true) {
-            System.out.println("Please enter a short term task's name to remove from the linkedTasks ");
-            System.out.println("B-> Go back to the previous menu");
-
-            String choiceInitial = input.next();
-            String choice = choiceInitial.toLowerCase();
-
-            if (choice.equals("b")) {
+            System.out.println("Type a task's name -> remove it from the linkedTasks (B to go back)");
+            String choice = input.next();
+            if (choice.equalsIgnoreCase("b")) {
                 return;
             }
             while (choice.length() == 0) {
@@ -286,7 +282,7 @@ public class LifeOSApp {
             }
             Task foundTask = null;
             for (Task t: goal.getLinkedTasks()) {
-                if (t.getName().equals(choiceInitial)) {
+                if (t.getName().equals(choice)) {
                     foundTask = t;
                 }
             }
@@ -294,11 +290,15 @@ public class LifeOSApp {
                 System.out.println("Cannot find this task!");
                 continue;
             }
-                goal.removeLinkedTask(foundTask);
-                foundTask.setLinkedGoal(null);
-                System.out.println("Removed the link successfully!");
-                return;
+            removeLinks(goal, foundTask);
+            return;
         }
+    }
+
+    private void removeLinks(Goal goal, Task foundTask) {
+        goal.removeLinkedTask(foundTask);
+        foundTask.setLinkedGoal(null);
+        System.out.println("Removed the link successfully!");
     }
     
 
@@ -495,10 +495,10 @@ public class LifeOSApp {
         if (longTerm.findGoal(name) == null) {
             shortTerm.addTask(name);
         }
-            Goal foundGoal = longTerm.findGoal(name);
-            task.setLinkedGoal(foundGoal);
-            foundGoal.setLinkedTask(task);
-            System.out.println("Set the link successfully!");
+        Goal foundGoal = longTerm.findGoal(name);
+        task.setLinkedGoal(foundGoal);
+        foundGoal.setLinkedTask(task);
+        System.out.println("Set the link successfully!");
             
     }
     
