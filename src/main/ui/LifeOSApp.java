@@ -107,11 +107,7 @@ public class LifeOSApp {
     //EFFECTS: shows long-term goal menu
     private void startLongTerm() throws NameErrorException {
         while (true) {
-            System.out.println("Your Goals:    ");
-            ArrayList<Goal> goals = longTerm.getGoals();
-            for (Goal g: goals) {
-                System.out.println(" " + g.getName());
-            }           
+            displayGoals();
             System.out.println("Select from:  ");
             System.out.println("\tType a goal's name -> view a goal's details");
             System.out.println("\tA -> add a goal to the goal list");
@@ -133,6 +129,14 @@ public class LifeOSApp {
                 selectGoals(choiceInitial);
             }
         }
+    }
+
+    private void displayGoals() {
+        System.out.println("Your Goals:    ");
+        ArrayList<Goal> goals = longTerm.getGoals();
+        for (Goal g: goals) {
+            System.out.println(" " + g.getName());
+        }           
     }
 
     //MODIFIES: this
@@ -266,20 +270,11 @@ public class LifeOSApp {
         }
     }
 
-        
-        
-    
-
-    
     // MODIFIES: this
     // EFFECTS: shows shortTerm goal menu
     public void startShortTerm() throws NameErrorException {
-        while (true) {
-            System.out.println("Your Tasks:    ");
-            ArrayList<Task> tasks = shortTerm.getTasks();
-            for (Task t: tasks) {
-                System.out.println(" " + t.getName());
-            }           
+        while (true) {  
+            displayTasks();
             System.out.println("Select from:  ");
             System.out.println("Type a task's name -> view a task's details");
             System.out.println("\tA -> add a task to the task list");
@@ -287,12 +282,9 @@ public class LifeOSApp {
             System.out.println("\tS -> save short term to file");
             System.out.println("\tL -> load short term from file");
             System.out.println("\tB -> Go back to the previous menu");
-
-             //EFFECTS: prints all tasks and allows user to select one
-   
             String choiceInitial = input.next();
             String choice = choiceInitial.toLowerCase();
-             if (choice.equals("a")) {
+            if (choice.equals("a")) {
                 addTaskToShortTerm();
             } else if (choice.equals("r")) {
                 removeTaskFromShortTerm();
@@ -304,6 +296,14 @@ public class LifeOSApp {
                 selectTasks(choiceInitial);
             }
         }
+    }
+
+    private void displayTasks() {
+        System.out.println("Your Tasks:    ");
+        ArrayList<Task> tasks = shortTerm.getTasks();
+        for (Task t: tasks) {
+            System.out.println(" " + t.getName());
+        }         
     }
 
     //MODIFIES: this
@@ -460,7 +460,7 @@ public class LifeOSApp {
             System.out.println("Invalid name! Please try another name!");
             name = input.next();
         }
-         if (longTerm.findGoal(name) != null) {
+        if (longTerm.findGoal(name) != null) {
             Goal foundGoal = longTerm.findGoal(name);
             task.setLinkedGoal(foundGoal);
             foundGoal.setLinkedTask(task);
