@@ -135,11 +135,9 @@ class JsonReaderTest extends JsonTest {
 
     @Test
     void testSetLinksNull() {
-        JsonReader readerLong = new JsonReader("./data/testReaderGeneralLongTerm.json");
         JsonReader readerShort = new JsonReader("./data/testReaderGeneralShortTerm.json");
 
         try {
-            LongTerm longTerm = readerLong.readLongTerm();
             ShortTerm shortTerm = readerShort.readShortTerm();
 
             Task task1 = shortTerm.getTasks().get(0);
