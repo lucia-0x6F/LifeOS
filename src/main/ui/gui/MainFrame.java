@@ -3,14 +3,24 @@ package ui.gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;  
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
+
+import model.Goal;
+import model.LongTerm;
+import model.Task;
+import model.ShortTerm;
+
+import persistence.JsonReader;
 
 import model.exception.NameErrorException;
 
@@ -28,14 +38,37 @@ public class MainFrame extends JFrame {
     private JLabel goalLabel;
     private JLabel taskLabel;
     private JTextArea text;
-    //private JButton button;
+
+    private LongTerm longTerm;
+    private JsonReader jsonReaderLong;
+    private JLabel goalName;
+    private JLabel goalCompleteStatus;
+    private JPanel goalList;
+    private JTextArea goalLinkedTasks;
+
+    private ShortTerm shortTerm;
+    private JsonReader jsonReaderShort;
+    private JPanel taskList;
+    private JLabel taskName;
+    private JLabel taskTimes;
+    private JLabel taskDeadline;
+    private JLabel taskEnergyLevel;
+    private JLabel taskCompleteStatus;
+    private JTextArea taskLinkedGoal;
+
+    private static final String JSON_STORE_LONG = "./data/longTerm.json";
+    private static final String JSON_STORE_SHORT = "./data/shortTerm.json";
     
     public MainFrame() throws NameErrorException {
+        jsonReaderLong = new JsonReader(JSON_STORE_LONG);
+        jsonReaderShort = new JsonReader(JSON_STORE_SHORT);
         init();
         basicPanel();
         menuPanel();
-        subPanel();
+        goalPanel();
+        taskPanel();
         poemContainer();
+        load();
         mainFrame();
     }
     
@@ -93,7 +126,7 @@ public class MainFrame extends JFrame {
         menuPanel.add(menuLabel);
     }
 
-    public void subPanel() {
+    public void goalPanel() {
         goalPanel = new JPanel();
         goalPanel.setBackground(new Color(0xD0DCC2));
         goalPanel.setLayout(null);
@@ -104,6 +137,27 @@ public class MainFrame extends JFrame {
         goalLabel.setForeground(new Color(0x6D4C41));
         goalPanel.add(goalLabel);
 
+        goalName = new JLabel("Click a goal to view");
+        goalName.setBounds(20, 70, 240, 30);
+        goalPanel.add(goalName);
+        goalCompleteStatus = new JLabel("");
+        goalCompleteStatus.setBounds(20, 110, 240, 30);
+        goalPanel.add(goalCompleteStatus);
+    }
+
+    public void taskPanel() {
+        JLabel tasks = new JLabel("Linked Tasks:");
+        tasks.setBounds(20, 150, 200, 30);
+        tasks.setFont(new Font("Serif", Font.BOLD, 14));
+        goalPanel.add(tasks);
+
+        goalLinkedTasks = new JTextArea();
+        goalLinkedTasks.setBounds(20, 180, 240, 80);
+        goalLinkedTasks.setEditable(false);
+        goalLinkedTasks.setOpaque(false);
+        goalLinkedTasks.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        goalPanel.add(goalLinkedTasks);
+
         taskPanel = new JPanel();
         taskPanel.setBackground(new Color(0xB7C4A1));
         taskPanel.setLayout(null);
@@ -113,56 +167,26 @@ public class MainFrame extends JFrame {
         taskLabel.setBounds(20, 20, 200, 30);
         taskLabel.setForeground(new Color(0x6D4C41));
         taskPanel.add(taskLabel);
+
+        taskName = new JLabel("Click a goal to view");
+        taskName.setBounds(20, 70, 240, 30);
+        taskPanel.add(taskName);
+        taskCompleteStatus = new JLabel("");
+        taskCompleteStatus.setBounds(20, 110, 240, 30);
+        taskPanel.add(taskCompleteStatus);
+
+        JLabel goal = new JLabel("Linked goal:");
+        goal.setBounds(20, 150, 200, 30);
+        goal.setFont(new Font("Serif", Font.BOLD, 14));
+        taskPanel.add(goal);
+
+        taskLinkedGoal = new JTextArea();
+        taskLinkedGoal.setBounds(20, 180, 240, 80);
+        taskLinkedGoal.setEditable(false);
+        taskLinkedGoal.setOpaque(false);
+        taskLinkedGoal.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        taskPanel.add(taskLinkedGoal);
     }
-
-    // public void labelPanel() {
-    //     JPanel panelA = new JPanel();
-    //     panelA.setBackground(new Color(0xF4DB78));
-    //     panelA.setBounds(1290, 310, 90, 250);
-    //     panelA.setLayout(null);
-    //     JLabel labelA = new JLabel("Save");
-    //     labelA.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 20));
-    //     labelA.setBounds(10, 20, 80, 30);
-    //     //labelA.setForeground(new Color(0x6D4C41));
-    //     panelA.add(labelA);
-
-        
-    //     JPanel panelB = new JPanel();
-    //     panelB.setBackground(new Color(0xF4DB78));
-    //     panelB.setBounds(1290, 550, 90, 250);
-    //     panelB.setLayout(null);
-    //     JLabel labelB = new JLabel("Load");
-    //     labelB.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 20));
-    //     labelB.setBounds(10, 20, 80, 30);
-    //     //labelB.setForeground(new Color(0x6D4C41));
-    //     panelB.add(labelB);
-
-    //     JPanel panelC = new JPanel();
-    //     panelC.setBackground(new Color(0xF4DB78));
-    //     panelC.setBounds(1290, 80, 90, 250);
-    //     panelC.setLayout(null);
-    //     JLabel labelC = new JLabel("Quit");
-    //     labelC.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 20));
-    //     labelC.setBounds(10, 20, 80, 30);
-    //     //labelC.setForeground(new Color(0x6D4C41));
-    //     panelC.add(labelC);
-    // }
-
-    public void saveButton() {
-        // button = new JButton();
-        // button.setBounds(1000, 800, 100, 50);
-        // button.addActionListener((ActionListener) this);
-        // button.setText("Button1");
-        // button.setFocusable(false);
-        // button.setIcon(icon);
-        // button.setHorizontalAlignment(JButton.CENTER);
-        // button.setVerticalAlignment(JButton.BOTTOM);
-        // button.setFont(new Font("Arial",Font.BOLD, 15));
-        // button.setForeground(Color.cyan);
-        // button.setBackground(new Color(0xB7C4A1));
-        // button.setBorder(BorderFactory.createEtchedBorder());
-    }
-
 
 
     public void poemContainer() {
@@ -199,14 +223,7 @@ public class MainFrame extends JFrame {
         backGround.add(taskPanel);
         backGround.add(titleLabel);
         backGround.add(text);
-        //backGround.add(button);
-        // backGround.add(panelC);
-        // backGround.add(panelA);
-        // backGround.add(panelB);
         panel.add(backGround);
-        // panel.add(panelC);
-        // panel.add(panelA);
-        // panel.add(panelB);
         poemContainer.add(poemPanel);
         backGround.add(poemContainer);
         
@@ -214,5 +231,119 @@ public class MainFrame extends JFrame {
         this.setVisible(true);
         panel.setSize(getWidth(), getHeight());
     }
+
+    public void actionPerformedGoal(ActionEvent e, Goal g) {
+        updateGoalInfo(g);
+    }
+
+    public void actionPerformedTask(ActionEvent e, Task t) {
+        updateTaskInfo(t);
+    }
+
+   
+
+    private void load() {
+        try {
+            longTerm = jsonReaderLong.readLongTerm();
+            shortTerm = jsonReaderShort.readShortTerm();
+            
+            goalList = new JPanel();
+            goalList.setLayout(new BoxLayout(goalList, BoxLayout.Y_AXIS));
+            goalList.setBackground(new Color(0xDCC2A3));
+            goalList.setBounds(20, 60, 250, 200);
+
+            for (Goal g : longTerm.getGoals()) {
+                JButton button = new JButton(g.getName());
+                button.addActionListener(e -> actionPerformedGoal(e, g));
+                goalList.add(button);
+            }
+
+            longTermPanel.add(goalList);
+            longTermPanel.revalidate();
+            longTermPanel.repaint();
+
+
+            shortTerm = jsonReaderShort.readShortTerm();
+            taskList = new JPanel();
+            taskList.setLayout(new BoxLayout(taskList, BoxLayout.Y_AXIS));
+            taskList.setBackground(new Color(0xDCC2A3));
+            taskList.setBounds(20, 60, 250, 200);
+
+            for (Task t : shortTerm.getTasks()) {
+                JButton button = new JButton(t.getName());
+                button.addActionListener(e -> actionPerformedTask(e, t));
+                taskList.add(button);
+            }
+
+            shortTermPanel.add(taskList);
+            shortTermPanel.revalidate();
+            shortTermPanel.repaint();
+
+        } catch (IOException e) {
+            System.out.println("Cannot read from file");
+            JOptionPane.showMessageDialog(this, "File not found");
+        }
+    }
+
+    private void updateTaskInfo(Task t) {
+        taskName.setText("Name: " + t.getName());
+        int energyLevel = t.getEnergyLevel();
+        taskCompleteStatus.setText("EnergyLevel: " + energyLevel);
+
+        int times = t.getTimes();
+        taskTimes.setText("Times: " + times);
+
+        String deadline = t.getDeadline();
+        taskDeadline.setText("Deadline: " + deadline);
+
+        String status = "";
+        if (t.getCompleteStatus()) {
+            status = "Completed";
+        } else {
+            status = "Uncompleted";
+        }
+        taskCompleteStatus.setText("Status: " + status);
+
+        String linkedGoal = ""; 
+        
+        if (t.getLinkedGoal() != null) {
+            linkedGoal =  t.getLinkedGoal().getName();
+        } else {
+            linkedGoal = "No goal linked.";
+        }
+    
+        taskLinkedGoal.setText(linkedGoal);
+        
+        taskPanel.revalidate();
+        taskPanel.repaint();
+    }
+
+    private void updateGoalInfo(Goal g) {
+        goalName.setText("Name: " + g.getName());
+        String status = "";
+        if (g.getCompleteStatus()) {
+            status = "Completed";
+        } else {
+            status = "Uncompleted";
+        }
+        goalCompleteStatus.setText("Status: " + status);
+        
+        List<String> taskNames = g.getLinkedTaskNames();
+        
+        String tasks = ""; 
+        
+        if (taskNames.isEmpty()) {
+            tasks = "No tasks linked.";
+        } else {
+            for (String taskName : taskNames) {
+                tasks = tasks + " " + taskName + "\n";
+            }
+        }
+        goalLinkedTasks.setText(tasks);
+        
+        goalPanel.revalidate();
+        goalPanel.repaint();
+    }
+
        
 }
