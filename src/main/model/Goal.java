@@ -97,6 +97,7 @@ public class Goal implements WorkUnit, Writable {
 
         return jsonArray;
     }
+
 }
 
    

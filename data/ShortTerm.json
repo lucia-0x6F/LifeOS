@@ -5,7 +5,7 @@
             "times": 20,
             "energyLevel": 3,
             "name": "CPSC110",
-            "linkedGoal": "FirstYearCourses",
+            "linkedGoal": null,
             "completeStatus": true,
             "deadline": "1205"
         },
@@ -13,7 +13,7 @@
             "times": 21,
             "energyLevel": 4,
             "name": "CPSC121",
-            "linkedGoal": "FirstYearCourses",
+            "linkedGoal": null,
             "completeStatus": true,
             "deadline": "1205"
         },
@@ -21,7 +21,7 @@
             "times": 25,
             "energyLevel": 5,
             "name": "CPSC210",
-            "linkedGoal": "SecondYearCourses",
+            "linkedGoal": null,
             "completeStatus": false,
             "deadline": "0410"
         },
@@ -29,7 +29,7 @@
             "times": 24,
             "energyLevel": 5,
             "name": "CPSC213",
-            "linkedGoal": "SecondYearCourses",
+            "linkedGoal": null,
             "completeStatus": false,
             "deadline": "1205"
         },
@@ -37,7 +37,7 @@
             "times": 22,
             "energyLevel": 4,
             "name": "CPSC221",
-            "linkedGoal": "SecondYearCourses",
+            "linkedGoal": null,
             "completeStatus": false,
             "deadline": "1205"
         },
@@ -45,7 +45,7 @@
             "times": 23,
             "energyLevel": 4,
             "name": "CPSC310",
-            "linkedGoal": "ThirdYearCourses",
+            "linkedGoal": null,
             "completeStatus": false,
             "deadline": "0410"
         },
@@ -53,7 +53,7 @@
             "times": 21,
             "energyLevel": 5,
             "name": "CPSC313",
-            "linkedGoal": "ThirdYearCourses",
+            "linkedGoal": null,
             "completeStatus": false,
             "deadline": "1205"
         },
@@ -61,9 +61,17 @@
             "times": 25,
             "energyLevel": 5,
             "name": "CPSC320",
-            "linkedGoal": "ThirdYearCourses",
+            "linkedGoal": null,
             "completeStatus": false,
             "deadline": "1205"
+        },
+        {
+            "times": 0,
+            "energyLevel": 0,
+            "name": "CPSC400",
+            "linkedGoal": null,
+            "completeStatus": false,
+            "deadline": "0101"
         }
     ]
 }

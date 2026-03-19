@@ -2,6 +2,7 @@ package ui.gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -26,10 +28,11 @@ import javax.swing.JTextPane;
 import model.Goal;
 import model.LongTerm;
 import model.Task;
+import model.WorkUnit;
 import model.ShortTerm;
 
 import persistence.JsonReader;
-
+import persistence.JsonWriter;
 import model.exception.NameErrorException;
 
 public class MainFrame extends JFrame {
@@ -76,6 +79,11 @@ public class MainFrame extends JFrame {
 
     private JCheckBox completeStatus2;
     private JTextField nameField2;
+    private JButton save;
+    private JButton remove;
+
+    private JsonWriter jsonWriterLong;
+    private JsonWriter jsonWriterShort;
 
     private static final String JSON_STORE_LONG = "./data/longTerm.json";
     private static final String JSON_STORE_SHORT = "./data/shortTerm.json";
@@ -83,6 +91,7 @@ public class MainFrame extends JFrame {
     public MainFrame() throws NameErrorException {
         jsonReaderLong = new JsonReader(JSON_STORE_LONG);
         jsonReaderShort = new JsonReader(JSON_STORE_SHORT);
+        save();
         init();
         basicPanel();
         menuPanel();
@@ -90,17 +99,23 @@ public class MainFrame extends JFrame {
         taskPanel();
         poemContainer();
         loadLong();
+        renderLong();
         loadShort();
+        renderShort();
         mainFrame();
     }
     
     public void init() {
+        ImageIcon icon = new ImageIcon("LifeOS.png");
+        this.setIconImage(icon.getImage());
+
         backGround = new JPanel();
         //backGround.setBackground(new Color(255, 236, 170));
         backGround.setBackground(new Color(0xF3E3AF));
         backGround.setBackground(new Color(0xFFF8E7));
         backGround.setLayout(null);
         backGround.setBounds(80, 28, 1380, 870);
+        backGround.add(save);
 
         panel = new JPanel();
         panel.setBackground(new Color(255, 236, 170));
@@ -292,10 +307,21 @@ public class MainFrame extends JFrame {
             goalList.setLayout(new BoxLayout(goalList, BoxLayout.Y_AXIS));
             goalList.setBackground(new Color(0xDCC2A3));
 
+           
+        } catch (IOException e) {
+            System.out.println("Cannot read from file");
+            JOptionPane.showMessageDialog(this, "File not found");
+        }
+        
+    }
+
+    private void renderLong() {
+        goalList.removeAll();
             for (Goal g : longTerm.getGoals()) {
                 JButton button = buttonStyle(g.getName());
                 button.addActionListener(e -> actionPerformedGoal(e, g));
                 goalList.add(button);
+                goalList.add(removeGoal(g)); 
             }
 
             JButton addButton = buttonStyle("+");
@@ -305,11 +331,6 @@ public class MainFrame extends JFrame {
 
             setScrollPane(longTermPanel, goalList);
 
-        } catch (IOException e) {
-            System.out.println("Cannot read from file");
-            JOptionPane.showMessageDialog(this, "File not found");
-        }
-        
     }
 
     private void setScrollPane(JPanel panel, JPanel list) {
@@ -329,7 +350,17 @@ public class MainFrame extends JFrame {
             taskList.setLayout(new BoxLayout(taskList, BoxLayout.Y_AXIS));
             taskList.setOpaque(false);
 
-            for (Task t : shortTerm.getTasks()) {
+          
+
+        } catch (IOException e) {
+            System.out.println("Cannot read from file");
+            JOptionPane.showMessageDialog(this, "File not found");
+        }
+     
+    }
+
+    private void renderShort() {
+          for (Task t : shortTerm.getTasks()) {
                 JButton button = buttonStyle(t.getName());
                 button.addActionListener(e -> actionPerformedTask(e, t));
                 taskList.add(button);
@@ -341,12 +372,6 @@ public class MainFrame extends JFrame {
             shortTermPanel.add(taskList);
             
             setScrollPane(shortTermPanel, taskList);
-
-        } catch (IOException e) {
-            System.out.println("Cannot read from file");
-            JOptionPane.showMessageDialog(this, "File not found");
-        }
-     
     }
 
     private void addTask() {
@@ -558,11 +583,7 @@ public class MainFrame extends JFrame {
                 }
             }
             longTerm.addGoal(goal.getName());
-            JButton button = buttonStyle(goal.getName());
-            button.addActionListener(e -> actionPerformedGoal(e, goal));
-            goalList.add(button, goalList.getComponentCount() - 1);
-            goalList.revalidate();
-            goalList.repaint();
+            renderLong();
             dialog.dispose();
         } catch (NameErrorException ex) {
             JOptionPane.showMessageDialog(dialog, "Invalid name.");
@@ -576,7 +597,55 @@ public class MainFrame extends JFrame {
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }
+
+    private JButton save() {
+        save = new JButton("Save");
+        save.addActionListener(e -> actionPerformedSave());
+        save.setBounds(0,0,90,30);
+
+        return save;
+    }
+
+    private void actionPerformedSave() {
+        updateSavedData();
+    }
+
+    private void updateSavedData() {
+        jsonWriterLong = new JsonWriter(JSON_STORE_LONG);
+        jsonWriterShort = new JsonWriter(JSON_STORE_SHORT);
+        try {
+            jsonWriterLong.open();
+            jsonWriterLong.write(longTerm);
+            jsonWriterLong.close();
+            
+            jsonWriterShort.open();
+            jsonWriterShort.write(shortTerm);
+            jsonWriterShort.close();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Cannot save to file");
+        }
+    }
+
+    private JButton removeGoal(Goal g) {
+        remove = new JButton("x");
+        longTermPanel.add(remove);
+        remove.addActionListener(e -> actionPerformedRemove(e, g));
+        remove.setBounds(0,50,40,30);
+        
+
+        return remove;
+    }
+
+    private void actionPerformedRemove(ActionEvent e, Goal g) {
+            try {
+                longTerm.removeGoal(g.getName());
+            } catch (NameErrorException ex) {
+                 JOptionPane.showMessageDialog(this, "Cannot remove goal.");
+            }
+            renderLong();
+    }
 }
+
 
 
 

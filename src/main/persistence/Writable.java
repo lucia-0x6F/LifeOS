@@ -2,6 +2,8 @@ package persistence;
 
 import org.json.JSONObject;
 
+import model.Goal;
+
 // Referenced from the JsonSerialization Demo
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 
