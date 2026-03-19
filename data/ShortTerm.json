@@ -64,14 +64,6 @@
             "linkedGoal": "ThirdYearCourses",
             "completeStatus": false,
             "deadline": "1205"
-        },
-        {
-            "times": 20,
-            "energyLevel": 5,
-            "name": "CPSC400+",
-            "linkedGoal": null,
-            "completeStatus": false,
-            "deadline": "1205"
         }
     ]
 }

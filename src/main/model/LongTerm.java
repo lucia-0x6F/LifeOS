@@ -31,7 +31,7 @@ public class LongTerm implements Writable {
     //EFFECTS: add the goal to the LongTermModule's goals if the goal's name is not in the list, otherwise exception
     public void addGoal(String name) throws NameErrorException {
         for (Goal g: goals) {
-            if (g.getName().equals(name)) {
+            if (g.getName().equals(name) | name.length() == 0) {
                 throw new NameErrorException();
             } 
         }

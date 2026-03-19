@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -16,6 +17,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -66,6 +69,13 @@ public class MainFrame extends JFrame {
     private List<JCheckBox> taskBoxes;
     private int ypos;
     private JButton confirm;
+
+    private JDialog dialog2;
+    private List<JRadioButton> goalBox;
+    private JButton confirm2;
+
+    private JCheckBox completeStatus2;
+    private JTextField nameField2;
 
     private static final String JSON_STORE_LONG = "./data/longTerm.json";
     private static final String JSON_STORE_SHORT = "./data/shortTerm.json";
@@ -276,12 +286,11 @@ public class MainFrame extends JFrame {
     private void loadLong() {
         try {
             longTerm = jsonReaderLong.readLongTerm();
-            shortTerm = jsonReaderShort.readShortTerm();
+            shortTerm = jsonReaderShort.readShortTerm(); 
             
             goalList = new JPanel();
             goalList.setLayout(new BoxLayout(goalList, BoxLayout.Y_AXIS));
             goalList.setBackground(new Color(0xDCC2A3));
-            goalList.setBounds(20, 60, 250, 200);
 
             for (Goal g : longTerm.getGoals()) {
                 JButton button = buttonStyle(g.getName());
@@ -292,14 +301,24 @@ public class MainFrame extends JFrame {
             JButton addButton = buttonStyle("+");
             addButton.addActionListener(e -> addGoal());
             goalList.add(addButton);
+            goalList.setOpaque(false);
 
-            longTermPanel.add(goalList);
+            setScrollPane(longTermPanel, goalList);
 
         } catch (IOException e) {
             System.out.println("Cannot read from file");
             JOptionPane.showMessageDialog(this, "File not found");
         }
         
+    }
+
+    private void setScrollPane(JPanel panel, JPanel list) {
+        JScrollPane scrollPane = new JScrollPane(list);
+        scrollPane.setBounds(20, 60, 250, 200);
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.setOpaque(false);
+        scrollPane.setBorder(null);
+        panel.add(scrollPane);
     }
 
 
@@ -309,7 +328,6 @@ public class MainFrame extends JFrame {
             taskList = new JPanel();
             taskList.setLayout(new BoxLayout(taskList, BoxLayout.Y_AXIS));
             taskList.setOpaque(false);
-            taskList.setBounds(20, 60, 250, 200);
 
             for (Task t : shortTerm.getTasks()) {
                 JButton button = buttonStyle(t.getName());
@@ -317,12 +335,100 @@ public class MainFrame extends JFrame {
                 taskList.add(button);
             }
 
+            JButton addButton2 = buttonStyle("+");
+            addButton2.addActionListener(e -> addTask());
+            taskList.add(addButton2);
             shortTermPanel.add(taskList);
+            
+            setScrollPane(shortTermPanel, taskList);
+
         } catch (IOException e) {
             System.out.println("Cannot read from file");
             JOptionPane.showMessageDialog(this, "File not found");
         }
      
+    }
+
+    private void addTask() {
+        dialog2 = new JDialog(this, "Add a Task", true);
+        dialog2.setLayout(null);
+
+        JLabel nameLabel = new JLabel("Name: ");
+        nameLabel.setBounds(20, 20, 100, 25);
+        dialog2.add(nameLabel);
+
+        nameField2 = new JTextField();
+        nameField2.setBounds(130, 20, 150, 25);
+        dialog2.add(nameField2);
+
+        JLabel cpmpleteStatus = new JLabel("Completed: ");
+        cpmpleteStatus.setBounds(20, 60, 100, 25);
+        dialog2.add(cpmpleteStatus);
+
+        completeStatus2 = new JCheckBox();
+        completeStatus2.setBounds(130, 60, 25, 25);
+        dialog2.add(completeStatus2);
+
+        JLabel taskLabel = new JLabel("Linked Goal: ");
+        taskLabel.setBounds(20, 100, 100, 25);
+        dialog2.add(taskLabel);
+        goalBox();
+        confirm2();
+        confirmSetup2();
+    }
+    
+
+    private void confirmSetup2() {
+        confirm2.setBounds(80, ypos + 10, 100, 30);
+        dialog2.add(confirm2);
+        dialog2.setSize(320, ypos + 100);
+        dialog2.setLocationRelativeTo(this);
+        dialog2.setVisible(true);
+    }
+
+    private void confirm2() {
+        confirm2 = new JButton("Confirm");
+        confirm2.addActionListener(event -> confirm2Task());
+    }
+
+    public void confirm2Task() {
+        try {
+            Task task = new Task(nameField2.getText());
+            if (completeStatus2.isSelected()) {
+                task.setAsCompleted();
+            }
+            for (int i = 0; i < goalBox.size(); i++) {
+                if (goalBox.get(i).isSelected()) {
+                    task.setLinkedGoal(longTerm.getGoals().get(i));
+                }
+            }
+            shortTerm.addTask(task.getName());
+            JButton button = buttonStyle(task.getName());
+            button.addActionListener(e -> actionPerformedTask(e, task));
+            taskList.add(button, taskList.getComponentCount() - 1);
+            taskList.revalidate();
+            taskList.repaint();
+            dialog2.dispose();
+        } catch (NameErrorException ex) {
+            JOptionPane.showMessageDialog(dialog, "Invalid name.");
+        }
+        
+    }
+
+    private void goalBox() {
+        goalBox = new ArrayList<>();
+        ButtonGroup group = new ButtonGroup();
+
+        ypos = 130;
+        List<Goal> goals = longTerm.getGoals();
+        for (int x = 0; x < goals.size(); x++) {
+            JRadioButton rb = new JRadioButton(goals.get(x).getName());
+            rb.setBounds(20, ypos, 280, 25);
+            group.add(rb);
+            dialog2.add(rb);
+            goalBox.add(rb);
+            ypos += 30;
+        }
     }
 
     private void updateTaskInfo(Task t) {
@@ -413,7 +519,7 @@ public class MainFrame extends JFrame {
         completeStatus.setBounds(130, 60, 25, 25);
         dialog.add(completeStatus);
 
-        JLabel taskLabel = new JLabel("Link Tasks: ");
+        JLabel taskLabel = new JLabel("Linked Tasks: ");
         taskLabel.setBounds(20, 100, 100, 25);
         dialog.add(taskLabel);
         taskBoxes();
@@ -437,28 +543,30 @@ public class MainFrame extends JFrame {
 
     private void confirm() {
         confirm = new JButton("Confirm");
-        confirm.addActionListener(ev -> {
-            try {
-                Goal goal = new Goal(nameField.getText());
-                if (completeStatus.isSelected()) {
-                    goal.setAsCompleted();
-                }
-                for (int i = 0; i < taskBoxes.size(); i++) {
-                    if (taskBoxes.get(i).isSelected()) {
-                        goal.setLinkedTask(shortTerm.getTasks().get(i));
-                    }
-                }
-                longTerm.addGoal(goal.getName());
-                JButton button = buttonStyle(goal.getName());
-                button.addActionListener(e -> actionPerformedGoal(e, goal));
-                goalList.add(button, goalList.getComponentCount() - 1);
-                goalList.revalidate();
-                goalList.repaint();
-                dialog.dispose();
-            } catch (NameErrorException ex) {
-                JOptionPane.showMessageDialog(dialog, "Invalid name.");
+        confirm.addActionListener(event -> confirmGoal());
+    }
+
+    private void confirmGoal() {
+        try {
+            Goal goal = new Goal(nameField.getText());
+            if (completeStatus.isSelected()) {
+                goal.setAsCompleted();
             }
-        });
+            for (int i = 0; i < taskBoxes.size(); i++) {
+                if (taskBoxes.get(i).isSelected()) {
+                    goal.setLinkedTask(shortTerm.getTasks().get(i));
+                }
+            }
+            longTerm.addGoal(goal.getName());
+            JButton button = buttonStyle(goal.getName());
+            button.addActionListener(e -> actionPerformedGoal(e, goal));
+            goalList.add(button, goalList.getComponentCount() - 1);
+            goalList.revalidate();
+            goalList.repaint();
+            dialog.dispose();
+        } catch (NameErrorException ex) {
+            JOptionPane.showMessageDialog(dialog, "Invalid name.");
+        }
     }
     
     private void confirmSetup() {
