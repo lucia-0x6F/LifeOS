@@ -1,7 +1,7 @@
 package ui.gui;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import java.awt.BorderLayout;
-import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -30,13 +30,13 @@ import javax.swing.JTextPane;
 import model.Goal;
 import model.LongTerm;
 import model.Task;
-import model.WorkUnit;
 import model.ShortTerm;
 
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import model.exception.NameErrorException;
 
+@ExcludeFromJacocoGeneratedReport
 public class MainFrame extends JFrame {
     private JPanel backGround;
     private JPanel menuPanel;
@@ -147,13 +147,14 @@ public class MainFrame extends JFrame {
         titleLabel = new JLabel("Welcome to LifeOS");
         titleLabel.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 65));
         titleLabel.setForeground(new Color(0x6D4C41));
-        titleLabel.setBounds(75, 80, 600, 80);
+        titleLabel.setBounds(70, 80, 600, 80);
     }
 
     public void basicPanel() {
         shortTermPanel = new JPanel();
         shortTermPanel.setBackground(new Color(0xE6D2B8));
         shortTermPanel.setBounds(340, 250, 290, 270);
+        shortTermPanel.setBounds(75, 250, 290, 270);
         shortTermPanel.setLayout(null);
         JLabel shortTermLabel = new JLabel("Short Term");
         shortTermLabel.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 20));
@@ -163,7 +164,7 @@ public class MainFrame extends JFrame {
 
         longTermPanel = new JPanel();
         longTermPanel.setBackground(new Color(0xDCC2A3));
-        longTermPanel.setBounds(340, 520, 290, 280);
+        longTermPanel.setBounds(75, 520, 290, 280);
         longTermPanel.setLayout(null);
         JLabel longTermLabel = new JLabel("Long Term");
         longTermLabel.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 20));
@@ -183,22 +184,13 @@ public class MainFrame extends JFrame {
         menuLabel.setForeground(new Color(0x6D4C41));
         menuPanel.add(menuLabel);
 
-        // addingPanel = new JPanel();
-        // addingPanel.setBackground(new Color(0xF3E3AF));
-        // addingPanel.setBounds(90, 320, 240,300);
-        // addingPanel.setLayout(null);
-        // JLabel addingLabel = new JLabel("Add a new Goal or Task");
-        // addingLabel.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 18));
-        // addingLabel.setBounds(10, 10, 400, 30);
-        // addingLabel.setForeground(new Color(0x6D4C41));
-        // addingPanel.add(addingLabel);
     }
 
     public void goalPanel() {
         goalPanel = new JPanel();
         goalPanel.setBackground(new Color(0xB7C4A1));
         goalPanel.setLayout(null);
-        goalPanel.setBounds(625,520, 280, 280);
+        goalPanel.setBounds(365,520, 280, 280);
         goalLabel = new JLabel("Goal");
         goalLabel.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 20));
         goalLabel.setBounds(20, 20, 200, 30);
@@ -213,7 +205,7 @@ public class MainFrame extends JFrame {
         goalPanel.add(goalCompleteStatus);
         
         goalLinkedTasks = new JTextArea();
-        goalLinkedTasks.setBounds(20, 125, 240, 80);
+        goalLinkedTasks.setBounds(20, 125, 240, 150);
         goalLinkedTasks.setEditable(false);
         goalLinkedTasks.setOpaque(false);
         goalLinkedTasks.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 20));
@@ -224,7 +216,7 @@ public class MainFrame extends JFrame {
         taskPanel = new JPanel();
         taskPanel.setBackground(new Color(0xD0DCC2));
         taskPanel.setLayout(null);
-        taskPanel.setBounds(625, 250, 280, 280);
+        taskPanel.setBounds(365, 250, 280, 280);
         taskLabel = new JLabel("Task");
         taskLabel.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 20));
         taskLabel.setBounds(20, 20, 200, 30);
@@ -289,11 +281,9 @@ public class MainFrame extends JFrame {
     public void mainFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setSize(900, 960);
         this.getContentPane().setBackground(new Color(0xECE7DE));
         
-        //backGround.add(addingPanel);
-        backGround.add(menuPanel);   
         backGround.add(shortTermPanel);
         backGround.add(longTermPanel);
         backGround.add(goalPanel);
@@ -302,7 +292,6 @@ public class MainFrame extends JFrame {
         backGround.add(text);
         panel.add(backGround);
         poemContainer.add(poemPanel);
-        backGround.add(poemContainer);
         
         this.add(panel);
         this.setVisible(true);
@@ -321,6 +310,7 @@ public class MainFrame extends JFrame {
 
     private void loadLong() {
         try {
+            jsonReaderLong = new JsonReader(JSON_STORE_LONG); 
             longTerm = jsonReaderLong.readLongTerm();
         } catch (IOException e) {
             System.out.println("Cannot read from file");
@@ -340,7 +330,6 @@ public class MainFrame extends JFrame {
             row.add(button, java.awt.BorderLayout.WEST);
             row.setOpaque(false);
             row.setMaximumSize(new Dimension(250, 30));
-            remove.setFont(null);
             
             goalList.add(row);
         }
@@ -366,6 +355,7 @@ public class MainFrame extends JFrame {
 
     private void loadShort() {
         try {
+            jsonReaderShort = new JsonReader(JSON_STORE_SHORT); 
             shortTerm = jsonReaderShort.readShortTerm();
 
           
@@ -382,7 +372,12 @@ public class MainFrame extends JFrame {
         for (Task t : shortTerm.getTasks()) {
             JButton button = buttonStyle(t.getName());
             button.addActionListener(e -> actionPerformedTask(e, t));
-            taskList.add(button);
+            JPanel row = new JPanel(new BorderLayout());
+            row.add(removeTask(t), java.awt.BorderLayout.EAST);
+            row.add(button, java.awt.BorderLayout.WEST);
+            row.setOpaque(false);
+            row.setMaximumSize(new Dimension(250, 30));
+            taskList.add(row);
         }
 
         JButton addButton = buttonStyle("+");
@@ -391,6 +386,27 @@ public class MainFrame extends JFrame {
         taskList.setOpaque(false);
         taskList.revalidate();
         taskList.repaint();
+    }
+
+    private JButton removeTask(Task t) {
+        JButton remove = buttonStyle("x");
+        remove.setFont(null);
+        remove.addActionListener(e -> actionPerformedRemoveTask(e, t));
+        return remove;
+    }
+
+
+    private void actionPerformedRemoveTask(ActionEvent e, Task t) {
+        try {
+            shortTerm.removeTask(t.getName());
+        } catch (NameErrorException ex) {
+            JOptionPane.showMessageDialog(this, "Cannot remove task.");
+        }
+        if (t.getLinkedGoal() != null) {
+            t.getLinkedGoal().removeLinkedTask(t);
+            t.setLinkedGoal(null);
+        }
+        renderShort();
     }
 
     private void addTask() {
@@ -416,50 +432,28 @@ public class MainFrame extends JFrame {
         JLabel taskLabel = new JLabel("Linked Goal: ");
         taskLabel.setBounds(20, 100, 100, 25);
         dialog2.add(taskLabel);
-        goalBox();
-        confirm2();
-        confirmSetup2();
+        goalBox(dialog2);
+        confirmTaskButton();
+        confirmSetupTask();
     }
     
 
-    private void confirmSetup2() {
+    private void confirmSetupTask() {
         confirm2.setBounds(80, ypos + 10, 100, 30);
         dialog2.add(confirm2);
         dialog2.setSize(320, ypos + 100);
         dialog2.setLocationRelativeTo(this);
+        dialogStyle(dialog2);
         dialog2.setVisible(true);
     }
 
-    private void confirm2() {
+    private void confirmTaskButton() {
         confirm2 = new JButton("Confirm");
-        confirm2.addActionListener(event -> confirm2Task());
+        confirm2.addActionListener(event -> confirmTask(task));
     }
 
-    public void confirm2Task() {
-        try {
-            Task task = new Task(nameField2.getText());
-            if (completeStatus2.isSelected()) {
-                task.setAsCompleted();
-            }
-            for (int i = 0; i < goalBox.size(); i++) {
-                if (goalBox.get(i).isSelected()) {
-                    task.setLinkedGoal(longTerm.getGoals().get(i));
-                }
-            }
-            shortTerm.addTask(task.getName());
-            JButton button = buttonStyle(task.getName());
-            button.addActionListener(e -> actionPerformedTask(e, task));
-            taskList.add(button, taskList.getComponentCount() - 1);
-            taskList.revalidate();
-            taskList.repaint();
-            dialog2.dispose();
-        } catch (NameErrorException ex) {
-            JOptionPane.showMessageDialog(dialog, "Invalid name.");
-        }
-        
-    }
 
-    private void goalBox() {
+    private void goalBox(JDialog dialog) {
         goalBox = new ArrayList<>();
         ButtonGroup group = new ButtonGroup();
 
@@ -469,7 +463,7 @@ public class MainFrame extends JFrame {
             JRadioButton rb = new JRadioButton(goals.get(x).getName());
             rb.setBounds(20, ypos, 280, 25);
             group.add(rb);
-            dialog2.add(rb);
+            dialog.add(rb);
             goalBox.add(rb);
             ypos += 30;
         }
@@ -526,7 +520,7 @@ public class MainFrame extends JFrame {
             tasks = "No linked tasks.";
         } else {
             for (String taskName : taskNames) {
-                tasks = tasks + " " + taskName + "\n";
+                tasks = tasks + taskName + "\n";
             }
         }
         goalLinkedTasks.setText(tasks);
@@ -569,8 +563,8 @@ public class MainFrame extends JFrame {
         taskLabel.setBounds(20, 100, 100, 25);
         dialog.add(taskLabel);
         taskBoxes(dialog);
-        confirm();
-        confirmSetup();
+        confirmGoalButton();
+        confirmSetupGoal();
     }
 
     private void taskBoxes(JDialog dialog) {
@@ -587,53 +581,72 @@ public class MainFrame extends JFrame {
         }
     }
 
-    private void confirm() {
+    private void confirmGoalButton() {
         confirm = new JButton("Confirm");
-        confirm.addActionListener(event -> confirmGoal(null));
+        confirm.addActionListener(event -> confirmGoal(goal));
     }
 
     private void confirmGoal(Goal current) {
-        Goal g = null;
-        if (current == null) {
-            g = new Goal(nameField.getText());
-        } else {
-            g = current;
-            g.setName(nameField.getText());
-        }
-        if (completeStatus.isSelected()) {
-            g.setAsCompleted();
-        }
-        for (int i = 0; i < taskBoxes.size(); i++) {
-            if (taskBoxes.get(i).isSelected()) {
-                g.setLinkedTask(shortTerm.getTasks().get(i));
+        try {
+            Goal g = current;
+            if (current == null) {
+                g = new Goal(nameField.getText());
+                longTerm.addGoal(g.getName());
+            } else {
+                g.setName(nameField.getText());
             }
+            if (completeStatus.isSelected()) {
+                g.setAsCompleted();
+            }
+            clearLinkedGoals(g);
+            for (int i = 0; i < taskBoxes.size(); i++) {
+                if (taskBoxes.get(i).isSelected()) {
+                    g.setLinkedTask(shortTerm.getTasks().get(i));
+                    shortTerm.getTasks().get(i).setLinkedGoal(g);
+                }
+            }
+            updateGoalView(g);
+            dialogDisposeGoal(current);
+        } catch (NameErrorException e) {
+            JOptionPane.showMessageDialog(dialog, "Invalid name.");
         }
-        if (!longTerm.getGoals().contains(g)) {
-             longTerm.addGoal(g);
-        } 
-         
+        
+    }
+
+    private void updateGoalView(Goal g) {
         renderLong();
         updateGoalInfo(g);
+    }
+
+    private void clearLinkedGoals(Goal g) {
+        for (int i = g.getLinkedTasks().size() - 1; i >= 0; i--) {
+            Task t = g.getLinkedTasks().get(i);
+            g.removeLinkedTask(t);
+            t.setLinkedGoal(null);
+        }
+    }
+
+    private void dialogDisposeGoal(Goal current) {
         if (current == null) {
             dialog.dispose();
         } else {
             dialogEdit.dispose();
         }
-        
     }
     
-    private void confirmSetup() {
+    private void confirmSetupGoal() {
         confirm.setBounds(80, ypos + 10, 100, 30);
         dialog.add(confirm);
         dialog.setSize(320, ypos + 100);
         dialog.setLocationRelativeTo(this);
+        dialogStyle(dialog);
         dialog.setVisible(true);
     }
 
     private JButton save() {
         save = buttonStyle("Save");
         save.addActionListener(e -> actionPerformedSave());
-        save.setBounds(650,150,90,30);
+        save.setBounds(650,520,90,30);
         save.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 30));
 
         return save;
@@ -641,6 +654,7 @@ public class MainFrame extends JFrame {
 
     private void actionPerformedSave() {
         updateSavedData();
+        JOptionPane.showMessageDialog(this, "Saved Successfully");
     }
 
     private void updateSavedData() {
@@ -661,6 +675,7 @@ public class MainFrame extends JFrame {
 
     private JButton removeGoal(Goal g) {
         remove = buttonStyle("x");
+        remove.setFont(null);
         remove.addActionListener(e -> actionPerformedRemove(e, g));
         remove.setBounds(0,50,40,30);
         
@@ -675,20 +690,24 @@ public class MainFrame extends JFrame {
             JOptionPane.showMessageDialog(this, "Cannot remove goal.");
         }
         renderLong();
+        for (Task t: g.getLinkedTasks()) {
+            t.setLinkedGoal(null);
+        }
     }
 
     private JButton load() {
         load = buttonStyle("Load");
         load.addActionListener(e -> actionPerformedLoad());
-        load.setBounds(650,100,90,30);
+        load.setBounds(650,480,90,30);
         load.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 30));
         return load;
     }
 
     private void actionPerformedLoad() {
         loadLong();
-        renderLong();
         loadShort();
+        jsonReaderShort.setLinks(longTerm.getGoals());
+        renderLong();
         renderShort();
         longTermPanel.revalidate();
         longTermPanel.repaint();
@@ -715,13 +734,13 @@ public class MainFrame extends JFrame {
         nameField.setBounds(130, 20, 150, 25);
         dialogEdit.add(nameField);
 
+        JLabel completeStatusLabel = new JLabel("CompleteStatus: ");
+        completeStatusLabel.setBounds(20, 60, 100, 25);
+        dialogEdit.add(completeStatusLabel);
+
         completeStatus = new JCheckBox();
         completeStatus.setBounds(130, 60, 25, 25);
         dialogEdit.add(completeStatus);
-
-        JCheckBox newStatusBox = new JCheckBox();
-        newStatusBox.setBounds(130, 60, 25, 25);
-        dialogEdit.add(newStatusBox);
 
         JLabel newLinkedTasks = new JLabel("Linked Tasks: ");
         newLinkedTasks.setBounds(20, 100, 100, 25);
@@ -732,25 +751,104 @@ public class MainFrame extends JFrame {
         confirm.addActionListener(e -> confirmGoal(goal));
         confirm.setBounds(80, ypos + 10, 100, 30);
         
-        dialogEdit.add(confirm);
-        dialogEdit.setSize(320, ypos + 100);
-        dialogEdit.setLocationRelativeTo(this);
-        dialogEdit.setVisible(true);
-
-
+        dialogEdit();
     }
-    
 
-     private void editButtonGoal() {
+    private void editButtonGoal() {
         edit = buttonStyle("edit");
         edit.setBounds(50, 26, 80, 25);
         edit.addActionListener(e -> editGoal(goal));
         goalPanel.add(edit);
     }
 
-     private void editTask(Task task) {
+    private void editTask(Task task) {
+        dialogEdit = new JDialog(this, "Edit a Task", true);
+        dialogEdit.setLayout(null);
+
+        JLabel nameLabel = new JLabel("Name: ");
+        nameLabel.setBounds(20, 20, 100, 25);
+        dialogEdit.add(nameLabel);
+
+        nameField2 = new JTextField(task.getName());
+        nameField2.setBounds(130, 20, 150, 25);
+        dialogEdit.add(nameField2);
+
+        JLabel statusLabel = new JLabel("Completed: ");
+        statusLabel.setBounds(20, 60, 100, 25);
+        dialogEdit.add(statusLabel);
+
+        completeStatus2 = new JCheckBox();
+        completeStatus2.setSelected(task.getCompleteStatus());
+        completeStatus2.setBounds(130, 60, 25, 25);
+        dialogEdit.add(completeStatus2);
+
+        JLabel goalLabel = new JLabel("Linked Goal: ");
+        goalLabel.setBounds(20, 100, 100, 25);
+        dialogEdit.add(goalLabel);
+        goalBox(dialogEdit);
+
+        confirm = new JButton("Confirm");
+        confirm.addActionListener(e -> confirmTask(task));
+        confirm.setBounds(80, ypos + 10, 100, 30);
+
+        dialogEdit();
         
     }
+
+    private void dialogEdit() {
+        dialogEdit.add(confirm);
+        dialogEdit.setSize(320, ypos + 100);
+        dialogEdit.setLocationRelativeTo(this);
+        dialogStyle(dialogEdit);
+        dialogEdit.setVisible(true);
+    }
+
+    
+    private void confirmTask(Task current) {
+        try {
+            Task t = current;
+            if (current == null) {
+                t = new Task(nameField2.getText());
+                shortTerm.addTask(t.getName());
+            } else {
+                t.setName(nameField2.getText());
+            }
+            if (completeStatus2.isSelected()) {
+                t.setAsCompleted();
+            }
+            for (int i = 0; i < goalBox.size(); i++) {
+                if (goalBox.get(i).isSelected()) {
+                    t.setLinkedGoal(longTerm.getGoals().get(i));
+                    longTerm.getGoals().get(i).setLinkedTask(t);
+                }
+            }
+            updateTaskView(t);
+            dialogDisposeTask(current);
+        } catch (NameErrorException e) {
+            JOptionPane.showMessageDialog(dialog2, "Invalid name.");
+        }
+    }
+
+    private void updateTaskView(Task t) {
+        renderShort();
+        updateTaskInfo(t);
+    }
+
+    private void dialogDisposeTask(Task current) {
+        if (current == null) {
+            dialog2.dispose();
+        } else {
+            dialogEdit.dispose();
+        }
+    }
+
+    private void dialogStyle(JDialog dialog) {
+        for (java.awt.Component c : dialog.getContentPane().getComponents()) {
+            c.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 14));
+        }
+    }
+
+    
 
 
 }

@@ -1,17 +1,30 @@
-{
+{   
     "name": "My long term",
     "goals": [
         {
-            "linkedTasks": [],
+            "linkedTasks": [
+                "CPSC110",
+                "CPSC121"
+            ],
             "name": "FirstYearCourses",
             "completeStatus": true
         },
         {
             "linkedTasks": [
                 "CPSC210",
-                "CPSC313"
+                "CPSC213",
+                "CPSC221"
             ],
-            "name": "ThirdYea",
+            "name": "SecondYearCourses",
+            "completeStatus": false
+        },
+        {
+            "linkedTasks": [
+                "CPSC313",
+                "CPSC310",
+                "CPSC320"
+            ],
+            "name": "ThirdYearCourses",
             "completeStatus": false
         },
         {
@@ -20,4 +33,5 @@
             "completeStatus": false
         }
     ]
+	
 }
