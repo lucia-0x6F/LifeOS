@@ -76,3 +76,12 @@ Therefore, I wish to create an app that can ***break the long-term goal into dai
 1. As a user, I want to have the option to **save the entire state** (including all long-term goals and short-term tasks) to file.
 
 2. As a user, I want to have the option to **load a previously saved state** from file, so that I can resume exactly where I left off in a past session.
+
+
+## Instructions for End User
+
+- Press the "Load" button if you want to view previously saved data, including the long-term goal list and short-term task list.
+- Press one of the tasks/goal to view detailed information. If you want to make modifications, press "edit" and type or select the new information.
+- If you want to add a goal/task, press "+" below the goal/task list, then fill in the information.
+- If you want to remove a goal/task, press "x" next to each goal/task. (Reminder: if it has linked tasks/goal, the link will be removed if you delete either side.)
+- Press the "Save" button if you want to save your modifications from the latest session.
