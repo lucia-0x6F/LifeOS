@@ -54,44 +54,47 @@ public class MainFrame extends JFrame {
 
     private LongTerm longTerm;
     private JsonReader jsonReaderLong;
+    private JPanel goalList;
     private JLabel goalName;
     private JLabel goalCompleteStatus;
-    private JPanel goalList;
     private JTextArea goalLinkedTasks;
 
     private ShortTerm shortTerm;
     private JsonReader jsonReaderShort;
     private JPanel taskList;
     private JLabel taskName;
+    private JLabel taskCompleteStatus;
     private JLabel taskTimes;
     private JLabel taskDeadline;
     private JLabel taskEnergyLevel;
-    private JLabel taskCompleteStatus;
     private JTextArea taskLinkedGoal;
-    private JTextField nameField;
-    private JCheckBox completeStatus;
-    private JDialog dialog;
+    
+    private JTextField nameFieldGoal;
+    private JCheckBox completeStatusGoal;
+    private JDialog dialogGoal;
     private List<JCheckBox> taskBoxes;
-    private int ypos;
-    private JButton confirm;
-    private JButton edit;
+    private JButton confirmGoal;
 
-    private JDialog dialog2;
+    private JTextField nameFieldTask;
+    private JCheckBox completeStatusTask;
+    private JTextField energyLevelTask;
+    private JTextField timesTask;
+    private JTextField deadlineTask;
+    private JDialog dialogTask;
     private List<JRadioButton> goalBox;
-    private JButton confirm2;
+    private JButton confirmTask;
 
-    private JCheckBox completeStatus2;
-    private JTextField nameField2;
+    private int ypos;
     private JButton save;
     private JButton load;
     private JButton remove;
+    private JButton edit;
 
     private JsonWriter jsonWriterLong;
     private JsonWriter jsonWriterShort;
 
     private Task task;
     private Goal goal;
-
     private JDialog dialogEdit;
 
     private static final String JSON_STORE_LONG = "./data/longTerm.json";
@@ -410,46 +413,74 @@ public class MainFrame extends JFrame {
     }
 
     private void addTask() {
-        dialog2 = new JDialog(this, "Add a Task", true);
-        dialog2.setLayout(null);
+        dialogTask = new JDialog(this, "Add a Task", true);
+        dialogTask.setLayout(null);
 
         JLabel nameLabel = new JLabel("Name: ");
         nameLabel.setBounds(20, 20, 100, 25);
-        dialog2.add(nameLabel);
+        dialogTask.add(nameLabel);
 
-        nameField2 = new JTextField();
-        nameField2.setBounds(130, 20, 150, 25);
-        dialog2.add(nameField2);
+        nameFieldTask = new JTextField();
+        nameFieldTask.setBounds(130, 20, 150, 25);
+        dialogTask.add(nameFieldTask);
 
-        JLabel cpmpleteStatus = new JLabel("Completed: ");
-        cpmpleteStatus.setBounds(20, 60, 100, 25);
-        dialog2.add(cpmpleteStatus);
+        JLabel statusLabel = new JLabel("CompleteStatus: ");
+        statusLabel.setBounds(20, 60, 100, 25);
+        dialogTask.add(statusLabel);
 
-        completeStatus2 = new JCheckBox();
-        completeStatus2.setBounds(130, 60, 25, 25);
-        dialog2.add(completeStatus2);
+        completeStatusTask = new JCheckBox();
+        completeStatusTask.setBounds(130, 60, 25, 25);
+        dialogTask.add(completeStatusTask);
 
-        JLabel taskLabel = new JLabel("Linked Goal: ");
-        taskLabel.setBounds(20, 100, 100, 25);
-        dialog2.add(taskLabel);
-        goalBox(dialog2);
+        addTaskDetails();
+
+        JLabel goalLabel = new JLabel("Linked Goal: ");
+        goalLabel.setBounds(20, 220, 100, 25);
+        dialogTask.add(goalLabel);
+        goalBox(dialogTask);
         confirmTaskButton();
         confirmSetupTask();
+    }
+
+    private void addTaskDetails() {
+        JLabel energyLevelLabel = new JLabel("EnergyLevel: ");
+        energyLevelLabel.setBounds(20, 100, 100, 25);
+        dialogTask.add(energyLevelLabel);
+
+        energyLevelTask = new JTextField();
+        energyLevelTask.setBounds(130, 100, 150, 25);
+        dialogTask.add(energyLevelTask);
+
+        JLabel timesLabel = new JLabel("Times: ");
+        timesLabel.setBounds(20, 140, 100, 25);
+        dialogTask.add(timesLabel);
+
+        timesTask = new JTextField();
+        timesTask.setBounds(130, 140, 150, 25);
+        dialogTask.add(timesTask);
+
+        JLabel deadlineLabel = new JLabel("Deadline: ");
+        deadlineLabel.setBounds(20, 180, 100, 25);
+        dialogTask.add(deadlineLabel);
+
+        deadlineTask = new JTextField();
+        deadlineTask.setBounds(130, 180, 150, 25);
+        dialogTask.add(deadlineTask);
     }
     
 
     private void confirmSetupTask() {
-        confirm2.setBounds(80, ypos + 10, 100, 30);
-        dialog2.add(confirm2);
-        dialog2.setSize(320, ypos + 100);
-        dialog2.setLocationRelativeTo(this);
-        dialogStyle(dialog2);
-        dialog2.setVisible(true);
+        confirmTask.setBounds(80, ypos + 10, 100, 30);
+        dialogTask.add(confirmTask);
+        dialogTask.setSize(320, ypos + 100);
+        dialogTask.setLocationRelativeTo(this);
+        dialogStyle(dialogTask);
+        dialogTask.setVisible(true);
     }
 
     private void confirmTaskButton() {
-        confirm2 = new JButton("Confirm");
-        confirm2.addActionListener(event -> confirmTask(task));
+        confirmTask = new JButton("Confirm");
+        confirmTask.addActionListener(event -> confirmTask(task));
     }
 
 
@@ -457,7 +488,7 @@ public class MainFrame extends JFrame {
         goalBox = new ArrayList<>();
         ButtonGroup group = new ButtonGroup();
 
-        ypos = 130;
+        ypos = 250;
         List<Goal> goals = longTerm.getGoals();
         for (int x = 0; x < goals.size(); x++) {
             JRadioButton rb = new JRadioButton(goals.get(x).getName());
@@ -540,29 +571,29 @@ public class MainFrame extends JFrame {
 
 
     private void addGoal() {
-        dialog = new JDialog(this, "Add a Goal", true);
-        dialog.setLayout(null);
+        dialogGoal = new JDialog(this, "Add a Goal", true);
+        dialogGoal.setLayout(null);
 
         JLabel nameLabel = new JLabel("Name: ");
         nameLabel.setBounds(20, 20, 100, 25);
-        dialog.add(nameLabel);
+        dialogGoal.add(nameLabel);
 
-        nameField = new JTextField();
-        nameField.setBounds(130, 20, 150, 25);
-        dialog.add(nameField);
+        nameFieldGoal = new JTextField();
+        nameFieldGoal.setBounds(130, 20, 150, 25);
+        dialogGoal.add(nameFieldGoal);
 
-        JLabel cpmpleteStatus = new JLabel("Completed: ");
-        cpmpleteStatus.setBounds(20, 60, 100, 25);
-        dialog.add(cpmpleteStatus);
+        JLabel statusLabel = new JLabel("CompleteStatus: ");
+        statusLabel.setBounds(20, 60, 100, 25);
+        dialogGoal.add(statusLabel);
 
-        completeStatus = new JCheckBox();
-        completeStatus.setBounds(130, 60, 25, 25);
-        dialog.add(completeStatus);
+        completeStatusGoal = new JCheckBox();
+        completeStatusGoal.setBounds(130, 60, 25, 25);
+        dialogGoal.add(completeStatusGoal);
 
         JLabel taskLabel = new JLabel("Linked Tasks: ");
         taskLabel.setBounds(20, 100, 100, 25);
-        dialog.add(taskLabel);
-        taskBoxes(dialog);
+        dialogGoal.add(taskLabel);
+        taskBoxes(dialogGoal);
         confirmGoalButton();
         confirmSetupGoal();
     }
@@ -582,20 +613,20 @@ public class MainFrame extends JFrame {
     }
 
     private void confirmGoalButton() {
-        confirm = new JButton("Confirm");
-        confirm.addActionListener(event -> confirmGoal(goal));
+        confirmGoal = new JButton("Confirm");
+        confirmGoal.addActionListener(event -> confirmGoal(goal));
     }
 
     private void confirmGoal(Goal current) {
         try {
             Goal g = current;
             if (current == null) {
-                g = new Goal(nameField.getText());
+                g = new Goal(nameFieldGoal.getText());
                 longTerm.addGoal(g.getName());
             } else {
-                g.setName(nameField.getText());
+                g.setName(nameFieldGoal.getText());
             }
-            if (completeStatus.isSelected()) {
+            if (completeStatusGoal.isSelected()) {
                 completeGoal(g);
             }
             clearLinkedGoals(g);
@@ -608,7 +639,7 @@ public class MainFrame extends JFrame {
             updateGoalView(g);
             dialogDisposeGoal(current);
         } catch (NameErrorException e) {
-            JOptionPane.showMessageDialog(dialog, "Invalid name.");
+            JOptionPane.showMessageDialog(dialogGoal, "Invalid name.");
         }
         
     }
@@ -633,19 +664,19 @@ public class MainFrame extends JFrame {
 
     private void dialogDisposeGoal(Goal current) {
         if (current == null) {
-            dialog.dispose();
+            dialogGoal.dispose();
         } else {
             dialogEdit.dispose();
         }
     }
     
     private void confirmSetupGoal() {
-        confirm.setBounds(80, ypos + 10, 100, 30);
-        dialog.add(confirm);
-        dialog.setSize(320, ypos + 100);
-        dialog.setLocationRelativeTo(this);
-        dialogStyle(dialog);
-        dialog.setVisible(true);
+        confirmGoal.setBounds(80, ypos + 10, 100, 30);
+        dialogGoal.add(confirmGoal);
+        dialogGoal.setSize(320, ypos + 100);
+        dialogGoal.setLocationRelativeTo(this);
+        dialogStyle(dialogGoal);
+        dialogGoal.setVisible(true);
     }
 
     private JButton save() {
@@ -735,26 +766,26 @@ public class MainFrame extends JFrame {
         nameLabel.setBounds(20, 20, 100, 25);
         dialogEdit.add(nameLabel);
 
-        nameField = new JTextField(goal.getName());
-        nameField.setBounds(130, 20, 150, 25);
-        dialogEdit.add(nameField);
+        nameFieldGoal = new JTextField(goal.getName());
+        nameFieldGoal.setBounds(130, 20, 150, 25);
+        dialogEdit.add(nameFieldGoal);
 
         JLabel completeStatusLabel = new JLabel("CompleteStatus: ");
         completeStatusLabel.setBounds(20, 60, 100, 25);
         dialogEdit.add(completeStatusLabel);
 
-        completeStatus = new JCheckBox();
-        completeStatus.setBounds(130, 60, 25, 25);
-        dialogEdit.add(completeStatus);
+        completeStatusGoal = new JCheckBox();
+        completeStatusGoal.setBounds(130, 60, 25, 25);
+        dialogEdit.add(completeStatusGoal);
 
         JLabel newLinkedTasks = new JLabel("Linked Tasks: ");
         newLinkedTasks.setBounds(20, 100, 100, 25);
         dialogEdit.add(newLinkedTasks);
         taskBoxes(dialogEdit);
 
-        confirm = new JButton("Confirm");
-        confirm.addActionListener(e -> confirmGoal(goal));
-        confirm.setBounds(80, ypos + 10, 100, 30);
+        confirmGoal = new JButton("Confirm");
+        confirmGoal.addActionListener(e -> confirmGoal(goal));
+        confirmGoal.setBounds(80, ypos + 10, 100, 30);
         
         dialogEdit();
     }
@@ -774,34 +805,63 @@ public class MainFrame extends JFrame {
         nameLabel.setBounds(20, 20, 100, 25);
         dialogEdit.add(nameLabel);
 
-        nameField2 = new JTextField(task.getName());
-        nameField2.setBounds(130, 20, 150, 25);
-        dialogEdit.add(nameField2);
+        nameFieldTask = new JTextField(task.getName());
+        nameFieldTask.setBounds(130, 20, 150, 25);
+        dialogEdit.add(nameFieldTask);
 
         JLabel statusLabel = new JLabel("Completed: ");
         statusLabel.setBounds(20, 60, 100, 25);
         dialogEdit.add(statusLabel);
 
-        completeStatus2 = new JCheckBox();
-        completeStatus2.setSelected(task.getCompleteStatus());
-        completeStatus2.setBounds(130, 60, 25, 25);
-        dialogEdit.add(completeStatus2);
+        
+
+        completeStatusTask = new JCheckBox();
+        completeStatusTask.setSelected(task.getCompleteStatus());
+        completeStatusTask.setBounds(130, 60, 25, 25);
+        dialogEdit.add(completeStatusTask);
 
         JLabel goalLabel = new JLabel("Linked Goal: ");
-        goalLabel.setBounds(20, 100, 100, 25);
+        goalLabel.setBounds(20, 220, 100, 25);
         dialogEdit.add(goalLabel);
         goalBox(dialogEdit);
 
-        confirm = new JButton("Confirm");
-        confirm.addActionListener(e -> confirmTask(task));
-        confirm.setBounds(80, ypos + 10, 100, 30);
+        confirmGoal = new JButton("Confirm");
+        confirmGoal.addActionListener(e -> confirmTask(task));
+        confirmGoal.setBounds(80, ypos + 10, 100, 30);
 
-        dialogEdit();
+        editTaskDetails(task);
         
     }
 
+    private void editTaskDetails(Task task) {
+        JLabel energyLevelLabel = new JLabel("EnergyLevel: ");
+        energyLevelLabel.setBounds(20, 100, 100, 25);
+        dialogEdit.add(energyLevelLabel);
+
+        energyLevelTask = new JTextField(task.getEnergyLevel());
+        energyLevelTask.setBounds(130, 100, 150, 25);
+        dialogEdit.add(energyLevelTask);
+         
+        JLabel timesLabel = new JLabel("Times: ");
+        timesLabel.setBounds(20, 140, 100, 25);
+        dialogEdit.add(timesLabel);
+
+        timesTask = new JTextField(task.getTimes());
+        timesTask.setBounds(130, 140, 150, 25);
+        dialogEdit.add(timesTask);
+
+        JLabel deadlineLabel = new JLabel("Deadline: ");
+        deadlineLabel.setBounds(20, 180, 100, 25);
+        dialogEdit.add(deadlineLabel);
+
+        deadlineTask = new JTextField(task.getDeadline());
+        deadlineTask.setBounds(130, 180, 150, 25);
+        dialogEdit.add(deadlineTask);
+        dialogEdit();
+    }
+
     private void dialogEdit() {
-        dialogEdit.add(confirm);
+        dialogEdit.add(confirmGoal);
         dialogEdit.setSize(320, ypos + 100);
         dialogEdit.setLocationRelativeTo(this);
         dialogStyle(dialogEdit);
@@ -813,14 +873,17 @@ public class MainFrame extends JFrame {
         try {
             Task t = current;
             if (current == null) {
-                t = new Task(nameField2.getText());
+                t = new Task(nameFieldTask.getText());
                 shortTerm.addTask(t.getName());
             } else {
-                t.setName(nameField2.getText());
+                t.setName(nameFieldTask.getText());
             }
-            if (completeStatus2.isSelected()) {
+            if (completeStatusTask.isSelected()) {
                 completeTask(t);
             }
+
+            updateTaskDetails(t);
+
             for (int i = 0; i < goalBox.size(); i++) {
                 if (goalBox.get(i).isSelected()) {
                     t.setLinkedGoal(longTerm.getGoals().get(i));
@@ -830,8 +893,14 @@ public class MainFrame extends JFrame {
             updateTaskView(t);
             dialogDisposeTask(current);
         } catch (NameErrorException e) {
-            JOptionPane.showMessageDialog(dialog2, "Invalid name.");
+            JOptionPane.showMessageDialog(dialogTask, "Invalid name.");
         }
+    }
+
+    private void updateTaskDetails(Task t) {
+        t.setEnergyLevel(Integer.parseInt(energyLevelTask.getText()));
+        t.setTimes(Integer.parseInt(timesTask.getText()));
+        t.setDeadline(deadlineTask.getText());
     }
 
     private void completeTask(Task t) {
@@ -846,7 +915,7 @@ public class MainFrame extends JFrame {
 
     private void dialogDisposeTask(Task current) {
         if (current == null) {
-            dialog2.dispose();
+            dialogTask.dispose();
         } else {
             dialogEdit.dispose();
         }
