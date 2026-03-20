@@ -7,13 +7,11 @@
             "completeStatus": true
         },
         {
-            "linkedTasks": [],
-            "name": "SecondYearCourses",
-            "completeStatus": false
-        },
-        {
-            "linkedTasks": [],
-            "name": "ThirdYearCourses",
+            "linkedTasks": [
+                "CPSC210",
+                "CPSC313"
+            ],
+            "name": "ThirdYea",
             "completeStatus": false
         },
         {

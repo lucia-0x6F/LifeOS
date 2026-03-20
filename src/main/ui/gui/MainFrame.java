@@ -1,6 +1,7 @@
 package ui.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -73,6 +74,7 @@ public class MainFrame extends JFrame {
     private List<JCheckBox> taskBoxes;
     private int ypos;
     private JButton confirm;
+    private JButton edit;
 
     private JDialog dialog2;
     private List<JRadioButton> goalBox;
@@ -86,6 +88,11 @@ public class MainFrame extends JFrame {
 
     private JsonWriter jsonWriterLong;
     private JsonWriter jsonWriterShort;
+
+    private Task task;
+    private Goal goal;
+
+    private JDialog dialogEdit;
 
     private static final String JSON_STORE_LONG = "./data/longTerm.json";
     private static final String JSON_STORE_SHORT = "./data/shortTerm.json";
@@ -111,6 +118,9 @@ public class MainFrame extends JFrame {
 
         setScrollPane(longTermPanel, goalList);
         setScrollPane(shortTermPanel, taskList);
+
+        editButtonTask();
+        editButtonGoal();
 
         mainFrame();
     }
@@ -312,10 +322,6 @@ public class MainFrame extends JFrame {
     private void loadLong() {
         try {
             longTerm = jsonReaderLong.readLongTerm();
-            shortTerm = jsonReaderShort.readShortTerm(); 
-            
-           
-           
         } catch (IOException e) {
             System.out.println("Cannot read from file");
             JOptionPane.showMessageDialog(this, "File not found");
@@ -353,7 +359,7 @@ public class MainFrame extends JFrame {
         scrollPane.setBounds(20, 60, 250, 200);
         scrollPane.getViewport().setOpaque(false);
         scrollPane.setOpaque(false);
-        scrollPane.setBorder(null);
+        scrollPane.setBorder(null); 
         panel.add(scrollPane);
     }
 
@@ -470,6 +476,7 @@ public class MainFrame extends JFrame {
     }
 
     private void updateTaskInfo(Task t) {
+        task = t;
         taskName.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 16));
         taskCompleteStatus.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 16));
         taskTimes.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 16));
@@ -497,6 +504,7 @@ public class MainFrame extends JFrame {
     }
 
     private void updateGoalInfo(Goal g) {
+        goal = g;
         goalName.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 16));
         goalCompleteStatus.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 16));
         goalLinkedTasks.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 16));
@@ -560,12 +568,12 @@ public class MainFrame extends JFrame {
         JLabel taskLabel = new JLabel("Linked Tasks: ");
         taskLabel.setBounds(20, 100, 100, 25);
         dialog.add(taskLabel);
-        taskBoxes();
+        taskBoxes(dialog);
         confirm();
         confirmSetup();
     }
 
-    private void taskBoxes() {
+    private void taskBoxes(JDialog dialog) {
         taskBoxes = new ArrayList<>();
 
         ypos = 130;
@@ -581,26 +589,37 @@ public class MainFrame extends JFrame {
 
     private void confirm() {
         confirm = new JButton("Confirm");
-        confirm.addActionListener(event -> confirmGoal());
+        confirm.addActionListener(event -> confirmGoal(null));
     }
 
-    private void confirmGoal() {
-        try {
-            Goal goal = new Goal(nameField.getText());
-            if (completeStatus.isSelected()) {
-                goal.setAsCompleted();
-            }
-            for (int i = 0; i < taskBoxes.size(); i++) {
-                if (taskBoxes.get(i).isSelected()) {
-                    goal.setLinkedTask(shortTerm.getTasks().get(i));
-                }
-            }
-            longTerm.addGoal(goal.getName());
-            renderLong();
-            dialog.dispose();
-        } catch (NameErrorException ex) {
-            JOptionPane.showMessageDialog(dialog, "Invalid name.");
+    private void confirmGoal(Goal current) {
+        Goal g = null;
+        if (current == null) {
+            g = new Goal(nameField.getText());
+        } else {
+            g = current;
+            g.setName(nameField.getText());
         }
+        if (completeStatus.isSelected()) {
+            g.setAsCompleted();
+        }
+        for (int i = 0; i < taskBoxes.size(); i++) {
+            if (taskBoxes.get(i).isSelected()) {
+                g.setLinkedTask(shortTerm.getTasks().get(i));
+            }
+        }
+        if (!longTerm.getGoals().contains(g)) {
+             longTerm.addGoal(g);
+        } 
+         
+        renderLong();
+        updateGoalInfo(g);
+        if (current == null) {
+            dialog.dispose();
+        } else {
+            dialogEdit.dispose();
+        }
+        
     }
     
     private void confirmSetup() {
@@ -612,9 +631,10 @@ public class MainFrame extends JFrame {
     }
 
     private JButton save() {
-        save = new JButton("Save");
+        save = buttonStyle("Save");
         save.addActionListener(e -> actionPerformedSave());
-        save.setBounds(0,0,90,30);
+        save.setBounds(650,150,90,30);
+        save.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 30));
 
         return save;
     }
@@ -658,14 +678,14 @@ public class MainFrame extends JFrame {
     }
 
     private JButton load() {
-        load = new JButton("Load");
+        load = buttonStyle("Load");
         load.addActionListener(e -> actionPerformedLoad());
-        load.setBounds(0,100,90,30);
+        load.setBounds(650,100,90,30);
+        load.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 30));
         return load;
     }
 
     private void actionPerformedLoad() {
-         
         loadLong();
         renderLong();
         loadShort();
@@ -675,7 +695,66 @@ public class MainFrame extends JFrame {
         shortTermPanel.revalidate();
         shortTermPanel.repaint();
     }
+
+    private void editButtonTask() {
+        edit = buttonStyle("edit");
+        edit.setBounds(50, 26, 80, 25);
+        edit.addActionListener(e -> editTask(task));
+        taskPanel.add(edit);
+    }
+
+    private void editGoal(Goal goal) {
+        dialogEdit = new JDialog(this, "Edit a Task", true);
+        dialogEdit.setLayout(null);
+
+        JLabel nameLabel = new JLabel("Name: ");
+        nameLabel.setBounds(20, 20, 100, 25);
+        dialogEdit.add(nameLabel);
+
+        nameField = new JTextField(goal.getName());
+        nameField.setBounds(130, 20, 150, 25);
+        dialogEdit.add(nameField);
+
+        completeStatus = new JCheckBox();
+        completeStatus.setBounds(130, 60, 25, 25);
+        dialogEdit.add(completeStatus);
+
+        JCheckBox newStatusBox = new JCheckBox();
+        newStatusBox.setBounds(130, 60, 25, 25);
+        dialogEdit.add(newStatusBox);
+
+        JLabel newLinkedTasks = new JLabel("Linked Tasks: ");
+        newLinkedTasks.setBounds(20, 100, 100, 25);
+        dialogEdit.add(newLinkedTasks);
+        taskBoxes(dialogEdit);
+
+        confirm = new JButton("Confirm");
+        confirm.addActionListener(e -> confirmGoal(goal));
+        confirm.setBounds(80, ypos + 10, 100, 30);
+        
+        dialogEdit.add(confirm);
+        dialogEdit.setSize(320, ypos + 100);
+        dialogEdit.setLocationRelativeTo(this);
+        dialogEdit.setVisible(true);
+
+
+    }
+    
+
+     private void editButtonGoal() {
+        edit = buttonStyle("edit");
+        edit.setBounds(50, 26, 80, 25);
+        edit.addActionListener(e -> editGoal(goal));
+        goalPanel.add(edit);
+    }
+
+     private void editTask(Task task) {
+        
+    }
+
+
 }
+
 
 
 
