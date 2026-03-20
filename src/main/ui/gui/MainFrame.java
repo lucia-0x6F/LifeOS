@@ -1,6 +1,8 @@
 package ui.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -80,6 +82,7 @@ public class MainFrame extends JFrame {
     private JCheckBox completeStatus2;
     private JTextField nameField2;
     private JButton save;
+    private JButton load;
     private JButton remove;
 
     private JsonWriter jsonWriterLong;
@@ -92,16 +95,15 @@ public class MainFrame extends JFrame {
         jsonReaderLong = new JsonReader(JSON_STORE_LONG);
         jsonReaderShort = new JsonReader(JSON_STORE_SHORT);
         save();
+        load();
         init();
         basicPanel();
         menuPanel();
         goalPanel();
         taskPanel();
         poemContainer();
-        loadLong();
-        renderLong();
-        loadShort();
-        renderShort();
+        setScrollPane(longTermPanel, goalList);
+        setScrollPane(shortTermPanel, taskList);
         mainFrame();
     }
     
@@ -116,6 +118,7 @@ public class MainFrame extends JFrame {
         backGround.setLayout(null);
         backGround.setBounds(80, 28, 1380, 870);
         backGround.add(save);
+        backGround.add(load);
 
         panel = new JPanel();
         panel.setBackground(new Color(255, 236, 170));
@@ -318,18 +321,25 @@ public class MainFrame extends JFrame {
     private void renderLong() {
         goalList.removeAll();
             for (Goal g : longTerm.getGoals()) {
-                JButton button = buttonStyle(g.getName());
+               JButton button = buttonStyle(g.getName());
                 button.addActionListener(e -> actionPerformedGoal(e, g));
-                goalList.add(button);
-                goalList.add(removeGoal(g)); 
+
+                JPanel row = new JPanel(new BorderLayout());
+                row.add(removeGoal(g), java.awt.BorderLayout.EAST);
+                row.add(button, java.awt.BorderLayout.WEST);
+                row.setOpaque(false);
+                row.setMaximumSize(new Dimension(250, 30));
+                remove.setFont(null);
+                
+                goalList.add(row);
             }
 
-            JButton addButton = buttonStyle("+");
-            addButton.addActionListener(e -> addGoal());
-            goalList.add(addButton);
-            goalList.setOpaque(false);
-
-            setScrollPane(longTermPanel, goalList);
+        JButton addButton = buttonStyle("+");
+        addButton.addActionListener(e -> addGoal());
+        goalList.add(addButton);
+        goalList.setOpaque(false);
+        goalList.revalidate();
+        goalList.repaint();
 
     }
 
@@ -360,18 +370,19 @@ public class MainFrame extends JFrame {
     }
 
     private void renderShort() {
-          for (Task t : shortTerm.getTasks()) {
-                JButton button = buttonStyle(t.getName());
-                button.addActionListener(e -> actionPerformedTask(e, t));
-                taskList.add(button);
-            }
+        taskList.removeAll();
+        for (Task t : shortTerm.getTasks()) {
+            JButton button = buttonStyle(t.getName());
+            button.addActionListener(e -> actionPerformedTask(e, t));
+            taskList.add(button);
+        }
 
-            JButton addButton2 = buttonStyle("+");
-            addButton2.addActionListener(e -> addTask());
-            taskList.add(addButton2);
-            shortTermPanel.add(taskList);
-            
-            setScrollPane(shortTermPanel, taskList);
+        JButton addButton = buttonStyle("+");
+        addButton.addActionListener(e -> addTask());
+        taskList.add(addButton);
+        taskList.setOpaque(false);
+        taskList.revalidate();
+        taskList.repaint();
     }
 
     private void addTask() {
@@ -627,8 +638,7 @@ public class MainFrame extends JFrame {
     }
 
     private JButton removeGoal(Goal g) {
-        remove = new JButton("x");
-        longTermPanel.add(remove);
+        remove = buttonStyle("x");
         remove.addActionListener(e -> actionPerformedRemove(e, g));
         remove.setBounds(0,50,40,30);
         
@@ -637,12 +647,30 @@ public class MainFrame extends JFrame {
     }
 
     private void actionPerformedRemove(ActionEvent e, Goal g) {
-            try {
-                longTerm.removeGoal(g.getName());
-            } catch (NameErrorException ex) {
-                 JOptionPane.showMessageDialog(this, "Cannot remove goal.");
-            }
-            renderLong();
+        try {
+            longTerm.removeGoal(g.getName());
+        } catch (NameErrorException ex) {
+            JOptionPane.showMessageDialog(this, "Cannot remove goal.");
+        }
+        renderLong();
+    }
+
+        private JButton load() {
+        load = new JButton("Load");
+        load.addActionListener(e -> actionPerformedLoad());
+        load.setBounds(0,100,90,30);
+        return load;
+    }
+
+    private void actionPerformedLoad() {
+        loadLong();
+        renderLong();
+        loadShort();
+        renderShort();
+        longTermPanel.revalidate();
+        longTermPanel.repaint();
+        shortTermPanel.revalidate();
+        shortTermPanel.repaint();
     }
 }
 
