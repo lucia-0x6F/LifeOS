@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -102,8 +101,17 @@ public class MainFrame extends JFrame {
         goalPanel();
         taskPanel();
         poemContainer();
+        
+        goalList = new JPanel();
+        goalList.setLayout(new BoxLayout(goalList, BoxLayout.Y_AXIS));
+        goalList.setOpaque(false);
+        taskList = new JPanel();
+        taskList.setLayout(new BoxLayout(taskList, BoxLayout.Y_AXIS));
+        taskList.setOpaque(false);
+
         setScrollPane(longTermPanel, goalList);
         setScrollPane(shortTermPanel, taskList);
+
         mainFrame();
     }
     
@@ -306,10 +314,7 @@ public class MainFrame extends JFrame {
             longTerm = jsonReaderLong.readLongTerm();
             shortTerm = jsonReaderShort.readShortTerm(); 
             
-            goalList = new JPanel();
-            goalList.setLayout(new BoxLayout(goalList, BoxLayout.Y_AXIS));
-            goalList.setBackground(new Color(0xDCC2A3));
-
+           
            
         } catch (IOException e) {
             System.out.println("Cannot read from file");
@@ -320,19 +325,19 @@ public class MainFrame extends JFrame {
 
     private void renderLong() {
         goalList.removeAll();
-            for (Goal g : longTerm.getGoals()) {
-               JButton button = buttonStyle(g.getName());
-                button.addActionListener(e -> actionPerformedGoal(e, g));
+        for (Goal g : longTerm.getGoals()) {
+            JButton button = buttonStyle(g.getName());
+            button.addActionListener(e -> actionPerformedGoal(e, g));
 
-                JPanel row = new JPanel(new BorderLayout());
-                row.add(removeGoal(g), java.awt.BorderLayout.EAST);
-                row.add(button, java.awt.BorderLayout.WEST);
-                row.setOpaque(false);
-                row.setMaximumSize(new Dimension(250, 30));
-                remove.setFont(null);
-                
-                goalList.add(row);
-            }
+            JPanel row = new JPanel(new BorderLayout());
+            row.add(removeGoal(g), java.awt.BorderLayout.EAST);
+            row.add(button, java.awt.BorderLayout.WEST);
+            row.setOpaque(false);
+            row.setMaximumSize(new Dimension(250, 30));
+            remove.setFont(null);
+            
+            goalList.add(row);
+        }
 
         JButton addButton = buttonStyle("+");
         addButton.addActionListener(e -> addGoal());
@@ -356,9 +361,6 @@ public class MainFrame extends JFrame {
     private void loadShort() {
         try {
             shortTerm = jsonReaderShort.readShortTerm();
-            taskList = new JPanel();
-            taskList.setLayout(new BoxLayout(taskList, BoxLayout.Y_AXIS));
-            taskList.setOpaque(false);
 
           
 
@@ -655,7 +657,7 @@ public class MainFrame extends JFrame {
         renderLong();
     }
 
-        private JButton load() {
+    private JButton load() {
         load = new JButton("Load");
         load.addActionListener(e -> actionPerformedLoad());
         load.setBounds(0,100,90,30);
@@ -663,6 +665,7 @@ public class MainFrame extends JFrame {
     }
 
     private void actionPerformedLoad() {
+         
         loadLong();
         renderLong();
         loadShort();
