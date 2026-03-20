@@ -596,7 +596,7 @@ public class MainFrame extends JFrame {
                 g.setName(nameField.getText());
             }
             if (completeStatus.isSelected()) {
-                g.setAsCompleted();
+                completeGoal(g);
             }
             clearLinkedGoals(g);
             for (int i = 0; i < taskBoxes.size(); i++) {
@@ -611,6 +611,11 @@ public class MainFrame extends JFrame {
             JOptionPane.showMessageDialog(dialog, "Invalid name.");
         }
         
+    }
+
+    private void completeGoal(Goal g) {
+        g.setAsCompleted();
+        completeImage();
     }
 
     private void updateGoalView(Goal g) {
@@ -814,7 +819,7 @@ public class MainFrame extends JFrame {
                 t.setName(nameField2.getText());
             }
             if (completeStatus2.isSelected()) {
-                t.setAsCompleted();
+                completeTask(t);
             }
             for (int i = 0; i < goalBox.size(); i++) {
                 if (goalBox.get(i).isSelected()) {
@@ -827,6 +832,11 @@ public class MainFrame extends JFrame {
         } catch (NameErrorException e) {
             JOptionPane.showMessageDialog(dialog2, "Invalid name.");
         }
+    }
+
+    private void completeTask(Task t) {
+        t.setAsCompleted();
+        completeImage();
     }
 
     private void updateTaskView(Task t) {
@@ -846,6 +856,12 @@ public class MainFrame extends JFrame {
         for (java.awt.Component c : dialog.getContentPane().getComponents()) {
             c.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 14));
         }
+    }
+
+    private void completeImage() {
+        ImageIcon image = new ImageIcon("image.png");
+        JOptionPane.showMessageDialog(this, "", "Good job!", JOptionPane.PLAIN_MESSAGE, image);
+        
     }
 
     

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import persistence.Writable;
 /**
  * Sets the name and complete status for the goal, add or remove linkedTask of the goal
@@ -98,6 +99,8 @@ public class Goal implements WorkUnit, Writable {
         return jsonArray;
     }
 
+    
+    @ExcludeFromJacocoGeneratedReport
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -106,20 +109,27 @@ public class Goal implements WorkUnit, Writable {
         return result;
     }
 
+    
+    @ExcludeFromJacocoGeneratedReport
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Goal other = (Goal) obj;
         if (name == null) {
-            if (other.name != null)
+            if (other.name != null) {
                 return false;
-        } else if (!name.equals(other.name))
+            }
+        } else if (!name.equals(other.name)) {
             return false;
+        }
         return true;
     }
 

@@ -2,6 +2,7 @@ package model;
 
 import org.json.JSONObject;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import persistence.Writable;
 
 /**
@@ -45,6 +46,8 @@ public class Task implements WorkUnit, Writable {
         return name;
     }
 
+    
+    @ExcludeFromJacocoGeneratedReport
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -52,21 +55,28 @@ public class Task implements WorkUnit, Writable {
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
-
+    
+    
+    @ExcludeFromJacocoGeneratedReport
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Task other = (Task) obj;
         if (name == null) {
-            if (other.name != null)
+            if (other.name != null) {
                 return false;
-        } else if (!name.equals(other.name))
+            }
+        } else if (!name.equals(other.name)) {
             return false;
+        }
         return true;
     }
 
