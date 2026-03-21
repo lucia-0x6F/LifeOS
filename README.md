@@ -80,9 +80,9 @@ Therefore, I wish to create an app that can ***break the long-term goal into dai
 
 ## Instructions for End User
 
-- You can view the panel that displays the Xs that have already been added to the Y by looking at the "Short Term" and "Long Term" panels.
-- You can generate the first required action related to the user story "adding multiple Xs to a Y" by pressing "+" below the goal list or task list to add a long-term goal or short-term task.
-- You can generate the second required action by pressing "x" next to a goal or task to remove it from the list.
+- You can view the "Long Term" and "Short Term" panels to see the goals or tasks that have been added to the list
+- You can press "+" below the goal list or task list to add a long-term goal or short-term task.
+- You can press "x" next to a goal or task to remove it from the list.
 - You can select a goal or task and press "edit" to edit the information.
 - You can locate my visual component by marking a goal or task as completed, and an image will pop up.
 - You can save the state of my application by pressing the "Save" button.

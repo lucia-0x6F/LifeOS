@@ -371,7 +371,7 @@ public class MainFrame extends JFrame {
     }
 
     //MODIFIES: this
-    //EFFECTS: adds a scollPane for this list
+    //EFFECTS: adds a scrollPane for this list
     private void setScrollPane(JPanel panel, JPanel list) {
         JScrollPane scrollPane = new JScrollPane(list);
         scrollPane.setBounds(20, 60, 250, 200);
@@ -426,7 +426,8 @@ public class MainFrame extends JFrame {
     }
 
     //MODIFIES: this, shortTerm
-    //EFFECTS: removes the task from taskList and removes the linking to the linkedGoal, updates the taskList when the button was pressed
+    //EFFECTS: removes the task from taskList and removes the linking to the linkedGoal, 
+    //         updates the taskList when the button was pressed
     private void actionPerformedRemoveTask(ActionEvent e, Task t) {
         try {
             shortTerm.removeTask(t.getName());
@@ -512,7 +513,7 @@ public class MainFrame extends JFrame {
     }
 
     //MODIFIES: this
-    //EFFECTS: creates the confirm button and the actionPerformed method
+    //EFFECTS: creates the confirm button and links the action listener
     private void confirmTaskButton() {
         confirmTask = new JButton("Confirm");
         confirmTask.addActionListener(event -> confirmTask(task));
@@ -657,7 +658,7 @@ public class MainFrame extends JFrame {
     }
 
     //MODIFIES: this
-    //EFFECTS: creates the confirm button and the actionPerformed method
+    //EFFECTS: creates the confirm button and links the action listener
     private void confirmGoalButton() {
         confirmGoal = new JButton("Confirm");
         confirmGoal.addActionListener(event -> confirmGoal(goal));
@@ -834,7 +835,7 @@ public class MainFrame extends JFrame {
     //MODIFIES: this
     //EFFECTS: pops up the dialog and the information of the goal
     private void editGoal(Goal goal) {
-        dialogEdit = new JDialog(this, "Edit a Task", true);
+        dialogEdit = new JDialog(this, "Edit a Goal", true);
         dialogEdit.setLayout(null);
 
         JLabel nameLabel = new JLabel("Name: ");
