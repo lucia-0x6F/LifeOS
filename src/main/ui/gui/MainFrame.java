@@ -36,6 +36,7 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 import model.exception.NameErrorException;
 
+// Represents the graphical user interface of the LifeOS application.
 @ExcludeFromJacocoGeneratedReport
 public class MainFrame extends JFrame {
     private JPanel backGround;
@@ -100,6 +101,8 @@ public class MainFrame extends JFrame {
     private static final String JSON_STORE_LONG = "./data/longTerm.json";
     private static final String JSON_STORE_SHORT = "./data/shortTerm.json";
     
+    //MODIFIES: this
+    //EFFECTS: initializes jsonReader, jsonWriter and the panels
     public MainFrame() throws NameErrorException {
         jsonReaderLong = new JsonReader(JSON_STORE_LONG);
         jsonReaderShort = new JsonReader(JSON_STORE_SHORT);
@@ -128,6 +131,8 @@ public class MainFrame extends JFrame {
         mainFrame();
     }
     
+    //MODIFIES: this
+    //EFFECTS: initializes the backGround panel, the main panel, adds the titleLabel
     public void init() {
         ImageIcon icon = new ImageIcon("LifeOS.png");
         this.setIconImage(icon.getImage());
@@ -153,6 +158,8 @@ public class MainFrame extends JFrame {
         titleLabel.setBounds(70, 80, 600, 80);
     }
 
+    //MODIFIES: this
+    //EFFECTS: sets the shortTerm and longTerm panel
     public void basicPanel() {
         shortTermPanel = new JPanel();
         shortTermPanel.setBackground(new Color(0xE6D2B8));
@@ -176,6 +183,8 @@ public class MainFrame extends JFrame {
         longTermPanel.add(longTermLabel);
     }
 
+    //MODIFIES: this
+    //EFFECTS: sets the menuPanel
     public void menuPanel() {
         menuPanel = new JPanel();
         menuPanel.setBackground(new Color(0xF3E8D3));
@@ -189,6 +198,8 @@ public class MainFrame extends JFrame {
 
     }
 
+    //MODIFIES: this
+    //EFFECTS: sets the goalPanel, adds the name, completeStatus and linkedTasks labels and textAreas
     public void goalPanel() {
         goalPanel = new JPanel();
         goalPanel.setBackground(new Color(0xB7C4A1));
@@ -203,6 +214,7 @@ public class MainFrame extends JFrame {
         goalName = new JLabel();
         goalName.setBounds(20, 65, 240, 25);
         goalPanel.add(goalName);
+
         goalCompleteStatus = new JLabel("");
         goalCompleteStatus.setBounds(20, 95, 240, 25);
         goalPanel.add(goalCompleteStatus);
@@ -215,11 +227,14 @@ public class MainFrame extends JFrame {
         goalPanel.add(goalLinkedTasks);
     }
 
+    //MODIFIES: this
+    //EFFECTS: sets the taskPanel
     public void taskPanel() {
         taskPanel = new JPanel();
         taskPanel.setBackground(new Color(0xD0DCC2));
         taskPanel.setLayout(null);
         taskPanel.setBounds(365, 250, 280, 280);
+
         taskLabel = new JLabel("Task");
         taskLabel.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 20));
         taskLabel.setBounds(20, 20, 200, 30);
@@ -228,6 +243,8 @@ public class MainFrame extends JFrame {
         taskPanelDetails();
     }
 
+    //MODIFIES: this
+    //EFFECTS:  adds the name, completeStatus, energyLevel, times, deadline, linkedGoal labels and textAreas
     public void taskPanelDetails() {
         taskName = new JLabel();
         taskName.setBounds(20, 65, 240, 25);
@@ -258,7 +275,8 @@ public class MainFrame extends JFrame {
 
     }
 
-
+    //MODIFIES: this
+    //EFFECTS: sets the poemPanel and the introduction texts
     public void poemContainer() {
         poemContainer = new JPanel();
         poemContainer.setBackground(new Color(0xF3E3AF));
@@ -273,14 +291,14 @@ public class MainFrame extends JFrame {
         text.setOpaque(false);
         text.setBounds(75, 165, 700, 80);
 
-        //Poem
         poemPanel = new JTextPane();
         poemPanel.setEditable(false);
         poemPanel.setOpaque(false);
         poemPanel.setBounds(20, 15, 440, 700); 
     }
 
-
+    //MODIFIES: this
+    //EFFECTS: adds the panels to the backGround panel and render the window
     public void mainFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
@@ -301,16 +319,20 @@ public class MainFrame extends JFrame {
         panel.setSize(getWidth(), getHeight());
     }
 
+    //MODIFIES: this
+    //EFFECTS: updates the information of this goal when the button was pressed
     public void actionPerformedGoal(ActionEvent e, Goal g) {
         updateGoalInfo(g);
     }
 
+    //MODIFIES: this
+    //EFFECTS: updates the information of this task when the button was pressed
     public void actionPerformedTask(ActionEvent e, Task t) {
         updateTaskInfo(t);
     }
 
-   
-
+   //MODIFIES: this
+   //EFFECTS: reads the longTerm json file, shows a dialog when exception
     private void loadLong() {
         try {
             jsonReaderLong = new JsonReader(JSON_STORE_LONG); 
@@ -322,6 +344,8 @@ public class MainFrame extends JFrame {
         
     }
 
+    //MODIFIES: this
+    //EFFECTS: updates the goalList and adds add and remove button
     private void renderLong() {
         goalList.removeAll();
         for (Goal g : longTerm.getGoals()) {
@@ -346,6 +370,8 @@ public class MainFrame extends JFrame {
 
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds a scollPane for this list
     private void setScrollPane(JPanel panel, JPanel list) {
         JScrollPane scrollPane = new JScrollPane(list);
         scrollPane.setBounds(20, 60, 250, 200);
@@ -355,21 +381,21 @@ public class MainFrame extends JFrame {
         panel.add(scrollPane);
     }
 
-
+   //MODIFIES: this
+   //EFFECTS: reads the shortTerm json file, shows a dialog when exception
     private void loadShort() {
         try {
             jsonReaderShort = new JsonReader(JSON_STORE_SHORT); 
             shortTerm = jsonReaderShort.readShortTerm();
-
-          
-
         } catch (IOException e) {
             System.out.println("Cannot read from file");
             JOptionPane.showMessageDialog(this, "File not found");
         }
      
     }
-
+        
+    //MODIFIES: this
+    //EFFECTS: updates the taskList and adds add and remove button
     private void renderShort() {
         taskList.removeAll();
         for (Task t : shortTerm.getTasks()) {
@@ -391,6 +417,7 @@ public class MainFrame extends JFrame {
         taskList.repaint();
     }
 
+    //EFFECTS: returns a remove button
     private JButton removeTask(Task t) {
         JButton remove = buttonStyle("x");
         remove.setFont(null);
@@ -398,7 +425,8 @@ public class MainFrame extends JFrame {
         return remove;
     }
 
-
+    //MODIFIES: this, shortTerm
+    //EFFECTS: removes the task from taskList and removes the linking to the linkedGoal, updates the taskList when the button was pressed
     private void actionPerformedRemoveTask(ActionEvent e, Task t) {
         try {
             shortTerm.removeTask(t.getName());
@@ -412,6 +440,8 @@ public class MainFrame extends JFrame {
         renderShort();
     }
 
+    //MODIFIES: this
+    //EFFECTS: sets the basic information of a task
     private void addTask() {
         dialogTask = new JDialog(this, "Add a Task", true);
         dialogTask.setLayout(null);
@@ -442,6 +472,8 @@ public class MainFrame extends JFrame {
         confirmSetupTask();
     }
 
+    //MODIFIES: dialogTask
+    //EFFECTS: sets the detailed information of a task
     private void addTaskDetails() {
         JLabel energyLevelLabel = new JLabel("EnergyLevel: ");
         energyLevelLabel.setBounds(20, 100, 100, 25);
@@ -468,7 +500,8 @@ public class MainFrame extends JFrame {
         dialogTask.add(deadlineTask);
     }
     
-
+    //MODIFIES: dialogTask
+    //EFFECTS: adds the confirm button to the dialog
     private void confirmSetupTask() {
         confirmTask.setBounds(80, ypos + 10, 100, 30);
         dialogTask.add(confirmTask);
@@ -478,12 +511,15 @@ public class MainFrame extends JFrame {
         dialogTask.setVisible(true);
     }
 
+    //MODIFIES: this
+    //EFFECTS: creates the confirm button and the actionPerformed method
     private void confirmTaskButton() {
         confirmTask = new JButton("Confirm");
         confirmTask.addActionListener(event -> confirmTask(task));
     }
 
-
+    //MODIFIES: dialog
+    //EFFECTS: adds the radioButton for each goals that could link
     private void goalBox(JDialog dialog) {
         goalBox = new ArrayList<>();
         ButtonGroup group = new ButtonGroup();
@@ -500,6 +536,8 @@ public class MainFrame extends JFrame {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: updates the information of the chosen task
     private void updateTaskInfo(Task t) {
         task = t;
         taskName.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 16));
@@ -528,6 +566,8 @@ public class MainFrame extends JFrame {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: updates the information of the chosen goal
     private void updateGoalInfo(Goal g) {
         goal = g;
         goalName.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 16));
@@ -558,6 +598,7 @@ public class MainFrame extends JFrame {
         
     }
 
+    //EFFECTS: returns a button that has style
     public JButton buttonStyle(String name) {
         JButton button = new JButton(name);
         button.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 16));
@@ -569,7 +610,8 @@ public class MainFrame extends JFrame {
         return button;
     }
 
-
+    //MODIFIES: this
+    //EFFECTS: adds the dialog of information of a goal to be filled
     private void addGoal() {
         dialogGoal = new JDialog(this, "Add a Goal", true);
         dialogGoal.setLayout(null);
@@ -598,6 +640,8 @@ public class MainFrame extends JFrame {
         confirmSetupGoal();
     }
 
+    //MODIFIES: dialog
+    //EFFECTS: adds the checkBoxes for each tasks that could link
     private void taskBoxes(JDialog dialog) {
         taskBoxes = new ArrayList<>();
 
@@ -612,11 +656,15 @@ public class MainFrame extends JFrame {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: creates the confirm button and the actionPerformed method
     private void confirmGoalButton() {
         confirmGoal = new JButton("Confirm");
         confirmGoal.addActionListener(event -> confirmGoal(goal));
     }
 
+    //MODIFIES: this, shortTerm
+    //EFFECTS: updates the information of the goal and the goalList, then closes the dialog
     private void confirmGoal(Goal current) {
         try {
             Goal g = current;
@@ -644,16 +692,22 @@ public class MainFrame extends JFrame {
         
     }
 
+    //MODIFIES: g
+    //EFFECTS: sets the goal as completed and pops up the image
     private void completeGoal(Goal g) {
         g.setAsCompleted();
         completeImage();
     }
 
+    //MODIFIES: this
+    //EFFECTS: updates the goalList and the information of the goal
     private void updateGoalView(Goal g) {
         renderLong();
         updateGoalInfo(g);
     }
 
+    //MODIFIES: g
+    //EFFECTS: clears the linking relationship
     private void clearLinkedGoals(Goal g) {
         for (int i = g.getLinkedTasks().size() - 1; i >= 0; i--) {
             Task t = g.getLinkedTasks().get(i);
@@ -662,6 +716,8 @@ public class MainFrame extends JFrame {
         }
     }
 
+    //MODIFIES: dialogGoal, dialogEdit
+    //EFFECTS: if there isn't a current goal, closes dialogGoal. Otherwise closes dialogEdit
     private void dialogDisposeGoal(Goal current) {
         if (current == null) {
             dialogGoal.dispose();
@@ -670,6 +726,8 @@ public class MainFrame extends JFrame {
         }
     }
     
+    //MODIFIES: dialogGoal
+    //EFFECTS: adds the confirm button to the dialog
     private void confirmSetupGoal() {
         confirmGoal.setBounds(80, ypos + 10, 100, 30);
         dialogGoal.add(confirmGoal);
@@ -679,6 +737,8 @@ public class MainFrame extends JFrame {
         dialogGoal.setVisible(true);
     }
 
+    //MODIFIES: this
+    //EFFECTS: returns the save button
     private JButton save() {
         save = buttonStyle("Save");
         save.addActionListener(e -> actionPerformedSave());
@@ -688,11 +748,15 @@ public class MainFrame extends JFrame {
         return save;
     }
 
+    //MODIFIES: JSON_STORE_LONG, JSON_STORE_SHORT
+    //EFFECTS: saves the data to json files and pops up the dialog
     private void actionPerformedSave() {
         updateSavedData();
         JOptionPane.showMessageDialog(this, "Saved Successfully");
     }
 
+    //MODIFIES: JSON_STORE_LONG, JSON_STORE_SHORT
+    //EFFECTS: writes the data to json files, if exception then pops up dialog
     private void updateSavedData() {
         jsonWriterLong = new JsonWriter(JSON_STORE_LONG);
         jsonWriterShort = new JsonWriter(JSON_STORE_SHORT);
@@ -709,6 +773,7 @@ public class MainFrame extends JFrame {
         }
     }
 
+    //EFFECTS: returns a remove button
     private JButton removeGoal(Goal g) {
         remove = buttonStyle("x");
         remove.setFont(null);
@@ -719,6 +784,8 @@ public class MainFrame extends JFrame {
         return remove;
     }
 
+    //MODIFIES: this, longTerm
+    //EFFECTS: removes the goal from goalList and the link, updates the goalList. If exception then pops up dialog 
     private void actionPerformedRemove(ActionEvent e, Goal g) {
         try {
             longTerm.removeGoal(g.getName());
@@ -731,6 +798,8 @@ public class MainFrame extends JFrame {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: returns the load button
     private JButton load() {
         load = buttonStyle("Load");
         load.addActionListener(e -> actionPerformedLoad());
@@ -739,6 +808,8 @@ public class MainFrame extends JFrame {
         return load;
     }
 
+    //MODIFIES: this
+    //EFFECTS: load the json files, set the links and updates the goalList and taskList
     private void actionPerformedLoad() {
         loadLong();
         loadShort();
@@ -751,6 +822,8 @@ public class MainFrame extends JFrame {
         shortTermPanel.repaint();
     }
 
+    //MODIFIES: taskPanel
+    //EFFECTS: adds the edit button and sets the link to the dialog
     private void editButtonTask() {
         edit = buttonStyle("edit");
         edit.setBounds(50, 26, 80, 25);
@@ -758,6 +831,8 @@ public class MainFrame extends JFrame {
         taskPanel.add(edit);
     }
 
+    //MODIFIES: this
+    //EFFECTS: pops up the dialog and the information of the goal
     private void editGoal(Goal goal) {
         dialogEdit = new JDialog(this, "Edit a Task", true);
         dialogEdit.setLayout(null);
@@ -790,6 +865,8 @@ public class MainFrame extends JFrame {
         dialogEdit();
     }
 
+     //MODIFIES: goalPanel
+    //EFFECTS: adds the edit button and sets the link to the dialog
     private void editButtonGoal() {
         edit = buttonStyle("edit");
         edit.setBounds(50, 26, 80, 25);
@@ -797,6 +874,8 @@ public class MainFrame extends JFrame {
         goalPanel.add(edit);
     }
 
+    //MODIFIES: this
+    //EFFECTS: pops up the dialog and the information of the task
     private void editTask(Task task) {
         dialogEdit = new JDialog(this, "Edit a Task", true);
         dialogEdit.setLayout(null);
@@ -812,8 +891,6 @@ public class MainFrame extends JFrame {
         JLabel statusLabel = new JLabel("Completed: ");
         statusLabel.setBounds(20, 60, 100, 25);
         dialogEdit.add(statusLabel);
-
-        
 
         completeStatusTask = new JCheckBox();
         completeStatusTask.setSelected(task.getCompleteStatus());
@@ -833,6 +910,8 @@ public class MainFrame extends JFrame {
         
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds the detailed information to the dialog
     private void editTaskDetails(Task task) {
         JLabel energyLevelLabel = new JLabel("EnergyLevel: ");
         energyLevelLabel.setBounds(20, 100, 100, 25);
@@ -860,6 +939,8 @@ public class MainFrame extends JFrame {
         dialogEdit();
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds the confirm button and shows the dialog
     private void dialogEdit() {
         dialogEdit.add(confirmGoal);
         dialogEdit.setSize(320, ypos + 100);
@@ -868,7 +949,8 @@ public class MainFrame extends JFrame {
         dialogEdit.setVisible(true);
     }
 
-    
+    //MODIFIES: this, shortTerm
+    //EFFECTS: updates the information of the task and the taskList, then closes the dialog
     private void confirmTask(Task current) {
         try {
             Task t = current;
@@ -897,22 +979,30 @@ public class MainFrame extends JFrame {
         }
     }
 
+    //MODIFIES: t
+    //EFFECTS: updates the detailed information of the task
     private void updateTaskDetails(Task t) {
         t.setEnergyLevel(Integer.parseInt(energyLevelTask.getText()));
         t.setTimes(Integer.parseInt(timesTask.getText()));
         t.setDeadline(deadlineTask.getText());
     }
 
+    //MODIFIES: t
+    //EFFECTS: sets the task as completed and pops up the image
     private void completeTask(Task t) {
         t.setAsCompleted();
         completeImage();
     }
 
+    //MODIFIES: this
+    //EFFECTS: updates the taskList and the task information
     private void updateTaskView(Task t) {
         renderShort();
         updateTaskInfo(t);
     }
 
+    //MODIFIES: dialogTask, dialogEdit
+    //EFFECTS: if there isn't a current task, closes dialogTask. Otherwise closes dialogEdit
     private void dialogDisposeTask(Task current) {
         if (current == null) {
             dialogTask.dispose();
@@ -921,12 +1011,15 @@ public class MainFrame extends JFrame {
         }
     }
 
+    //MODIFIES: dialog
+    //EFFECTS: sets the style for the dialog
     private void dialogStyle(JDialog dialog) {
         for (java.awt.Component c : dialog.getContentPane().getComponents()) {
             c.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 14));
         }
     }
 
+    //EFFECTS: pops up a dialog with image
     private void completeImage() {
         ImageIcon image = new ImageIcon("image.png");
         JOptionPane.showMessageDialog(this, "", "Good job!", JOptionPane.PLAIN_MESSAGE, image);

@@ -10,10 +10,10 @@
             "deadline": "1205"
         },
         {
-            "times": 34567,
-            "energyLevel": 1,
+            "times": 21,
+            "energyLevel": 4,
             "name": "CPSC121",
-            "linkedGoal": "ThirdYearCourses",
+            "linkedGoal": "FirstYearCourses",
             "completeStatus": true,
             "deadline": "1205"
         },
@@ -26,10 +26,10 @@
             "deadline": "0410"
         },
         {
-            "times": 13425,
-            "energyLevel": 3,
+            "times": 24,
+            "energyLevel": 5,
             "name": "CPSC213",
-            "linkedGoal": "ThirdYearCourses",
+            "linkedGoal": "SecondYearCourses",
             "completeStatus": false,
             "deadline": "1205"
         },
