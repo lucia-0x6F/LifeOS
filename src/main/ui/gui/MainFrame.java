@@ -98,14 +98,18 @@ public class MainFrame extends JFrame {
     private Goal goal;
     private JDialog dialogEdit;
 
-    private static final String JSON_STORE_LONG = "./data/longTerm.json";
-    private static final String JSON_STORE_SHORT = "./data/shortTerm.json";
+    private static final String JSON_STORE_LONG = "./data/LongTerm.json";
+    private static final String JSON_STORE_SHORT = "./data/ShortTerm.json";
     
     //MODIFIES: this
     //EFFECTS: initializes jsonReader, jsonWriter and the panels
     public MainFrame() throws NameErrorException {
         jsonReaderLong = new JsonReader(JSON_STORE_LONG);
         jsonReaderShort = new JsonReader(JSON_STORE_SHORT);
+
+        longTerm = new LongTerm("");
+        shortTerm = new ShortTerm("");
+
         save();
         load();
         init();
@@ -172,6 +176,11 @@ public class MainFrame extends JFrame {
         shortTermLabel.setForeground(new Color(0x6D4C41));
         shortTermPanel.add(shortTermLabel);
 
+        JButton button1 = buttonStyle("+");
+        button1.addActionListener(e -> addTask());
+        button1.setBounds(120, 22, 30, 30);
+        shortTermPanel.add(button1);
+
         longTermPanel = new JPanel();
         longTermPanel.setBackground(new Color(0xDCC2A3));
         longTermPanel.setBounds(75, 520, 290, 280);
@@ -181,7 +190,75 @@ public class MainFrame extends JFrame {
         longTermLabel.setBounds(20, 20, 200, 30);
         longTermLabel.setForeground(new Color(0x6D4C41));
         longTermPanel.add(longTermLabel);
+
+        JButton button2 = buttonStyle("+");
+        button2.addActionListener(e -> addGoal());
+        button2.setBounds(120, 22, 30, 30);
+        longTermPanel.add(button2);
     }
+
+    //MODIFIES: this
+    //EFFECTS: sets the basic information of a task
+    private void addTask() {
+        dialogTask = new JDialog(this, "Add a Task", true);
+        dialogTask.setLayout(null);
+
+        JLabel nameLabel = new JLabel("Name: ");
+        nameLabel.setBounds(20, 20, 100, 25);
+        dialogTask.add(nameLabel);
+
+        nameFieldTask = new JTextField();
+        nameFieldTask.setBounds(130, 20, 150, 25);
+        dialogTask.add(nameFieldTask);
+
+        JLabel statusLabel = new JLabel("CompleteStatus: ");
+        statusLabel.setBounds(20, 60, 100, 25);
+        dialogTask.add(statusLabel);
+
+        completeStatusTask = new JCheckBox();
+        completeStatusTask.setBounds(130, 60, 25, 25);
+        dialogTask.add(completeStatusTask);
+
+        addTaskDetails();
+
+        JLabel goalLabel = new JLabel("Linked Goal: ");
+        goalLabel.setBounds(20, 220, 100, 25);
+        dialogTask.add(goalLabel);
+        goalBox(dialogTask);
+        confirmTaskButton();
+        confirmSetupTask();
+    }
+
+     //MODIFIES: this
+    //EFFECTS: adds the dialog of information of a goal to be filled
+    private void addGoal() {
+        dialogGoal = new JDialog(this, "Add a Goal", true);
+        dialogGoal.setLayout(null);
+
+        JLabel nameLabel = new JLabel("Name: ");
+        nameLabel.setBounds(20, 20, 100, 25);
+        dialogGoal.add(nameLabel);
+
+        nameFieldGoal = new JTextField();
+        nameFieldGoal.setBounds(130, 20, 150, 25);
+        dialogGoal.add(nameFieldGoal);
+
+        JLabel statusLabel = new JLabel("CompleteStatus: ");
+        statusLabel.setBounds(20, 60, 100, 25);
+        dialogGoal.add(statusLabel);
+
+        completeStatusGoal = new JCheckBox();
+        completeStatusGoal.setBounds(130, 60, 25, 25);
+        dialogGoal.add(completeStatusGoal);
+
+        JLabel taskLabel = new JLabel("Linked Tasks: ");
+        taskLabel.setBounds(20, 100, 100, 25);
+        dialogGoal.add(taskLabel);
+        taskBoxes(dialogGoal);
+        confirmGoalButton();
+        confirmSetupGoal();
+    }
+
 
     //MODIFIES: this
     //EFFECTS: sets the menuPanel
@@ -361,9 +438,9 @@ public class MainFrame extends JFrame {
             goalList.add(row);
         }
 
-        JButton addButton = buttonStyle("+");
-        addButton.addActionListener(e -> addGoal());
-        goalList.add(addButton);
+        // JButton addButton = buttonStyle("+");
+        // addButton.addActionListener(e -> addGoal());
+        // goalList.add(addButton);
         goalList.setOpaque(false);
         goalList.revalidate();
         goalList.repaint();
@@ -409,9 +486,9 @@ public class MainFrame extends JFrame {
             taskList.add(row);
         }
 
-        JButton addButton = buttonStyle("+");
-        addButton.addActionListener(e -> addTask());
-        taskList.add(addButton);
+        // JButton addButton = buttonStyle("+");
+        // addButton.addActionListener(e -> addTask());
+        // taskList.add(addButton);
         taskList.setOpaque(false);
         taskList.revalidate();
         taskList.repaint();
@@ -441,37 +518,7 @@ public class MainFrame extends JFrame {
         renderShort();
     }
 
-    //MODIFIES: this
-    //EFFECTS: sets the basic information of a task
-    private void addTask() {
-        dialogTask = new JDialog(this, "Add a Task", true);
-        dialogTask.setLayout(null);
-
-        JLabel nameLabel = new JLabel("Name: ");
-        nameLabel.setBounds(20, 20, 100, 25);
-        dialogTask.add(nameLabel);
-
-        nameFieldTask = new JTextField();
-        nameFieldTask.setBounds(130, 20, 150, 25);
-        dialogTask.add(nameFieldTask);
-
-        JLabel statusLabel = new JLabel("CompleteStatus: ");
-        statusLabel.setBounds(20, 60, 100, 25);
-        dialogTask.add(statusLabel);
-
-        completeStatusTask = new JCheckBox();
-        completeStatusTask.setBounds(130, 60, 25, 25);
-        dialogTask.add(completeStatusTask);
-
-        addTaskDetails();
-
-        JLabel goalLabel = new JLabel("Linked Goal: ");
-        goalLabel.setBounds(20, 220, 100, 25);
-        dialogTask.add(goalLabel);
-        goalBox(dialogTask);
-        confirmTaskButton();
-        confirmSetupTask();
-    }
+    
 
     //MODIFIES: dialogTask
     //EFFECTS: sets the detailed information of a task
@@ -611,36 +658,7 @@ public class MainFrame extends JFrame {
         return button;
     }
 
-    //MODIFIES: this
-    //EFFECTS: adds the dialog of information of a goal to be filled
-    private void addGoal() {
-        dialogGoal = new JDialog(this, "Add a Goal", true);
-        dialogGoal.setLayout(null);
-
-        JLabel nameLabel = new JLabel("Name: ");
-        nameLabel.setBounds(20, 20, 100, 25);
-        dialogGoal.add(nameLabel);
-
-        nameFieldGoal = new JTextField();
-        nameFieldGoal.setBounds(130, 20, 150, 25);
-        dialogGoal.add(nameFieldGoal);
-
-        JLabel statusLabel = new JLabel("CompleteStatus: ");
-        statusLabel.setBounds(20, 60, 100, 25);
-        dialogGoal.add(statusLabel);
-
-        completeStatusGoal = new JCheckBox();
-        completeStatusGoal.setBounds(130, 60, 25, 25);
-        dialogGoal.add(completeStatusGoal);
-
-        JLabel taskLabel = new JLabel("Linked Tasks: ");
-        taskLabel.setBounds(20, 100, 100, 25);
-        dialogGoal.add(taskLabel);
-        taskBoxes(dialogGoal);
-        confirmGoalButton();
-        confirmSetupGoal();
-    }
-
+   
     //MODIFIES: dialog
     //EFFECTS: adds the checkBoxes for each tasks that could link
     private void taskBoxes(JDialog dialog) {
@@ -1026,7 +1044,7 @@ public class MainFrame extends JFrame {
         JOptionPane.showMessageDialog(this, "", "Good job!", JOptionPane.PLAIN_MESSAGE, image);
         
     }
-
+    
 }
 
 
