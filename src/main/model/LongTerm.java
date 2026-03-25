@@ -37,6 +37,7 @@ public class LongTerm implements Writable {
         }
         Goal goal = new Goal(name);
         goals.add(goal);
+        EventLog.getInstance().logEvent(new Event("Goal added to LongTerm"));
     }
 
     //MODIFIES: this

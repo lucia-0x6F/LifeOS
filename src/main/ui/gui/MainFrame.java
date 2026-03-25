@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -27,6 +29,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
+import model.Event;
+import model.EventLog;
 import model.Goal;
 import model.LongTerm;
 import model.Task;
@@ -38,7 +42,7 @@ import model.exception.NameErrorException;
 
 // Represents the graphical user interface of the LifeOS application.
 @ExcludeFromJacocoGeneratedReport
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements WindowListener{
     private JPanel backGround;
     private JPanel menuPanel;
     private JPanel shortTermPanel;
@@ -381,7 +385,8 @@ public class MainFrame extends JFrame {
         this.setLayout(null);
         this.setSize(900, 960);
         this.getContentPane().setBackground(new Color(0xECE7DE));
-        
+        this.addWindowListener(this);
+
         backGround.add(shortTermPanel);
         backGround.add(longTermPanel);
         backGround.add(goalPanel);
@@ -1044,6 +1049,54 @@ public class MainFrame extends JFrame {
         JOptionPane.showMessageDialog(this, "", "Good job!", JOptionPane.PLAIN_MESSAGE, image);
         
     }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        printLog(EventLog.getInstance());
+    }
+
+
+    // EFFECTS: prints out all events in the eventLog
+    public void printLog(EventLog eventlog) {
+        for (Event event : eventlog) {
+            System.out.println(event);
+        }
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+       
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+       
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+       
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+       
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+       
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        
+    }
+
+    
+
+
+
     
 }
 
