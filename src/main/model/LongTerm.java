@@ -58,6 +58,7 @@ public class LongTerm implements Writable {
         }
         if (removeTarget != null) {
             goals.remove(removeTarget);
+            EventLog.getInstance().logEvent(new Event("Goal removed from LongTerm"));
         } else {
             throw new NameErrorException();
         }

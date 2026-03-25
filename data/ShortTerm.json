@@ -1,77 +1,21 @@
 {
-    "name": "My short term",
+    "name": "",
     "tasks": [
         {
-            "times": 20,
-            "energyLevel": 3,
-            "name": "CPSC110",
-            "linkedGoal": "FirstYearCourses",
-            "completeStatus": true,
-            "deadline": "1205"
-        },
-        {
-            "times": 21,
-            "energyLevel": 4,
-            "name": "CPSC121",
-            "linkedGoal": "FirstYearCourses",
-            "completeStatus": true,
-            "deadline": "1205"
-        },
-        {
-            "times": 25,
-            "energyLevel": 5,
-            "name": "CPSC210",
-            "linkedGoal": "SecondYearCourses",
+            "times": 0,
+            "energyLevel": 0,
+            "name": "Task1",
+            "linkedGoal": "Goal1",
             "completeStatus": false,
-            "deadline": "0410"
+            "deadline": "0101"
         },
         {
-            "times": 24,
-            "energyLevel": 5,
-            "name": "CPSC213",
-            "linkedGoal": "SecondYearCourses",
+            "times": 0,
+            "energyLevel": 0,
+            "name": "Task2",
+            "linkedGoal": "Goal2",
             "completeStatus": false,
-            "deadline": "1205"
-        },
-        {
-            "times": 22,
-            "energyLevel": 4,
-            "name": "CPSC221",
-            "linkedGoal": "SecondYearCourses",
-            "completeStatus": false,
-            "deadline": "1205"
-        },
-        {
-            "times": 23,
-            "energyLevel": 4,
-            "name": "CPSC310",
-            "linkedGoal": "ThirdYearCourses",
-            "completeStatus": false,
-            "deadline": "0410"
-        },
-        {
-            "times": 21,
-            "energyLevel": 5,
-            "name": "CPSC313",
-            "linkedGoal": "ThirdYearCourses",
-            "completeStatus": false,
-            "deadline": "1205"
-        },
-        {
-            "times": 25,
-            "energyLevel": 5,
-            "name": "CPSC320",
-            "linkedGoal": "ThirdYearCourses",
-            "completeStatus": false,
-            "deadline": "1205"
-        },
-        {
-            "times": 20,
-            "energyLevel": 5,
-            "name": "CPSC400+",
-            "linkedGoal": null,
-            "completeStatus": false,
-            "deadline": "1205"
+            "deadline": "0101"
         }
     ]
 }

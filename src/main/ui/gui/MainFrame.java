@@ -568,7 +568,7 @@ public class MainFrame extends JFrame implements WindowListener{
     //EFFECTS: creates the confirm button and links the action listener
     private void confirmTaskButton() {
         confirmTask = new JButton("Confirm");
-        confirmTask.addActionListener(event -> confirmTask(task));
+        confirmTask.addActionListener(event -> confirmTask(null));
     }
 
     //MODIFIES: dialog
@@ -684,7 +684,7 @@ public class MainFrame extends JFrame implements WindowListener{
     //EFFECTS: creates the confirm button and links the action listener
     private void confirmGoalButton() {
         confirmGoal = new JButton("Confirm");
-        confirmGoal.addActionListener(event -> confirmGoal(goal));
+        confirmGoal.addActionListener(event -> confirmGoal(null));
     }
 
     //MODIFIES: this, shortTerm

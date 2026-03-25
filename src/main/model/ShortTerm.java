@@ -37,6 +37,7 @@ public class ShortTerm implements Writable {
         }
         Task task = new Task(name);
         tasks.add(task);
+        EventLog.getInstance().logEvent(new Event("Task added to ShortTerm"));
     }
 
     //MODIFIES: this
@@ -57,6 +58,7 @@ public class ShortTerm implements Writable {
         }
         if (removeTarget != null) {
             tasks.remove(removeTarget);
+            EventLog.getInstance().logEvent(new Event("Task removed from ShortTerm"));
         } else {
             throw new NameErrorException();
         }

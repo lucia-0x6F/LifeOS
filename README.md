@@ -87,3 +87,37 @@ Therefore, I wish to create an app that can ***break the long-term goal into dai
 - You can locate my visual component by marking a goal or task as completed, and an image will pop up.
 - You can save the state of my application by pressing the "Save" button.
 - You can reload the state of my application by pressing the "Load" button.
+
+## Phase 4: Task 2
+
+Wed Mar 25 12:42:37 PDT 2026
+
+Task added to ShortTerm
+
+Wed Mar 25 12:42:44 PDT 2026
+
+Task added to ShortTerm
+
+Wed Mar 25 12:42:49 PDT 2026
+
+Goal added to LongTerm
+
+Wed Mar 25 12:42:55 PDT 2026
+
+Goal added to LongTerm
+
+Wed Mar 25 12:42:58 PDT 2026
+
+Task removed from ShortTerm
+
+Wed Mar 25 12:42:58 PDT 2026
+
+Task removed from ShortTerm
+
+Wed Mar 25 12:42:59 PDT 2026
+
+Goal removed from LongTerm
+
+Wed Mar 25 12:43:00 PDT 2026
+
+Goal removed from LongTerm
