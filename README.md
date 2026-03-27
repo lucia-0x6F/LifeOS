@@ -121,3 +121,11 @@ Goal removed from LongTerm
 Wed Mar 25 12:43:00 PDT 2026
 
 Goal removed from LongTerm
+
+
+
+## Phase 4: Task 3
+
+1. MainFrame is a class that has too much functionality, so it would be more appropriate to make its cohesion higher and coupling lower by introducing more classes such as LongTermPanel, ShortTermPanel, GoalPanel and TaskPanel. 
+
+2. LongTerm and ShortTerm could extend Observable and MainFrame could implement Observer, so that when there are changes in LongTerm or ShortTerm, MainFrame will automatically update the GUI, and the manual update methods would no longer be needed.
