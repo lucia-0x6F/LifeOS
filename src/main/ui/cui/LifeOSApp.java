@@ -1,4 +1,4 @@
-package ui;
+package ui.cui;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

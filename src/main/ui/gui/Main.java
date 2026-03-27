@@ -1,4 +1,4 @@
-package ui;
+package ui.gui;
 
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.exception.NameErrorException;

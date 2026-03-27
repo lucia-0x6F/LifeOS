@@ -21,7 +21,7 @@ public class TimeBlock {
     }
 
     public void setTimePeriod(int timePeriod) {
-        this.timePeriod = timePeriod;
+        this.timePeriod = timePeriod;   
     }
 
     //MODIFIES: this
