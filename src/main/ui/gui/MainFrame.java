@@ -42,7 +42,7 @@ import model.exception.NameErrorException;
 
 // Represents the graphical user interface of the LifeOS application.
 @ExcludeFromJacocoGeneratedReport
-public class MainFrame extends JFrame implements WindowListener{
+public class MainFrame extends JFrame implements WindowListener {
     private JPanel backGround;
     private JPanel menuPanel;
     private JPanel shortTermPanel;
@@ -117,18 +117,14 @@ public class MainFrame extends JFrame implements WindowListener{
         save();
         load();
         init();
-        basicPanel();
+        shortTermPanel();
+        longTermPanel();
         menuPanel();
         goalPanel();
         taskPanel();
         poemContainer();
         
-        goalList = new JPanel();
-        goalList.setLayout(new BoxLayout(goalList, BoxLayout.Y_AXIS));
-        goalList.setOpaque(false);
-        taskList = new JPanel();
-        taskList.setLayout(new BoxLayout(taskList, BoxLayout.Y_AXIS));
-        taskList.setOpaque(false);
+        listPanel();
 
         setScrollPane(longTermPanel, goalList);
         setScrollPane(shortTermPanel, taskList);
@@ -137,6 +133,15 @@ public class MainFrame extends JFrame implements WindowListener{
         editButtonGoal();
 
         mainFrame();
+    }
+
+    private void listPanel() {
+        goalList = new JPanel();
+        goalList.setLayout(new BoxLayout(goalList, BoxLayout.Y_AXIS));
+        goalList.setOpaque(false);
+        taskList = new JPanel();
+        taskList.setLayout(new BoxLayout(taskList, BoxLayout.Y_AXIS));
+        taskList.setOpaque(false);
     }
     
     //MODIFIES: this
@@ -168,7 +173,7 @@ public class MainFrame extends JFrame implements WindowListener{
 
     //MODIFIES: this
     //EFFECTS: sets the shortTerm and longTerm panel
-    public void basicPanel() {
+    public void shortTermPanel() {
         shortTermPanel = new JPanel();
         shortTermPanel.setBackground(new Color(0xE6D2B8));
         shortTermPanel.setBounds(340, 250, 290, 270);
@@ -185,6 +190,10 @@ public class MainFrame extends JFrame implements WindowListener{
         button1.setBounds(120, 22, 30, 30);
         shortTermPanel.add(button1);
 
+        longTermPanel();
+    }
+
+    private void longTermPanel() {
         longTermPanel = new JPanel();
         longTermPanel.setBackground(new Color(0xDCC2A3));
         longTermPanel.setBounds(75, 520, 290, 280);
