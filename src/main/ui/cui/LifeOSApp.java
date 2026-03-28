@@ -19,8 +19,8 @@ import persistence.JsonWriter;
 // Represents the LifeOS application
 @ExcludeFromJacocoGeneratedReport
 public class LifeOSApp {
-    private static final String JSON_STORE_LONG = "./data/longTerm.json";
-    private static final String JSON_STORE_SHORT = "./data/shortTerm.json";
+    private static final String JSON_STORE_LONG = "./data/LongTerm.json";
+    private static final String JSON_STORE_SHORT = "./data/ShortTerm.json";
     private LongTerm longTerm;
     private ShortTerm shortTerm;
     private Scanner input;
