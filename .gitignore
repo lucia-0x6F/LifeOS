@@ -1,1 +1,4 @@
 *.class
+.lifeos-classes/
+.lifeos-package/
+dist/
