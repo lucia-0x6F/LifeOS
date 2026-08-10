@@ -1,13 +1,13 @@
 {
     "java.project.sourcePaths": [
-        "src\\test",
-        "src\\main"
+        "src/test",
+        "src/main"
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "c:\\Users\\luyan\\OneDrive\\Desktop\\CPSC 210\\LifeOS\\project-g0u3r\\lib\\json-20251224.jar",
-        "c:\\Users\\luyan\\OneDrive\\Desktop\\CPSC 210\\LifeOS\\project-g0u3r\\lib\\JacocoExcludeFromReportAnnotation.jar",
-        "c:\\Users\\luyan\\OneDrive\\Desktop\\CPSC 210\\LifeOS\\project-g0u3r\\lib\\junit-platform-console-standalone-1.10.2.jar"
+        "lib/json-20251224.jar",
+        "lib/JacocoExcludeFromReportAnnotation.jar",
+        "lib/junit-platform-console-standalone-1.10.2.jar"
     ],
     "java.checkstyle.configuration": "${workspaceFolder}/checkstyle.xml",
     "java.checkstyle.version": "10.2"
