@@ -7,6 +7,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.WindowEvent;
@@ -102,8 +105,10 @@ public class MainFrame extends JFrame implements WindowListener {
     private Goal goal;
     private JDialog dialogEdit;
 
-    private static final String JSON_STORE_LONG = "./data/LongTerm.json";
-    private static final String JSON_STORE_SHORT = "./data/ShortTerm.json";
+    private static final Path DATA_DIRECTORY = Paths.get(
+            System.getProperty("user.home"), "LifeOS", "data");
+    private static final String JSON_STORE_LONG = DATA_DIRECTORY.resolve("LongTerm.json").toString();
+    private static final String JSON_STORE_SHORT = DATA_DIRECTORY.resolve("ShortTerm.json").toString();
     
     //MODIFIES: this
     //EFFECTS: initializes jsonReader, jsonWriter and the panels
@@ -114,6 +119,7 @@ public class MainFrame extends JFrame implements WindowListener {
         longTerm = new LongTerm("");
         shortTerm = new ShortTerm("");
 
+        prepareDataFiles();
         save();
         load();
         init();
@@ -133,6 +139,25 @@ public class MainFrame extends JFrame implements WindowListener {
         editButtonGoal();
 
         mainFrame();
+        actionPerformedLoad();
+    }
+
+    // MODIFIES: the user's LifeOS data directory
+    // EFFECTS: creates the data directory and empty JSON files if necessary
+    private void prepareDataFiles() {
+        try {
+            Files.createDirectories(DATA_DIRECTORY);
+            Path longFile = DATA_DIRECTORY.resolve("LongTerm.json");
+            Path shortFile = DATA_DIRECTORY.resolve("ShortTerm.json");
+            if (Files.notExists(longFile)) {
+                Files.writeString(longFile, "{\n    \"name\": \"\",\n    \"goals\": []\n}\n");
+            }
+            if (Files.notExists(shortFile)) {
+                Files.writeString(shortFile, "{\n    \"name\": \"\",\n    \"tasks\": []\n}\n");
+            }
+        } catch (IOException e) {
+            throw new IllegalStateException("Cannot create LifeOS data files", e);
+        }
     }
 
     private void listPanel() {
@@ -1061,6 +1086,7 @@ public class MainFrame extends JFrame implements WindowListener {
 
     @Override
     public void windowClosing(WindowEvent e) {
+        updateSavedData();
         printLog(EventLog.getInstance());
     }
 
@@ -1115,4 +1141,3 @@ public class MainFrame extends JFrame implements WindowListener {
 
 
 
-        

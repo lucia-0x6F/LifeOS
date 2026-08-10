@@ -1,21 +1,4 @@
 {
     "name": "",
-    "tasks": [
-        {
-            "times": 0,
-            "energyLevel": 0,
-            "name": "Task1",
-            "linkedGoal": "Goal1",
-            "completeStatus": false,
-            "deadline": "0101"
-        },
-        {
-            "times": 0,
-            "energyLevel": 0,
-            "name": "Task2",
-            "linkedGoal": "Goal2",
-            "completeStatus": false,
-            "deadline": "0101"
-        }
-    ]
+    "tasks": []
 }

@@ -8,7 +8,7 @@ By connecting your vision with daily execution, LifeOS makes progress feel clear
 
 
 ## How it works
-#### 1. Define your Goal
+#### 1. Define your goal
 Set the direction you want to move toward.
 
 #### 2. Break it down
@@ -30,11 +30,15 @@ LifeOS is built around a minimalist experience that helps you focus on what trul
 Run LifeOS directly:
 
 - macOS/Linux: `./run.sh`
-- Windows: Open `run.bat`
+- Windows: Double-click `run.bat`
 
 To create a desktop app:
 
 - macOS: `./package-macos.sh`
 - Windows: `package-windows.bat`
 
-Your LifeOS app will be ready in the `dist/` folder.
+
+## Usage
+
+1. Your progress is saved when you click **Save** or exit.
+2. Click **Load** to restore your latest saved progress.
