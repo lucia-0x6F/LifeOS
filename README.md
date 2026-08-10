@@ -6,18 +6,6 @@ By connecting your vision with daily execution, LifeOS makes progress feel clear
 
 ![LifeOS Preview](Preview.png)
 
-
-## How it works
-#### 1. Define your goal
-Set the direction you want to move toward.
-
-#### 2. Break it down
-Transform big ambitions into manageable tasks.
-
-#### 3. Make progress
-Focus on the next step and keep moving forward.
-
-
 ## Design Philosophy
 
 Less distraction. More intention.
