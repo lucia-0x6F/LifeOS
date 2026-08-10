@@ -14,4 +14,4 @@ copy /y "%PROJECT_DIR%data\ShortTerm.json" "%INPUT_DIR%data" > nul
 copy /y "%PROJECT_DIR%lib\json-20251224.jar" "%INPUT_DIR%lib" > nul
 jar --create --file "%INPUT_DIR%LifeOS.jar" --main-class ui.gui.Main -C "%BUILD_DIR%\classes" .
 if not exist "%PROJECT_DIR%dist" mkdir "%PROJECT_DIR%dist"
-jpackage --type exe --name LifeOS --input "%INPUT_DIR%" --main-jar LifeOS.jar --main-class ui.gui.Main --dest "%PROJECT_DIR%dist"
+jpackage --type exe --name LifeOS --input "%INPUT_DIR%" --main-jar LifeOS.jar --main-class ui.gui.Main --icon "%PROJECT_DIR%LifeOS.png" --dest "%PROJECT_DIR%dist"
