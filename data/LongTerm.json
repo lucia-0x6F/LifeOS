@@ -2,12 +2,12 @@
     "name": "",
     "goals": [
         {
-            "linkedTasks": [],
+            "linkedTasks": ["Task1"],
             "name": "Goal1",
             "completeStatus": false
         },
         {
-            "linkedTasks": [],
+            "linkedTasks": ["Task2"],
             "name": "Goal2",
             "completeStatus": false
         }
