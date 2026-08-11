@@ -2,7 +2,7 @@
 
 LifeOS helps you turn long-term goals into actionable steps.
 
-By connecting your vision with daily execution, LifeOS makes progress feel clear, simple, and achievable.
+By connecting long-term goals with short-term tasks through a double linking system, LifeOS makes progress feel clear, simple, and achievable.
 
 ![LifeOS Preview](Preview.png)
 
@@ -10,7 +10,7 @@ By connecting your vision with daily execution, LifeOS makes progress feel clear
 
 Less distraction. More intention.
 
-LifeOS is built around a minimalist experience that helps you focus on what truly matters.
+LifeOS uses a low-saturation Morandi color palette and fonts with a handwritten style. The design creates a notebook-like experience where users can record their goals and tasks.
 
 
 ## Get Started
