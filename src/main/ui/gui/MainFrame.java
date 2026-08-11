@@ -1008,11 +1008,10 @@ public class MainFrame extends JFrame implements WindowListener {
     //MODIFIES: this, shortTerm
     //EFFECTS: updates the information of the task and the taskList, then closes the dialog
     private void confirmTask(Task current) {
-        try {
             Task t = current;
             if (current == null) {
                 t = new Task(nameFieldTask.getText());
-                shortTerm.addTask(t.getName());
+                shortTerm.addTask(t);
             } else {
                 t.setName(nameFieldTask.getText());
             }
@@ -1030,9 +1029,7 @@ public class MainFrame extends JFrame implements WindowListener {
             }
             updateTaskView(t);
             dialogDisposeTask(current);
-        } catch (NameErrorException e) {
-            JOptionPane.showMessageDialog(dialogTask, "Invalid name.");
-        }
+        
     }
 
     //MODIFIES: t
