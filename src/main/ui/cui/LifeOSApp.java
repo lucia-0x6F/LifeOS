@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.Goal;
 import model.LongTerm;
 import model.ShortTerm;
@@ -17,7 +16,6 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 // Represents the LifeOS application
-@ExcludeFromJacocoGeneratedReport
 public class LifeOSApp {
     private static final String JSON_STORE_LONG = "./data/LongTerm.json";
     private static final String JSON_STORE_SHORT = "./data/ShortTerm.json";

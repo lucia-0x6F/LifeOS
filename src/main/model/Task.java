@@ -2,7 +2,6 @@ package model;
 
 import org.json.JSONObject;
 
-import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import persistence.Writable;
 
 /**
@@ -47,7 +46,6 @@ public class Task implements WorkUnit, Writable {
     }
 
     
-    @ExcludeFromJacocoGeneratedReport
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -57,7 +55,6 @@ public class Task implements WorkUnit, Writable {
     }
     
     
-    @ExcludeFromJacocoGeneratedReport
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

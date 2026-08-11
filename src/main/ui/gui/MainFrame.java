@@ -1,6 +1,5 @@
 package ui.gui;
 
-import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -44,7 +43,6 @@ import persistence.JsonWriter;
 import model.exception.NameErrorException;
 
 // Represents the graphical user interface of the LifeOS application.
-@ExcludeFromJacocoGeneratedReport
 public class MainFrame extends JFrame implements WindowListener {
     private JPanel backGround;
     private JPanel menuPanel;

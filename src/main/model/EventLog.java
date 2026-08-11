@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 
 // Reused from the Alarm System application
 
@@ -14,7 +13,6 @@ import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
  * to the single instance of the EventLog.
  */
 
-@ExcludeFromJacocoGeneratedReport
 
 public class EventLog implements Iterable<Event> {
 	/** the only EventLog in the system (Singleton Design Pattern) */

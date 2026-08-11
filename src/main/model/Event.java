@@ -2,7 +2,6 @@ package model;
 
 import java.util.Calendar;
 import java.util.Date;
-import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 
 // Reused from the Alarm System application
 
@@ -10,7 +9,6 @@ import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
  * Represents a LifeOS application event.
  */
 
-@ExcludeFromJacocoGeneratedReport
 
 public class Event {
     private static final int HASH_CONSTANT = 13;
