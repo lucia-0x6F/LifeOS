@@ -192,10 +192,10 @@ public class MainFrame extends JFrame implements WindowListener {
         panel.setBackground(new Color(0xFFF8E7));
         panel.setLayout(null);
 
-        titleLabel = new JLabel("Welcome to LifeOS");
-        titleLabel.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 65));
+        titleLabel = new JLabel("<html><b>LifeOS</b>" + "<span style='font-size:18px;'> | a path to becoming</span></html>");
+        titleLabel.setFont(new Font("Serif", Font.ITALIC, 55));
         titleLabel.setForeground(new Color(0x6D4C41));
-        titleLabel.setBounds(70, 80, 600, 80);
+        titleLabel.setBounds(70, 80, 600, 100);
     }
 
     //MODIFIES: this
@@ -251,7 +251,7 @@ public class MainFrame extends JFrame implements WindowListener {
         nameFieldTask.setBounds(130, 20, 150, 25);
         dialogTask.add(nameFieldTask);
 
-        JLabel statusLabel = new JLabel("CompleteStatus: ");
+        JLabel statusLabel = new JLabel("Status: ");
         statusLabel.setBounds(20, 60, 100, 25);
         dialogTask.add(statusLabel);
 
@@ -283,7 +283,7 @@ public class MainFrame extends JFrame implements WindowListener {
         nameFieldGoal.setBounds(130, 20, 150, 25);
         dialogGoal.add(nameFieldGoal);
 
-        JLabel statusLabel = new JLabel("CompleteStatus: ");
+        JLabel statusLabel = new JLabel("Status: ");
         statusLabel.setBounds(20, 60, 100, 25);
         dialogGoal.add(statusLabel);
 
@@ -406,13 +406,12 @@ public class MainFrame extends JFrame implements WindowListener {
         poemContainer.setBounds(900, 50, 380, 750);
         poemContainer.setLayout(null);
 
-        text = new JTextArea("LifeOS helps you convert your long-term goals into short-term tasks.\n"
-        + "Light your life. Ignite your intent. Focus your future. Evolve with ease.");
+        text = new JTextArea("Small steps, shaping the life you are meant to live.\n" + "Attention is where intention begins.");
         text.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 18));
         text.setForeground(new Color(0xA87C6A));
         text.setEditable(false);
         text.setOpaque(false);
-        text.setBounds(75, 165, 700, 80);
+        text.setBounds(75, 180, 700, 80);
 
         poemPanel = new JTextPane();
         poemPanel.setEditable(false);
@@ -664,9 +663,9 @@ public class MainFrame extends JFrame implements WindowListener {
         taskDeadline.setText("Deadline: " + t.getDeadline());
 
         if (t.getCompleteStatus()) {
-            taskCompleteStatus.setText("CompleteStatus: " + "Completed");
+            taskCompleteStatus.setText("Status: " + "Completed");
         } else {
-            taskCompleteStatus.setText("CompleteStatus: " + "Uncompleted");
+            taskCompleteStatus.setText("Status: " + "Uncompleted");
         }
 
         if (t.getLinkedGoal() != null) {
@@ -942,7 +941,7 @@ public class MainFrame extends JFrame implements WindowListener {
         nameFieldGoal.setBounds(130, 20, 150, 25);
         dialogEdit.add(nameFieldGoal);
 
-        JLabel completeStatusLabel = new JLabel("CompleteStatus: ");
+        JLabel completeStatusLabel = new JLabel("Status: ");
         completeStatusLabel.setBounds(20, 60, 100, 25);
         dialogEdit.add(completeStatusLabel);
 
