@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -333,10 +334,11 @@ public class MainFrame extends JFrame implements WindowListener {
         goalPanel.add(goalCompleteStatus);
         
         goalLinkedTasks = new JTextArea();
-        goalLinkedTasks.setBounds(20, 125, 240, 150);
+        goalLinkedTasks.setBounds(20, 130, 240, 150);
         goalLinkedTasks.setEditable(false);
         goalLinkedTasks.setOpaque(false);
         goalLinkedTasks.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 20));
+        goalLinkedTasks.setForeground(new Color(0x6D4C41));
         goalPanel.add(goalLinkedTasks);
     }
 
@@ -676,10 +678,10 @@ public class MainFrame extends JFrame implements WindowListener {
             tasks = "No linked tasks.";
         } else {
             for (String taskName : taskNames) {
-                tasks = tasks + taskName + "\n";
+                tasks = tasks + "·  " + taskName + "\n";
             }
         }
-        goalLinkedTasks.setText(tasks);
+        goalLinkedTasks.setText(tasks.toString());
         
     }
 
