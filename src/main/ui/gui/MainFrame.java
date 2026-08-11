@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -31,6 +30,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 import model.Event;
 import model.EventLog;
@@ -62,14 +65,14 @@ public class MainFrame extends JFrame implements WindowListener {
     private LongTerm longTerm;
     private JsonReader jsonReaderLong;
     private JPanel goalList;
-    private JLabel goalName;
+    private JTextPane goalName;
     private JLabel goalCompleteStatus;
     private JTextArea goalLinkedTasks;
 
     private ShortTerm shortTerm;
     private JsonReader jsonReaderShort;
     private JPanel taskList;
-    private JLabel taskName;
+    private JTextPane taskName;
     private JLabel taskCompleteStatus;
     private JLabel taskTimes;
     private JLabel taskDeadline;
@@ -325,8 +328,10 @@ public class MainFrame extends JFrame implements WindowListener {
         goalLabel.setOpaque(false);
         goalPanel.add(goalLabel);
 
-        goalName = new JLabel();
+        goalName = new JTextPane();
         goalName.setBounds(20, 65, 240, 25);
+        goalName.setEditable(false);
+        goalName.setOpaque(false);
         goalPanel.add(goalName);
 
         goalCompleteStatus = new JLabel("");
@@ -361,8 +366,10 @@ public class MainFrame extends JFrame implements WindowListener {
     //MODIFIES: this
     //EFFECTS:  adds the name, completeStatus, energyLevel, times, deadline, linkedGoal labels and textAreas
     public void taskPanelDetails() {
-        taskName = new JLabel();
+        taskName = new JTextPane();
         taskName.setBounds(20, 65, 240, 25);
+        taskName.setEditable(false);
+        taskName.setOpaque(false);
         taskPanel.add(taskName);
         taskCompleteStatus = new JLabel("");
         taskCompleteStatus.setBounds(20, 95, 240, 25);
@@ -386,6 +393,7 @@ public class MainFrame extends JFrame implements WindowListener {
         taskLinkedGoal.setEditable(false);
         taskLinkedGoal.setOpaque(false);
         taskLinkedGoal.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 20));
+        taskLinkedGoal.setForeground(new Color(0x6D4C41));
         taskPanel.add(taskLinkedGoal);
 
     }
@@ -635,7 +643,22 @@ public class MainFrame extends JFrame implements WindowListener {
         taskEnergyLevel.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 16));
     
     
-        taskName.setText("Name: " + t.getName());
+        taskName.setText("");
+
+        StyledDocument doc = taskName.getStyledDocument();
+
+        Style labelStyle = taskName.addStyle("label", null);
+        StyleConstants.setForeground(labelStyle, Color.BLACK);
+
+        Style userStyle = taskName.addStyle("user", null);
+        StyleConstants.setForeground(userStyle, new Color(0x6D4C41));
+
+        try {
+            doc.insertString(doc.getLength(), "Name: ", labelStyle);
+            doc.insertString(doc.getLength(), t.getName(), userStyle);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
         taskEnergyLevel.setText("EnergyLevel: " + t.getEnergyLevel());
         taskTimes.setText("Times: " + t.getTimes());
         taskDeadline.setText("Deadline: " + t.getDeadline());
@@ -661,7 +684,23 @@ public class MainFrame extends JFrame implements WindowListener {
         goalCompleteStatus.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 16));
         goalLinkedTasks.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 16));
 
-        goalName.setText("Name: " + g.getName());
+        goalName.setText("");
+
+        StyledDocument doc = goalName.getStyledDocument();
+
+        Style labelStyle = goalName.addStyle("label", null);
+        StyleConstants.setForeground(labelStyle, Color.BLACK);
+
+        Style userStyle = goalName.addStyle("user", null);
+        StyleConstants.setForeground(userStyle, new Color(0x6D4C41));
+
+        try {
+            doc.insertString(doc.getLength(), "Name: ", labelStyle);
+            doc.insertString(doc.getLength(), g.getName(), userStyle);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+
         String status = "";
         if (g.getCompleteStatus()) {
             status = "Completed";
@@ -682,7 +721,7 @@ public class MainFrame extends JFrame implements WindowListener {
             }
         }
         goalLinkedTasks.setText(tasks.toString());
-        
+                
     }
 
     //EFFECTS: returns a button that has style
