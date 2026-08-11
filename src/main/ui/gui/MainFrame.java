@@ -838,8 +838,8 @@ public class MainFrame extends JFrame implements WindowListener {
     private JButton save() {
         save = buttonStyle("Save");
         save.addActionListener(e -> actionPerformedSave());
-        save.setBounds(650,520,90,30);
-        save.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 30));
+        save.setBounds(640,520,90,30);
+        save.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 25));
 
         return save;
     }
@@ -899,8 +899,8 @@ public class MainFrame extends JFrame implements WindowListener {
     private JButton load() {
         load = buttonStyle("Load");
         load.addActionListener(e -> actionPerformedLoad());
-        load.setBounds(650,480,90,30);
-        load.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 30));
+        load.setBounds(640,480,90,30);
+        load.setFont(new Font("Serif", Font.ITALIC | Font.BOLD, 25));
         return load;
     }
 
