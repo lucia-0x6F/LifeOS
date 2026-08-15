@@ -264,7 +264,7 @@ public class MainFrame extends JFrame implements WindowListener {
         JLabel goalLabel = new JLabel("Linked Goal: ");
         goalLabel.setBounds(20, 220, 100, 25);
         dialogTask.add(goalLabel);
-        goalBox(dialogTask);
+        goalBox(dialogTask, null);
         confirmTaskButton();
         confirmSetupTask();
     }
@@ -294,7 +294,7 @@ public class MainFrame extends JFrame implements WindowListener {
         JLabel taskLabel = new JLabel("Linked Tasks: ");
         taskLabel.setBounds(20, 100, 100, 25);
         dialogGoal.add(taskLabel);
-        taskBoxes(dialogGoal);
+        taskBoxes(dialogGoal, null);
         confirmGoalButton();
         confirmSetupGoal();
     }
@@ -614,7 +614,7 @@ public class MainFrame extends JFrame implements WindowListener {
 
     //MODIFIES: dialog
     //EFFECTS: adds the radioButton for each goals that could link
-    private void goalBox(JDialog dialog) {
+    private void goalBox(JDialog dialog, Task currentTask) {
         goalBox = new ArrayList<>();
         ButtonGroup group = new ButtonGroup();
 
@@ -622,6 +622,11 @@ public class MainFrame extends JFrame implements WindowListener {
         List<Goal> goals = longTerm.getGoals();
         for (int x = 0; x < goals.size(); x++) {
             JRadioButton rb = new JRadioButton(goals.get(x).getName());
+
+            if (currentTask != null && currentTask.getLinkedGoal() != null && currentTask.getLinkedGoal().equals(goals.get(x))) {
+                rb.setSelected(true);
+            }
+
             rb.setBounds(20, ypos, 280, 25);
             group.add(rb);
             dialog.add(rb);
@@ -738,13 +743,19 @@ public class MainFrame extends JFrame implements WindowListener {
    
     //MODIFIES: dialog
     //EFFECTS: adds the checkBoxes for each tasks that could link
-    private void taskBoxes(JDialog dialog) {
+    private void taskBoxes(JDialog dialog, Goal currentGoal) {
         taskBoxes = new ArrayList<>();
 
         ypos = 130;
         List<Task> tasks = shortTerm.getTasks();
         for (int x = 0; x < tasks.size(); x++) {
-            JCheckBox cb = new JCheckBox(tasks.get(x).getName());
+            Task t = tasks.get(x);
+
+            JCheckBox cb = new JCheckBox(t.getName());
+
+            if (currentGoal != null && t.getLinkedGoal() != null && t.getLinkedGoal().getName().equals(currentGoal.getName())) {
+                cb.setSelected(true);
+            }
             cb.setBounds(20, ypos, 280, 25);
             dialog.add(cb);
             taskBoxes.add(cb);
@@ -800,6 +811,12 @@ public class MainFrame extends JFrame implements WindowListener {
     private void updateGoalView(Goal g) {
         renderLong();
         updateGoalInfo(g);
+
+        goalList.revalidate();
+        goalList.repaint();
+
+        longTermPanel.revalidate();
+        longTermPanel.repaint();
     }
 
     //MODIFIES: g
@@ -923,7 +940,11 @@ public class MainFrame extends JFrame implements WindowListener {
     private void editButtonTask() {
         edit = buttonStyle("edit");
         edit.setBounds(50, 26, 80, 25);
-        edit.addActionListener(e -> editTask(task));
+        edit.addActionListener(e -> {
+            if (task != null) {
+                editTask(task);
+            }
+        });
         taskPanel.add(edit);
     }
 
@@ -946,19 +967,20 @@ public class MainFrame extends JFrame implements WindowListener {
         dialogEdit.add(completeStatusLabel);
 
         completeStatusGoal = new JCheckBox();
+        completeStatusGoal.setSelected(goal.getCompleteStatus());
         completeStatusGoal.setBounds(130, 60, 25, 25);
         dialogEdit.add(completeStatusGoal);
 
         JLabel newLinkedTasks = new JLabel("Linked Tasks: ");
         newLinkedTasks.setBounds(20, 100, 100, 25);
         dialogEdit.add(newLinkedTasks);
-        taskBoxes(dialogEdit);
+        taskBoxes(dialogEdit, goal);
 
         confirmGoal = new JButton("Confirm");
         confirmGoal.addActionListener(e -> confirmGoal(goal));
         confirmGoal.setBounds(80, ypos + 10, 100, 30);
         
-        dialogEdit();
+        dialogEdit(confirmGoal);
     }
 
      //MODIFIES: goalPanel
@@ -966,7 +988,11 @@ public class MainFrame extends JFrame implements WindowListener {
     private void editButtonGoal() {
         edit = buttonStyle("edit");
         edit.setBounds(50, 26, 80, 25);
-        edit.addActionListener(e -> editGoal(goal));
+        edit.addActionListener(e -> {
+            if (goal != null) {
+                editGoal(goal);
+            }
+        });
         goalPanel.add(edit);
     }
 
@@ -996,11 +1022,11 @@ public class MainFrame extends JFrame implements WindowListener {
         JLabel goalLabel = new JLabel("Linked Goal: ");
         goalLabel.setBounds(20, 220, 100, 25);
         dialogEdit.add(goalLabel);
-        goalBox(dialogEdit);
+        goalBox(dialogEdit, task);
 
-        confirmGoal = new JButton("Confirm");
-        confirmGoal.addActionListener(e -> confirmTask(task));
-        confirmGoal.setBounds(80, ypos + 10, 100, 30);
+        confirmTask = new JButton("Confirm");
+        confirmTask.addActionListener(e -> confirmTask(task));
+        confirmTask.setBounds(80, ypos + 10, 100, 30);
 
         editTaskDetails(task);
         
@@ -1013,7 +1039,7 @@ public class MainFrame extends JFrame implements WindowListener {
         energyLevelLabel.setBounds(20, 100, 100, 25);
         dialogEdit.add(energyLevelLabel);
 
-        energyLevelTask = new JTextField(task.getEnergyLevel());
+        energyLevelTask = new JTextField(String.valueOf(task.getEnergyLevel()));
         energyLevelTask.setBounds(130, 100, 150, 25);
         dialogEdit.add(energyLevelTask);
          
@@ -1021,7 +1047,7 @@ public class MainFrame extends JFrame implements WindowListener {
         timesLabel.setBounds(20, 140, 100, 25);
         dialogEdit.add(timesLabel);
 
-        timesTask = new JTextField(task.getTimes());
+        timesTask = new JTextField(String.valueOf(task.getTimes()));
         timesTask.setBounds(130, 140, 150, 25);
         dialogEdit.add(timesTask);
 
@@ -1032,13 +1058,13 @@ public class MainFrame extends JFrame implements WindowListener {
         deadlineTask = new JTextField(task.getDeadline());
         deadlineTask.setBounds(130, 180, 150, 25);
         dialogEdit.add(deadlineTask);
-        dialogEdit();
+        dialogEdit(confirmTask);
     }
 
     //MODIFIES: this
     //EFFECTS: adds the confirm button and shows the dialog
-    private void dialogEdit() {
-        dialogEdit.add(confirmGoal);
+    private void dialogEdit(JButton button) {
+        dialogEdit.add(button);
         dialogEdit.setSize(320, ypos + 100);
         dialogEdit.setLocationRelativeTo(this);
         dialogStyle(dialogEdit);
